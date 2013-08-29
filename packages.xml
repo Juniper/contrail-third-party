@@ -1,0 +1,66 @@
+<packages>
+  <package>
+    <name>Boost C++ libraries version 1.48</name>
+    <url>http://sourceforge.net/projects/boost/files/boost/1.48.0/boost_1_48_0.tar.gz</url>
+    <format>tgz</format>
+    <patches>
+      <patch strip="2">boost_1_48_patch1.diff</patch>
+    </patches>
+  </package>
+  <package>
+    <name>curl 7.24</name>
+    <url>http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>Google C++ Testing Framework 1.6.0</name>
+    <url>http://googletest.googlecode.com/files/gtest-1.6.0.zip</url>
+    <format>zip</format>
+  </package>
+  <package>
+    <name>Google perftools</name>
+    <url>http://gperftools.googlecode.com/files/gperftools-2.0.tar.gz</url>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>Minimalistic C client for Redis v0.11</name>
+    <url>https://github.com/redis/hiredis/archive/v0.11.0.tar.gz</url>
+    <local-filename>hiredis-v0.11.0.tar.gz</local-filename>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>Log4Cplus 1.0.4</name>
+    <url>http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.0.4/log4cplus-1.0.4.tar.bz2</url>
+    <format>tbz</format>
+  </package>
+  <package>
+    <name>Thread Building Blocks 4.0 Update 2</name>
+    <url>http://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb40_20111130oss_src.tgz</url>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>Pugi XML 1.2</name>
+    <url>https://pugixml.googlecode.com/files/pugixml-1.2.tar.gz</url>
+    <unpack-directory>pugixml</unpack-directory>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>Apache Thrift 0.8</name>
+    <url>http://archive.apache.org/dist/thrift/0.8.0/thrift-0.8.0.tar.gz</url>
+    <patches>
+      <patch strip="2">thrift_patch1.diff</patch>
+    </patches>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>hiredis boostasio-adapter</name>
+    <url>https://github.com/ryangraham/hiredis-boostasio-adapter/archive/master.zip</url>
+    <format>zip</format>
+  </package>
+  <package>
+    <name>Joyent HTTP parser</name>
+    <url>https://github.com/joyent/http-parser/archive/v2.1.tar.gz</url>
+    <local-filename>http-parser-v2.1.tar.gz</local-filename>
+    <format>tgz</format>
+  </package>
+</packages>
