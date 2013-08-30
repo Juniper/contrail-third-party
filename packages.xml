@@ -18,6 +18,11 @@
     <format>zip</format>
   </package>
   <package>
+    <name>Google C++ Mocking Framework 1.6.0</name>
+    <url>http://googlemock.googlecode.com/files/gmock-1.6.0.zip</url>
+    <format>zip</format>
+  </package>
+  <package>
     <name>Google perftools</name>
     <url>http://gperftools.googlecode.com/files/gperftools-2.0.tar.gz</url>
     <format>tgz</format>
