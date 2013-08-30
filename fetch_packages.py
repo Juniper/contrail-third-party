@@ -69,7 +69,9 @@ def ProcessPackage(pkg):
         subprocess.call(['wget', '-O', ccfile, url])
 
     #
-    # clean directory before unpacking and applying patches
+    # Determine the name of the directory created by the package.
+    # unpack-directory means that we 'cd' to the given directory before
+    # unpacking.
     #
     dest = None
     unpackdir = pkg.find('unpack-directory')
@@ -83,7 +85,15 @@ def ProcessPackage(pkg):
         elif pkg.format == 'zip':
             dest = getZipDestination(ccfile)
 
-    if dest and os.path.isdir(dest):
+    #
+    # clean directory before unpacking and applying patches
+    #
+    rename = pkg.find('rename')
+    if rename and os.path.isdir(str(rename)):
+        if not _OPT_DRY_RUN:
+            shutil.rmtree(str(rename))
+
+    elif dest and os.path.isdir(dest):
         if _OPT_VERBOSE:
             print "Clean directory %s" % dest
         if not _OPT_DRY_RUN:
@@ -112,7 +122,6 @@ def ProcessPackage(pkg):
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
 
-    rename = pkg.find('rename')
     if rename and dest:
         os.rename(dest, str(rename))
 

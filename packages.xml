@@ -74,4 +74,12 @@
       <patch strip="2">ifmap-python-patch1.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>Bottle Python Web Framework</name>
+    <url>https://pypi.python.org/packages/source/b/bottle/bottle-0.11.6.tar.gz</url>
+    <format>tgz</format>
+    <patches>
+      <patch strip="2">bottle_patch1.diff</patch>
+    </patches>
+  </package>
 </packages>
