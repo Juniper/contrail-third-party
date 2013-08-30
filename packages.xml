@@ -55,6 +55,7 @@
   <package>
     <name>hiredis boostasio-adapter</name>
     <url>https://github.com/ryangraham/hiredis-boostasio-adapter/archive/master.zip</url>
+    <local-filename>hiredis-master.zip</local-filename>
     <format>zip</format>
   </package>
   <package>
@@ -62,5 +63,15 @@
     <url>https://github.com/joyent/http-parser/archive/v2.1.tar.gz</url>
     <local-filename>http-parser-v2.1.tar.gz</local-filename>
     <format>tgz</format>
+  </package>
+  <package>
+    <name>IF-MAP Python Client Library</name>
+    <url>https://github.com/ITI/ifmap-python-client/archive/master.zip</url>
+    <local-filename>ifmap-python-master.zip</local-filename>
+    <rename>ifmap-python-client</rename>
+    <format>zip</format>
+    <patches>
+      <patch strip="2">ifmap-python-patch1.diff</patch>
+    </patches>
   </package>
 </packages>

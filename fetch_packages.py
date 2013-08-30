@@ -21,12 +21,25 @@ def getFilename(pkg, url):
         filename = m.group(1)
     return filename
 
-def getTgzDestination(tgzfile):
-    cmd = subprocess.Popen(['tar', 'ztvf', tgzfile], stdout=subprocess.PIPE)
+def getTarDestination(tgzfile, compress_flag):
+    cmd = subprocess.Popen(['tar', compress_flag + 'tvf', tgzfile],
+                           stdout=subprocess.PIPE)
     (output, _) = cmd.communicate()
     (first, _) = output.split('\n', 1)
     fields = first.split()
     return fields[5]
+
+def getZipDestination(tgzfile):
+    cmd = subprocess.Popen(['unzip', '-t', tgzfile],
+                           stdout=subprocess.PIPE)
+    (output, _) = cmd.communicate()
+    lines = output.split('\n')
+    for line in lines:
+        print line
+        m = re.search(r'testing:\s+([\w\-\.]+)\/', line)
+        if m:
+            return m.group(1)
+    return None
 
 def ApplyPatches(pkg):
     stree = pkg.find('patches')
@@ -62,9 +75,13 @@ def ProcessPackage(pkg):
     unpackdir = pkg.find('unpack-directory')
     if unpackdir:
         dest = str(unpackdir)
-
-    if pkg.format == 'tgz':
-        dest = getTgzDestination(ccfile)
+    else:
+        if pkg.format == 'tgz':
+            dest = getTarDestination(ccfile, 'z')
+        elif pkg.format == 'tbz':
+            dest = getTarDestination(ccfile, 'j')
+        elif pkg.format == 'zip':
+            dest = getZipDestination(ccfile)
 
     if dest and os.path.isdir(dest):
         if _OPT_VERBOSE:
@@ -94,6 +111,10 @@ def ProcessPackage(pkg):
             cd = str(unpackdir)
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
+
+    rename = pkg.find('rename')
+    if rename and dest:
+        os.rename(dest, str(rename))
 
     ApplyPatches(pkg)
 
