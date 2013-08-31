@@ -62,6 +62,10 @@
     <url>https://github.com/ryangraham/hiredis-boostasio-adapter/archive/master.zip</url>
     <local-filename>hiredis-master.zip</local-filename>
     <format>zip</format>
+    <rename>hiredis-boostasio-adapter</rename>
+    <patches>
+      <patch strip="2">hiredis-asio-patch1.diff</patch>
+    </patches>
   </package>
   <package>
     <name>Joyent HTTP parser</name>
@@ -86,5 +90,10 @@
     <patches>
       <patch strip="2">bottle_patch1.diff</patch>
     </patches>
+  </package>
+  <package>
+    <name>pYthOn Finite State Machine</name>
+    <url>https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
+    <format>tgz</format>
   </package>
 </packages>
