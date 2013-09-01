@@ -96,4 +96,14 @@
     <url>https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
     <format>tgz</format>
   </package>
+  <package>
+    <name>Gnome XML C parser and toolkit</name>
+    <url>http://xmlsoft.org/sources/libxml2-2.8.0.tar.gz</url>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>JSON parser/generator for C++</name>
+    <url>http://rapidjson.googlecode.com/files/rapidjson-0.11.zip</url>
+    <format>zip</format>
+  </package>
 </packages>
