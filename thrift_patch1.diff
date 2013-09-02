@@ -1130,228 +1130,6 @@ index 5291875..1f3376d 100755
 +"    async:           Generate code for asynchronous callbacks.\n"
  )
  
-diff --git a/third_party/thrift-0.8.0/config.h.in b/third_party/thrift-0.8.0/config.h.in
-new file mode 100644
-index 0000000..e69de29
-diff --git a/third_party/thrift-0.8.0/configure b/third_party/thrift-0.8.0/configure
-index 19518ca..9742d18 100755
---- a/third_party/thrift-0.8.0/configure
-+++ b/third_party/thrift-0.8.0/configure
-@@ -690,6 +690,8 @@ AMX_HAVE_ZLIB_FALSE
- AMX_HAVE_ZLIB_TRUE
- AMX_HAVE_LIBEVENT_FALSE
- AMX_HAVE_LIBEVENT_TRUE
-+AMX_HAVE_BOOST_FALSE
-+AMX_HAVE_BOOST_TRUE
- WITH_CPP_FALSE
- WITH_CPP_TRUE
- ZLIB_LIBS
-@@ -743,6 +745,7 @@ CPP
- am__fastdepCC_FALSE
- am__fastdepCC_TRUE
- CCDEPMODE
-+am__nodep
- AMDEPBACKSLASH
- AMDEP_FALSE
- AMDEP_TRUE
-@@ -898,7 +901,8 @@ ERL
- ERLC
- ERLCFLAGS
- ERLANG_INSTALL_LIB_DIR
--ERLANG_INSTALL_LIB_DIR_thrift'
-+ERLANG_INSTALL_LIB_DIR_thrift
-+PYTHON'
- ac_subdirs_all='lib/php/src/ext/thrift_protocol'
- 
- # Initialize some variables set by options.
-@@ -1625,6 +1629,7 @@ Some influential environment variables:
-   ERLANG_INSTALL_LIB_DIR_thrift
-               Erlang/OTP 'thrift' library installation subdirectory
-               [ERLANG_INSTALL_LIB_DIR/thrift-0.8.0]
-+  PYTHON      the Python interpreter
- 
- Use these variables to override the choices made by `configure' or to help
- it to find libraries and programs with nonstandard names/locations.
-@@ -3403,9 +3408,9 @@ MAKEINFO=${MAKEINFO-"${am_missing_run}makeinfo"}
- 
- # We need awk for the "check" target.  The system "awk" is bad on
- # some platforms.
--# Always define AMTAR for backward compatibility.
--
--AMTAR=${AMTAR-"${am_missing_run}tar"}
-+# Always define AMTAR for backward compatibility.  Yes, it's still used
-+# in the wild :-(  We should find a proper way to deprecate it ...
-+AMTAR='$${TAR-tar}'
- 
- 
- { $as_echo "$as_me:${as_lineno-$LINENO}: checking how to create a ustar tar archive" >&5
-@@ -4506,6 +4511,7 @@ fi
- if test "x$enable_dependency_tracking" != xno; then
-   am_depcomp="$ac_aux_dir/depcomp"
-   AMDEPBACKSLASH='\'
-+  am__nodep='_no'
- fi
-  if test "x$enable_dependency_tracking" != xno; then
-   AMDEP_TRUE=
-@@ -4530,6 +4536,7 @@ else
-   # instance it was reported that on HP-UX the gcc test will end up
-   # making a dummy file named `D' -- because `-MD' means `put the output
-   # in D'.
-+  rm -rf conftest.dir
-   mkdir conftest.dir
-   # Copy depcomp to subdir because otherwise we won't find it if we're
-   # using a relative directory.
-@@ -4589,7 +4596,7 @@ else
- 	break
-       fi
-       ;;
--    msvisualcpp | msvcmsys)
-+    msvc7 | msvc7msys | msvisualcpp | msvcmsys)
-       # This compiler won't grok `-c -o', but also, the minuso test has
-       # not run yet.  These depmodes are late enough in the game, and
-       # so weak that their functioning should not be impacted.
-@@ -5051,6 +5058,7 @@ else
-   # instance it was reported that on HP-UX the gcc test will end up
-   # making a dummy file named `D' -- because `-MD' means `put the output
-   # in D'.
-+  rm -rf conftest.dir
-   mkdir conftest.dir
-   # Copy depcomp to subdir because otherwise we won't find it if we're
-   # using a relative directory.
-@@ -5110,7 +5118,7 @@ else
- 	break
-       fi
-       ;;
--    msvisualcpp | msvcmsys)
-+    msvc7 | msvc7msys | msvisualcpp | msvcmsys)
-       # This compiler won't grok `-c -o', but also, the minuso test has
-       # not run yet.  These depmodes are late enough in the game, and
-       # so weak that their functioning should not be impacted.
-@@ -16169,6 +16177,14 @@ else
-   WITH_CPP_FALSE=
- fi
- 
-+ if test "$have_cpp" = "yes"; then
-+  AMX_HAVE_BOOST_TRUE=
-+  AMX_HAVE_BOOST_FALSE='#'
-+else
-+  AMX_HAVE_BOOST_TRUE='#'
-+  AMX_HAVE_BOOST_FALSE=
-+fi
-+
-  if test "$have_libevent" = "yes"; then
-   AMX_HAVE_LIBEVENT_TRUE=
-   AMX_HAVE_LIBEVENT_FALSE='#'
-@@ -17216,6 +17232,8 @@ if test "$with_python" = "yes";  then
- 
- 
- 
-+
-+
-         if test -n "$PYTHON"; then
-       # If the user set $PYTHON, use it and don't search something else.
-       { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $PYTHON version >= 2.4" >&5
-@@ -17249,7 +17267,7 @@ if ${am_cv_pathless_PYTHON+:} false; then :
-   $as_echo_n "(cached) " >&6
- else
- 
--	for am_cv_pathless_PYTHON in python python2 python3 python3.0 python2.5 python2.4 python2.3 python2.2 python2.1 python2.0 none; do
-+	for am_cv_pathless_PYTHON in python python2 python3 python3.2 python3.1 python3.0 python2.7  python2.6 python2.5 python2.4 python2.3 python2.2 python2.1 python2.0 none; do
- 	  test "$am_cv_pathless_PYTHON" = none && break
- 	  prog="import sys
- # split strings by '.' and convert to numeric.  Append some zeros
-@@ -17358,7 +17376,7 @@ $as_echo "$am_cv_python_platform" >&6; }
- 
- 
- 
--                { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $am_display_PYTHON script directory" >&5
-+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $am_display_PYTHON script directory" >&5
- $as_echo_n "checking for $am_display_PYTHON script directory... " >&6; }
- if ${am_cv_python_pythondir+:} false; then :
-   $as_echo_n "(cached) " >&6
-@@ -17369,13 +17387,20 @@ else
-      else
-        am_py_prefix=$prefix
-      fi
--     am_cv_python_pythondir=`$PYTHON -c "import sys; from distutils import sysconfig; sys.stdout.write(sysconfig.get_python_lib(0,0,prefix='$am_py_prefix'))" 2>/dev/null ||
--     echo "$PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages"`
-+     am_cv_python_pythondir=`$PYTHON -c "import sys; from distutils import sysconfig; sys.stdout.write(sysconfig.get_python_lib(0,0,prefix='$am_py_prefix'))" 2>/dev/null`
-      case $am_cv_python_pythondir in
-      $am_py_prefix*)
-        am__strip_prefix=`echo "$am_py_prefix" | sed 's|.|.|g'`
-        am_cv_python_pythondir=`echo "$am_cv_python_pythondir" | sed "s,^$am__strip_prefix,$PYTHON_PREFIX,"`
-        ;;
-+     *)
-+       case $am_py_prefix in
-+         /usr|/System*) ;;
-+         *)
-+	  am_cv_python_pythondir=$PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages
-+	  ;;
-+       esac
-+       ;;
-      esac
- 
- fi
-@@ -17388,7 +17413,7 @@ $as_echo "$am_cv_python_pythondir" >&6; }
-   pkgpythondir=\${pythondir}/$PACKAGE
- 
- 
--            { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $am_display_PYTHON extension module directory" >&5
-+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $am_display_PYTHON extension module directory" >&5
- $as_echo_n "checking for $am_display_PYTHON extension module directory... " >&6; }
- if ${am_cv_python_pyexecdir+:} false; then :
-   $as_echo_n "(cached) " >&6
-@@ -17399,13 +17424,20 @@ else
-      else
-        am_py_exec_prefix=$exec_prefix
-      fi
--     am_cv_python_pyexecdir=`$PYTHON -c "import sys; from distutils import sysconfig; sys.stdout.write(sysconfig.get_python_lib(1,0,prefix='$am_py_exec_prefix'))" 2>/dev/null ||
--     echo "$PYTHON_EXEC_PREFIX/lib/python$PYTHON_VERSION/site-packages"`
-+     am_cv_python_pyexecdir=`$PYTHON -c "import sys; from distutils import sysconfig; sys.stdout.write(sysconfig.get_python_lib(1,0,prefix='$am_py_exec_prefix'))" 2>/dev/null`
-      case $am_cv_python_pyexecdir in
-      $am_py_exec_prefix*)
-        am__strip_prefix=`echo "$am_py_exec_prefix" | sed 's|.|.|g'`
-        am_cv_python_pyexecdir=`echo "$am_cv_python_pyexecdir" | sed "s,^$am__strip_prefix,$PYTHON_EXEC_PREFIX,"`
-        ;;
-+     *)
-+       case $am_py_exec_prefix in
-+         /usr|/System*) ;;
-+         *)
-+	   am_cv_python_pyexecdir=$PYTHON_EXEC_PREFIX/lib/python$PYTHON_VERSION/site-packages
-+	   ;;
-+       esac
-+       ;;
-      esac
- 
- fi
-@@ -20847,7 +20879,7 @@ fi
- ac_config_headers="$ac_config_headers config.h:config.hin"
- 
- 
--ac_config_files="$ac_config_files Makefile compiler/cpp/Makefile compiler/cpp/version.h lib/Makefile lib/cpp/Makefile lib/cpp/test/Makefile lib/cpp/thrift-nb.pc lib/cpp/thrift-z.pc lib/cpp/thrift.pc lib/c_glib/Makefile lib/c_glib/thrift_c_glib.pc lib/c_glib/test/Makefile lib/csharp/Makefile lib/erl/Makefile lib/erl/src/thrift.app.src lib/hs/Makefile lib/java/Makefile lib/js/test/Makefile lib/perl/Makefile lib/perl/test/Makefile lib/php/Makefile lib/py/Makefile lib/rb/Makefile test/Makefile test/cpp/Makefile test/hs/Makefile test/py/Makefile test/py.twisted/Makefile test/rb/Makefile"
-+ac_config_files="$ac_config_files Makefile compiler/cpp/Makefile compiler/cpp/version.h lib/Makefile lib/cpp/Makefile lib/cpp/test/Makefile lib/cpp/thrift-nb.pc lib/cpp/thrift-z.pc lib/cpp/thrift.pc lib/cpp/thrift-asio.pc lib/c_glib/Makefile lib/c_glib/thrift_c_glib.pc lib/c_glib/test/Makefile lib/csharp/Makefile lib/erl/Makefile lib/erl/src/thrift.app.src lib/hs/Makefile lib/java/Makefile lib/js/test/Makefile lib/perl/Makefile lib/perl/test/Makefile lib/php/Makefile lib/py/Makefile lib/rb/Makefile test/Makefile test/cpp/Makefile test/hs/Makefile test/py/Makefile test/py.twisted/Makefile test/rb/Makefile"
- 
- 
- cat >confcache <<\_ACEOF
-@@ -20983,6 +21015,10 @@ if test -z "${WITH_CPP_TRUE}" && test -z "${WITH_CPP_FALSE}"; then
-   as_fn_error $? "conditional \"WITH_CPP\" was never defined.
- Usually this means the macro was only invoked conditionally." "$LINENO" 5
- fi
-+if test -z "${AMX_HAVE_BOOST_TRUE}" && test -z "${AMX_HAVE_BOOST_FALSE}"; then
-+  as_fn_error $? "conditional \"AMX_HAVE_BOOST\" was never defined.
-+Usually this means the macro was only invoked conditionally." "$LINENO" 5
-+fi
- if test -z "${AMX_HAVE_LIBEVENT_TRUE}" && test -z "${AMX_HAVE_LIBEVENT_FALSE}"; then
-   as_fn_error $? "conditional \"AMX_HAVE_LIBEVENT\" was never defined.
- Usually this means the macro was only invoked conditionally." "$LINENO" 5
-@@ -22027,6 +22063,7 @@ do
-     "lib/cpp/thrift-nb.pc") CONFIG_FILES="$CONFIG_FILES lib/cpp/thrift-nb.pc" ;;
-     "lib/cpp/thrift-z.pc") CONFIG_FILES="$CONFIG_FILES lib/cpp/thrift-z.pc" ;;
-     "lib/cpp/thrift.pc") CONFIG_FILES="$CONFIG_FILES lib/cpp/thrift.pc" ;;
-+    "lib/cpp/thrift-asio.pc") CONFIG_FILES="$CONFIG_FILES lib/cpp/thrift-asio.pc" ;;
-     "lib/c_glib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/c_glib/Makefile" ;;
-     "lib/c_glib/thrift_c_glib.pc") CONFIG_FILES="$CONFIG_FILES lib/c_glib/thrift_c_glib.pc" ;;
-     "lib/c_glib/test/Makefile") CONFIG_FILES="$CONFIG_FILES lib/c_glib/test/Makefile" ;;
 diff --git a/third_party/thrift-0.8.0/configure.ac b/third_party/thrift-0.8.0/configure.ac
 index 37b24ac..a1681ff 100644
 --- a/third_party/thrift-0.8.0/configure.ac
@@ -1372,6 +1150,46 @@ index 37b24ac..a1681ff 100644
    lib/c_glib/Makefile
    lib/c_glib/thrift_c_glib.pc
    lib/c_glib/test/Makefile
+diff --git a/third_party/thrift-0.8.0/lib/cpp/Makefile.am b/third_party/thrift-0.8.0/lib/cpp/Makefile.am
+index f526479..33bc838 100644
+--- a/third_party/thrift-0.8.0/lib/cpp/Makefile.am
++++ b/third_party/thrift-0.8.0/lib/cpp/Makefile.am
+@@ -31,6 +31,10 @@ libthrift_la_LDFLAGS = -release $(VERSION) $(BOOST_LDFLAGS)
+ 
+ ## We only build the extra libraries if we have the dependencies,
+ ## but we install all of the headers unconditionally.
++if AMX_HAVE_BOOST
++lib_LTLIBRARIES += libthriftasio.la
++pkgconfig_DATA += thrift-asio.pc
++endif
+ if AMX_HAVE_LIBEVENT
+ lib_LTLIBRARIES += libthriftnb.la
+ pkgconfig_DATA += thrift-nb.pc
+@@ -87,6 +91,8 @@ libthrift_la_SOURCES += src/concurrency/Mutex.cpp \
+                         src/concurrency/PosixThreadFactory.cpp
+ endif
+ 
++libthriftasio_la_SOURCES = src/async/TAsioAsync.cpp
++
+ libthriftnb_la_SOURCES = src/server/TNonblockingServer.cpp \
+                          src/async/TAsyncProtocolProcessor.cpp \
+                          src/async/TEvhttpServer.cpp \
+@@ -95,6 +101,7 @@ libthriftnb_la_SOURCES = src/server/TNonblockingServer.cpp \
+ libthriftz_la_SOURCES = src/transport/TZlibTransport.cpp
+ 
+ # Flags for the various libraries
++libthriftasio_la_CPPFLAGS = $(AM_CPPFLAGS) $(BOOST_CPPFLAGS)
+ libthriftnb_la_CPPFLAGS = $(AM_CPPFLAGS) $(LIBEVENT_CPPFLAGS)
+ libthriftz_la_CPPFLAGS  = $(AM_CPPFLAGS) $(ZLIB_CPPFLAGS)
+ libthriftnb_la_CXXFLAGS = $(AM_CXXFLAGS)
+@@ -207,6 +214,7 @@ WINDOWS_DIST = \
+ EXTRA_DIST = \
+              README \
+              README.SSL \
++             thrift-asio.pc.in \
+              thrift-nb.pc.in \
+              thrift.pc.in \
+              thrift-z.pc.in \
 diff --git a/third_party/thrift-0.8.0/lib/cpp/src/Thrift.h b/third_party/thrift-0.8.0/lib/cpp/src/Thrift.h
 index 60a66f4..7e4b7b1 100644
 --- a/third_party/thrift-0.8.0/lib/cpp/src/Thrift.h
