@@ -1,4 +1,7 @@
 #!/usr/bin/python
+#
+# Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
+#
 import os
 import re
 import shutil
