@@ -69,7 +69,7 @@ def ProcessPackage(pkg):
     filename = getFilename(pkg, url)
     ccfile = _PACKAGE_CACHE + '/' + filename
     if not os.path.isfile(ccfile):
-        subprocess.call(['wget', '-O', ccfile, url])
+        subprocess.call(['wget', '--no-check-certificate', '-O', ccfile, url])
 
     #
     # Determine the name of the directory created by the package.
