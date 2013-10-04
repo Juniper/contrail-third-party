@@ -24,7 +24,7 @@
   </package>
   <package>
     <name>Google perftools</name>
-    <url>http://gperftools.googlecode.com/files/gperftools-2.0.tar.gz</url>
+    <url>http://gperftools.googlecode.com/files/gperftools-2.1.tar.gz</url>
     <format>tgz</format>
   </package>
   <package>
