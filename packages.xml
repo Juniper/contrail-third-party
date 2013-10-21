@@ -114,4 +114,24 @@
       <patch strip="2">bind_patch1.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>SSH2 protocol library</name>
+    <url>https://pypi.python.org/packages/source/p/paramiko/paramiko-1.11.0.tar.gz</url>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>Fabric is a simple, Pythonic tool for remote execution and deployment</name>
+    <url>https://pypi.python.org/packages/source/F/Fabric/Fabric-1.7.0.tar.gz</url>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>PyCrypto - The Python Cryptography Toolkit</name>
+    <url>http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.tar.gz</url>
+    <format>tgz</format>
+  </package>
+  <package>
+    <name>PyCrypto - The Python Cryptography Toolkit</name>
+    <url>https://pypi.python.org/packages/source/z/zope.interface/zope.interface-3.7.0.tar.gz</url>
+    <format>tgz</format>
+  </package>
 </packages>
