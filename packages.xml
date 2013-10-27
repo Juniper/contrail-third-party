@@ -58,6 +58,12 @@
     <format>tgz</format>
   </package>
   <package>
+    <name>Apache Thrift 0.8</name>
+    <url>http://archive.apache.org/dist/thrift/0.8.0/thrift-0.8.0.tar.gz</url>
+    <format>tgz</format>
+    <asis>True</asis>
+  </package>
+  <package>
     <name>hiredis boostasio-adapter</name>
     <url>https://github.com/ryangraham/hiredis-boostasio-adapter/archive/master.zip</url>
     <local-filename>hiredis-master.zip</local-filename>
@@ -120,9 +126,21 @@
     <format>tgz</format>
   </package>
   <package>
+    <name>SSH2 protocol library</name>
+    <url>https://pypi.python.org/packages/source/p/paramiko/paramiko-1.11.0.tar.gz</url>
+    <format>tgz</format>
+     <asis>True</asis>
+  </package>
+  <package>
     <name>Fabric is a simple, Pythonic tool for remote execution and deployment</name>
     <url>https://pypi.python.org/packages/source/F/Fabric/Fabric-1.7.0.tar.gz</url>
     <format>tgz</format>
+  </package>
+  <package>
+    <name>Fabric is a simple, Pythonic tool for remote execution and deployment</name>
+    <url>https://pypi.python.org/packages/source/F/Fabric/Fabric-1.7.0.tar.gz</url>
+    <format>tgz</format>
+     <asis>True</asis>
   </package>
   <package>
     <name>PyCrypto - The Python Cryptography Toolkit</name>
@@ -130,13 +148,210 @@
     <format>tgz</format>
   </package>
   <package>
+    <name>PyCrypto - The Python Cryptography Toolkit</name>
+    <url>http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.tar.gz</url>
+    <format>tgz</format>
+     <asis>True</asis>
+  </package>
+  <package>
     <name>Zope Toolkit Interfaces for Python</name>
     <url>https://pypi.python.org/packages/source/z/zope.interface/zope.interface-3.7.0.tar.gz</url>
     <format>tgz</format>
   </package>
   <package>
+    <name>Zope Toolkit Interfaces for Python</name>
+    <url>https://pypi.python.org/packages/source/z/zope.interface/zope.interface-3.8.0.tar.gz</url>
+    <format>tgz</format>
+     <asis>True</asis>
+  </package>
+  <package>
      <name>Cassandra</name>
      <url>https://launchpad.net/cassandra/1.1/1.1.7-src/+download/apache-cassandra-1.1.7-src.tar.gz</url>
+     <format>tgz</format>
+   </package>
+  <package>
+     <name>Lightweight in-process concurrent programming</name>
+     <url>https://pypi.python.org/packages/source/g/greenlet/greenlet-0.4.1.zip</url>
+     <format>zip</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Python network library that uses greenlet and libevent for easy and scalable concurrency</name>
+     <url>https://pypi.python.org/packages/source/g/gevent/gevent-0.13.8.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Highly concurrent networking library</name>
+     <url>https://pypi.python.org/packages/source/e/eventlet/eventlet-0.9.17.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API</name>
+     <url>https://pypi.python.org/packages/source/l/lxml/lxml-2.3.3.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>http client library for gevent</name>
+     <url>https://pypi.python.org/packages/source/g/geventhttpclient/geventhttpclient-1.0a.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Pythonic manipulation of IPv4, IPv6, CIDR, EUI and MAC network addresses</name>
+     <url>https://github.com/downloads/drkjam/netaddr/netaddr-0.7.5.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Useful extra bits for Python - things that shold be in the standard library</name>
+     <url>https://pypi.python.org/packages/source/e/extras/extras-0.0.3.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Python HTTP for Humans</name>
+     <url>https://pypi.python.org/packages/source/r/requests/requests-1.1.0.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>WSGI (PEP 333) Reference Library</name>
+     <url>https://pypi.python.org/packages/source/w/wsgiref/wsgiref-0.1.2.zip</url>
+     <format>zip</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Portable network interface information</name>
+     <url>http://alastairs-place.net/projects/netifaces/netifaces-0.8.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>efficient arrays of booleans -- C extension</name>
+     <url>https://pypi.python.org/packages/source/b/bitarray/bitarray-0.8.0.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>A cross-platform process and system utilities module for Python</name>
+     <url>https://psutil.googlecode.com/files/psutil-1.0.1.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Simple module to parse ISO 8601 dates</name>
+     <url>https://pypi.python.org/packages/source/i/iso8601/iso8601-0.1.8.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>A simple Python library for easily displaying tabular data in a visually appealing ASCII table format</name>
+     <url>https://pypi.python.org/packages/source/P/PrettyTable/prettytable-0.7.2.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Simple, fast, extensible JSON encoder/decoder for Python</name>
+     <url>https://pypi.python.org/packages/source/s/simplejson/simplejson-3.3.0.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Python command-line parsing library</name>
+     <url>http://argparse.googlecode.com/files/argparse-1.2.1.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Oslo configuration API</name>
+     <url>https://pypi.python.org/packages/source/o/oslo.config/oslo.config-1.1.1.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Allows using distutils2-like setup.cfg files for a package's metadata with a distribute/setuptools setup.py</name>
+     <url>https://pypi.python.org/packages/source/d/d2to1/d2to1-0.2.11.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Python parsing module</name>
+     <url>https://pypi.python.org/packages/source/p/pyparsing/pyparsing-1.5.7.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Extra features for standard library's cmd module</name>
+     <url>https://pypi.python.org/packages/source/c/cmd2/cmd2-0.6.5.1.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Command Line Interface Formulation Framework</name>
+     <url>https://pypi.python.org/packages/source/c/cliff/cliff-1.4.4.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>A comprehensive HTTP client library</name>
+     <url>https://pypi.python.org/packages/source/h/httplib2/httplib2-0.8.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>A tiny LRU cache implementation and decorator</name>
+     <url>https://pypi.python.org/packages/source/r/repoze.lru/repoze.lru-0.6.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Tools for using a Web Server Gateway Interface stack</name>
+     <url>https://pypi.python.org/packages/source/P/Paste/Paste-1.7.5.1.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Load, configure, and compose WSGI applications and servers</name>
+     <url>https://pypi.python.org/packages/source/P/PasteDeploy/PasteDeploy-1.5.0.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>The Python SQL Toolkit and Object Relational Mapper</name>
+     <url>https://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-0.8.2.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Routing Recognition and Generation Tools</name>
+     <url>https://pypi.python.org/packages/source/R/Routes/Routes-1.13.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>This distribution contains the Python client libraries for Apache Qpid</name>
+     <url>https://pypi.python.org/packages/source/q/qpid-python/qpid-python-0.20.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Manage dynamic plugins for Python applications</name>
+     <url>https://pypi.python.org/packages/source/s/stevedore/stevedore-0.12.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Python Build Reasonableness</name>
+     <url>https://pypi.python.org/packages/source/p/pbr/pbr-0.5.21.tar.gz</url>
+     <format>tgz</format>
+     <asis>True</asis>
+   </package>
+  <package>
+     <name>Virtual Python Environment builder</name>
+     <url>https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.9.1.tar.gz</url>
      <format>tgz</format>
    </package>
 </packages>
