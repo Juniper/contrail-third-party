@@ -68,16 +68,8 @@ def ProcessPackage(pkg):
     url = str(pkg['url'])
     filename = getFilename(pkg, url)
     ccfile = _PACKAGE_CACHE + '/' + filename
-
-    try:
-        if pkg.asis == 'True':
-            if not os.path.isfile(filename):
-                subprocess.call(['wget', '--no-check-certificate', '-O', filename, url])
-	    return
-    except:
-            if not os.path.isfile(ccfile):
-                subprocess.call(['wget', '--no-check-certificate', '-O', ccfile, url])
-            pass
+    if not os.path.isfile(ccfile):
+        subprocess.call(['wget', '--no-check-certificate', '-O', ccfile, url])
 
     #
     # Determine the name of the directory created by the package.
@@ -91,7 +83,7 @@ def ProcessPackage(pkg):
     else:
         if pkg.format == 'tgz':
             dest = getTarDestination(ccfile, 'z')
-        elif  pkg.format == 'tbz':
+        elif pkg.format == 'tbz':
             dest = getTarDestination(ccfile, 'j')
         elif pkg.format == 'zip':
             dest = getZipDestination(ccfile)
