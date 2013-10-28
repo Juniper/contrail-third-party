@@ -130,13 +130,8 @@
     <format>tgz</format>
   </package>
   <package>
-    <name>Zope Toolkit Interfaces for Python</name>
+    <name>PyCrypto - The Python Cryptography Toolkit</name>
     <url>https://pypi.python.org/packages/source/z/zope.interface/zope.interface-3.7.0.tar.gz</url>
     <format>tgz</format>
   </package>
-  <package>
-     <name>Cassandra</name>
-     <url>https://launchpad.net/cassandra/1.1/1.1.7-src/+download/apache-cassandra-1.1.7-src.tar.gz</url>
-     <format>tgz</format>
-   </package>
 </packages>
