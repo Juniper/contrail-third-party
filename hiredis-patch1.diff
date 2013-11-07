@@ -1,0 +1,12 @@
+diff --git a/third_party/hiredis-0.11.0/net.c b/third_party/hiredis-0.11.0/net.c
+index 82ab2b4..f12089f 100755
+--- a/third_party/hiredis-0.11.0/net.c
++++ b/third_party/hiredis-0.11.0/net.c
+@@ -137,6 +137,7 @@ static int redisContextWaitReady(redisContext *c, int fd, const struct timeval *
+     if (timeout != NULL) {
+         if (timeout->tv_usec > 1000000 || timeout->tv_sec > __MAX_MSEC) {
+             close(fd);
++            __redisSetError(c,REDIS_ERR_OTHER,"redisContextWaitReady: timeout");
+             return REDIS_ERR;
+         }
+ 

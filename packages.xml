@@ -32,6 +32,9 @@
     <url>https://github.com/redis/hiredis/archive/v0.11.0.tar.gz</url>
     <local-filename>hiredis-v0.11.0.tar.gz</local-filename>
     <format>tgz</format>
+    <patches>
+      <patch strip="2">hiredis-patch1.diff</patch>
+    </patches>
   </package>
   <package>
     <name>Log4Cplus 1.0.4</name>
