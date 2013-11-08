@@ -5,7 +5,7 @@
     <format>tgz</format>
     <patches>
       <patch strip="2">boost_1_48_patch1.diff</patch>
-      <patch strip="1">boot_time_utc.patch</patch>
+      <patch strip="0">boost_time_utc.patch</patch>
     </patches>
   </package>
   <package>
