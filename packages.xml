@@ -5,6 +5,7 @@
     <format>tgz</format>
     <patches>
       <patch strip="2">boost_1_48_patch1.diff</patch>
+      <patch strip="1">boot_time_utc.patch</patch>
     </patches>
   </package>
   <package>
@@ -34,8 +35,8 @@
     <format>tgz</format>
   </package>
   <package>
-    <name>Log4Cplus 1.0.4</name>
-    <url>http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.0.4/log4cplus-1.0.4.tar.bz2</url>
+    <name>Log4Cplus 1.1.1</name>
+    <url>http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
     <format>tbz</format>
   </package>
   <package>
