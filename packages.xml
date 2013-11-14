@@ -58,6 +58,7 @@
     <url>http://archive.apache.org/dist/thrift/0.8.0/thrift-0.8.0.tar.gz</url>
     <patches>
       <patch strip="2">thrift_patch1.diff</patch>
+      <patch strip="2">thrift_autoconf.patch</patch>
     </patches>
     <format>tgz</format>
   </package>
