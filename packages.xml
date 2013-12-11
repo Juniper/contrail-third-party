@@ -13,6 +13,9 @@
     <name>curl 7.24</name>
     <url>http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
     <format>tgz</format>
+    <patches>
+      <patch strip="2">curl-7.24.0_patch1.diff</patch>
+    </patches>
   </package>
   <package>
     <name>Google C++ Testing Framework 1.6.0</name>
