@@ -20,6 +20,9 @@
   <package>
     <name>Google C++ Testing Framework 1.6.0</name>
     <url>http://googletest.googlecode.com/files/gtest-1.6.0.zip</url>
+    <patches>
+      <patch strip="2">gtest-1.6.0_patch1.diff</patch>
+    </patches>
     <format>zip</format>
   </package>
   <package>
