@@ -9,7 +9,7 @@ import subprocess
 
 _OPT_VERBOSE = None
 _OPT_DRY_RUN = None
-_PACKAGE_CACHE='/tmp/cache/third_party'
+_PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
 
 from lxml import objectify
 
