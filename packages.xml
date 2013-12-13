@@ -5,6 +5,7 @@
     <format>tgz</format>
     <patches>
       <patch strip="2">boost_1_48_patch1.diff</patch>
+      <patch strip="2">boost_1_48_patch2.diff</patch>
       <patch strip="0">boost_time_utc.patch</patch>
     </patches>
   </package>
@@ -12,10 +13,16 @@
     <name>curl 7.24</name>
     <url>http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
     <format>tgz</format>
+    <patches>
+      <patch strip="2">curl-7.24.0_patch1.diff</patch>
+    </patches>
   </package>
   <package>
     <name>Google C++ Testing Framework 1.6.0</name>
     <url>http://googletest.googlecode.com/files/gtest-1.6.0.zip</url>
+    <patches>
+      <patch strip="2">gtest-1.6.0_patch1.diff</patch>
+    </patches>
     <format>zip</format>
   </package>
   <package>
@@ -41,11 +48,17 @@
     <name>Log4Cplus 1.1.1</name>
     <url>http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
     <format>tbz</format>
+    <patches>
+      <patch strip="2">log4cplus-1.1.1_patch1.diff</patch>
+    </patches>
   </package>
   <package>
     <name>Thread Building Blocks 4.0 Update 2</name>
     <url>http://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb40_20111130oss_src.tgz</url>
     <format>tgz</format>
+    <patches>
+      <patch strip="2">tbb40_20111130oss_patch1.diff</patch>
+    </patches>
   </package>
   <package>
     <name>Pugi XML 1.2</name>
