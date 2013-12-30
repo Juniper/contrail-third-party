@@ -10,8 +10,6 @@ diff --git a/third_party/tbb40_20111130oss/src/tbb/mac64-tbb-export.lst b/third_
  #endif /* __TBB_TASK_GROUP_CONTEXT */
  
  // Symbols for exceptions thrown from TBB
---- /Users/ananth/work/bgp/third_party/tbb40_20111130oss/include/tbb/compat/condition_variable	2012-10-07 22:58:11.000000000 -0700
-+++ include/tbb/compat/condition_variable	2013-12-10 14:20:22.000000000 -0800
 diff --git a/third_party/tbb40_20111130oss/include/tbb/compat/condition_variable b/third_party/tbb40_20111130oss/include/tbb/compat/condition_variable
 --- a/third_party/tbb40_20111130oss/include/tbb/compat/condition_variable
 +++ b/third_party/tbb40_20111130oss/include/tbb/compat/condition_variable
