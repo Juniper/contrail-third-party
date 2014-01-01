@@ -1,5 +1,5 @@
 diff --git a/third_party/hiredis-boostasio-adapter/boostasio.cpp b/third_party/hiredis-boostasio-adapter/boostasio.cpp
-index 2be99ad..cc5b3b8 100644
+index 2be99ad..b123fb5 100644
 --- a/third_party/hiredis-boostasio-adapter/boostasio.cpp
 +++ b/third_party/hiredis-boostasio-adapter/boostasio.cpp
 @@ -1,8 +1,11 @@
@@ -16,7 +16,21 @@ index 2be99ad..cc5b3b8 100644
  {
  
  	/*this gives us access to c->fd*/
-@@ -51,6 +54,9 @@ void redisBoostClient::operate()
+@@ -39,18 +42,21 @@ void redisBoostClient::operate()
+ 	if(read_requested_ && !read_in_progress_) {
+ 		read_in_progress_ = true;
+ 		socket_.async_read_some(boost::asio::null_buffers(),
+-                       	boost::bind(&redisBoostClient::handle_read,this,boost::asio::placeholders::error));
++                       	boost::bind(&redisBoostClient::handle_read,shared_from_this(),boost::asio::placeholders::error));
+ 	}
+ 
+ 	if(write_requested_ && !write_in_progress_) {
+ 		write_in_progress_ = true;
+ 		socket_.async_write_some(boost::asio::null_buffers(),
+-                       	boost::bind(&redisBoostClient::handle_write,this,boost::asio::placeholders::error));
++                       	boost::bind(&redisBoostClient::handle_write,shared_from_this(),boost::asio::placeholders::error));
+ 	}
+ }
  	
  void redisBoostClient::handle_read(boost::system::error_code ec)
  {
@@ -36,10 +50,11 @@ index 2be99ad..cc5b3b8 100644
  	write_in_progress_ = false;
  	if(!ec) {
  		redisAsyncHandleWrite(context_);
-@@ -97,6 +106,11 @@ void redisBoostClient::cleanup(void *privdata)
+@@ -96,7 +105,11 @@ void redisBoostClient::del_write(void *privdata)
+ void redisBoostClient::cleanup(void *privdata) 
  {
  	/*Do I even need this?*/
- 	printf("cleanup called...\n");	
+-	printf("cleanup called...\n");	
 +        read_requested_ = false;
 +        write_requested_ = false;
 +        read_in_progress_ = false;
@@ -49,18 +64,21 @@ index 2be99ad..cc5b3b8 100644
  
  /*wrappers*/
 diff --git a/third_party/hiredis-boostasio-adapter/boostasio.hpp b/third_party/hiredis-boostasio-adapter/boostasio.hpp
-index c24140a..e777045 100644
+index c24140a..8ae5cc0 100644
 --- a/third_party/hiredis-boostasio-adapter/boostasio.hpp
 +++ b/third_party/hiredis-boostasio-adapter/boostasio.hpp
-@@ -11,12 +11,16 @@
+@@ -10,13 +10,18 @@
+ 
  #include <boost/asio.hpp>
  #include <boost/bind.hpp>
- 
-+#include <tbb/mutex.h>
++#include <boost/enable_shared_from_this.hpp>
 +
++#include <tbb/mutex.h>
+ 
  using boost::asio::ip::tcp;
  
- class redisBoostClient
+-class redisBoostClient
++class redisBoostClient : public boost::enable_shared_from_this<redisBoostClient> 
  {
  public:
 -        redisBoostClient(boost::asio::io_service& io_service,redisAsyncContext *ac);
@@ -70,7 +88,7 @@ index c24140a..e777045 100644
  
  	void operate();
  
-@@ -29,12 +33,14 @@ public:
+@@ -29,12 +34,14 @@ public:
  	void cleanup(void *privdata);
  
  private:
