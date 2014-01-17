@@ -132,4 +132,14 @@
       <patch strip="2">bind_patch1.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>DataStax C++ Driver for Apache Cassandra</name>
+    <url>https://github.com/datastax/cpp-driver/archive/release_0_2_0.tar.gz</url>
+    <local-filename>cpp-driver.zip</local-filename>
+    <format>tgz</format>
+    <rename>cpp-driver</rename>
+    <patches>
+      <patch strip="1">cpp-driver-libcql_patch1.diff</patch>
+    </patches>
+  </package>
 </packages>
