@@ -6,7 +6,9 @@ import os
 import re
 import shutil
 import subprocess
+from time import sleep
 
+_RETRIES = 5
 _OPT_VERBOSE = None
 _OPT_DRY_RUN = None
 _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
@@ -63,13 +65,39 @@ def ApplyPatches(pkg):
 #def VarSubst(cmdstr, filename):
 #    return re.sub(r'\${filename}', filename, cmdstr)
 
+def DownloadPackage(url, pkg, md5):
+    #Check if the package already exists
+    if os.path.isfile(pkg):
+        md5sum = FindMd5sum(pkg)
+        if md5sum == md5:
+            return
+        else:
+            os.remove(pkg)
+    
+    retry_count = 0
+    while True:
+        subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url])
+        md5sum = FindMd5sum(pkg)
+        if _OPT_VERBOSE:
+            print "Calculated md5sum: %s" % md5sum
+            print "Expected md5sum: %s" % md5
+        if md5sum == md5:
+            return
+        elif retry_count <= _RETRIES:
+            os.remove(pkg)
+            retry_count += 1
+            sleep(1)
+            continue
+        else:
+            raise RuntimeError("MD5sum %s, expected(%s) dosen't match for the "
+                               "downloaded package %s" % (md5sum, md5, pkg))
+
 def ProcessPackage(pkg):
     print "Processing %s ..." % (pkg['name'])
     url = str(pkg['url'])
     filename = getFilename(pkg, url)
     ccfile = _PACKAGE_CACHE + '/' + filename
-    if not os.path.isfile(ccfile):
-        subprocess.call(['wget', '--no-check-certificate', '-O', ccfile, url])
+    DownloadPackage(url, ccfile, pkg.md5)
 
     #
     # Determine the name of the directory created by the package.
@@ -129,6 +157,14 @@ def ProcessPackage(pkg):
         os.rename(dest, str(rename))
 
     ApplyPatches(pkg)
+
+def FindMd5sum(anyfile):
+    cmd = ['md5sum']
+    cmd.append(anyfile)
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+    stdout, stderr = proc.communicate()
+    md5sum = stdout.split()[0]
+    return md5sum
 
 def main(filename):
     tree = objectify.parse(filename)

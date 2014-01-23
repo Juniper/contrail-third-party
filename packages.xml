@@ -3,6 +3,7 @@
     <name>Boost C++ libraries version 1.48</name>
     <url>http://sourceforge.net/projects/boost/files/boost/1.48.0/boost_1_48_0.tar.gz</url>
     <format>tgz</format>
+    <md5>313a11e97eb56eb7efd18325354631be</md5>
     <patches>
       <patch strip="2">boost_1_48_patch1.diff</patch>
       <patch strip="2">boost_1_48_patch2.diff</patch>
@@ -13,6 +14,7 @@
     <name>curl 7.24</name>
     <url>http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
     <format>tgz</format>
+    <md5>b93420f80a2baaa61a0f45214eddc2ba</md5>
     <patches>
       <patch strip="2">curl-7.24.0_patch1.diff</patch>
     </patches>
@@ -24,22 +26,26 @@
       <patch strip="2">gtest-1.6.0_patch1.diff</patch>
     </patches>
     <format>zip</format>
+    <md5>4577b49f2973c90bf9ba69aa8166b786</md5>
   </package>
   <package>
     <name>Google C++ Mocking Framework 1.6.0</name>
     <url>http://googlemock.googlecode.com/files/gmock-1.6.0.zip</url>
     <format>zip</format>
+    <md5>f547f47321ca88d3965ca2efdcc2a3c1</md5>
   </package>
   <package>
     <name>Google perftools</name>
     <url>http://gperftools.googlecode.com/files/gperftools-2.1.tar.gz</url>
     <format>tgz</format>
+    <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
   </package>
   <package>
     <name>Minimalistic C client for Redis v0.11</name>
     <url>https://github.com/redis/hiredis/archive/v0.11.0.tar.gz</url>
     <local-filename>hiredis-v0.11.0.tar.gz</local-filename>
     <format>tgz</format>
+    <md5>e2ac29509823ccc96990b6fe765b5d46</md5>
     <patches>
       <patch strip="2">hiredis-patch1.diff</patch>
     </patches>
@@ -48,6 +54,7 @@
     <name>Log4Cplus 1.1.1</name>
     <url>http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
     <format>tbz</format>
+    <md5>a6fbba1e4b021f301b98c7bc68a068cb</md5>
     <patches>
       <patch strip="2">log4cplus-1.1.1_patch1.diff</patch>
     </patches>
@@ -56,6 +63,7 @@
     <name>Thread Building Blocks 4.0 Update 2</name>
     <url>http://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb40_20111130oss_src.tgz</url>
     <format>tgz</format>
+    <md5>1e6926b21e865e79772119cd44fc3ad8</md5>
     <patches>
       <patch strip="2">tbb40_20111130oss_patch1.diff</patch>
     </patches>
@@ -65,6 +73,7 @@
     <url>https://pugixml.googlecode.com/files/pugixml-1.2.tar.gz</url>
     <unpack-directory>pugixml</unpack-directory>
     <format>tgz</format>
+    <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
   </package>
   <package>
     <name>Apache Thrift 0.8</name>
@@ -74,12 +83,14 @@
       <patch strip="2">thrift_autoconf.patch</patch>
     </patches>
     <format>tgz</format>
+    <md5>d29dfcd38d476cbc420b6f4d80ab966c</md5>
   </package>
   <package>
     <name>hiredis boostasio-adapter</name>
     <url>https://github.com/ryangraham/hiredis-boostasio-adapter/archive/master.zip</url>
     <local-filename>hiredis-master.zip</local-filename>
     <format>zip</format>
+    <md5>313963b89b08aa11ed18f8edc9e5054a</md5>
     <rename>hiredis-boostasio-adapter</rename>
     <patches>
       <patch strip="2">hiredis-asio-patch1.diff</patch>
@@ -90,6 +101,7 @@
     <url>https://github.com/joyent/http-parser/archive/v2.1.tar.gz</url>
     <local-filename>http-parser-v2.1.tar.gz</local-filename>
     <format>tgz</format>
+    <md5>93d89867996b8077e0140692c55e997c</md5>
   </package>
   <package>
     <name>IF-MAP Python Client Library</name>
@@ -97,6 +109,7 @@
     <local-filename>ifmap-python-master.zip</local-filename>
     <rename>ifmap-python-client</rename>
     <format>zip</format>
+    <md5>8afa09423807df4287994231c24a8518</md5>
     <patches>
       <patch strip="2">ifmap-python-patch1.diff</patch>
     </patches>
@@ -105,6 +118,7 @@
     <name>Bottle Python Web Framework</name>
     <url>https://pypi.python.org/packages/source/b/bottle/bottle-0.11.6.tar.gz</url>
     <format>tgz</format>
+    <md5>0bafdc4e13ea2b1a3bddf36b5af108c4</md5>
     <patches>
       <patch strip="2">bottle_patch1.diff</patch>
     </patches>
@@ -113,21 +127,25 @@
     <name>pYthOn Finite State Machine</name>
     <url>https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
     <format>tgz</format>
+    <md5>5c8532ebdbc151eb01531ab2c7404297</md5>
   </package>
   <package>
     <name>Gnome XML C parser and toolkit</name>
     <url>http://xmlsoft.org/sources/libxml2-2.8.0.tar.gz</url>
     <format>tgz</format>
+    <md5>c62106f02ee00b6437f0fb9d370c1093</md5>
   </package>
   <package>
     <name>JSON parser/generator for C++</name>
     <url>http://rapidjson.googlecode.com/files/rapidjson-0.11.zip</url>
     <format>zip</format>
+    <md5>96a4b1b57ece8bc6a807ceb14ccaaf94</md5>
   </package>
   <package>
     <name>ISC Bind</name>
     <url>http://www.mirrorservice.org/sites/ftp.isc.org/isc/bind9/9.9.2-P1/bind-9.9.2-P1.tar.gz</url>
     <format>tgz</format>
+    <md5>44b9d1feb11de09811160775f94c2554</md5>
     <patches>
       <patch strip="2">bind_patch1.diff</patch>
     </patches>
@@ -137,6 +155,7 @@
     <url>https://github.com/datastax/cpp-driver/archive/release_0_2_0.tar.gz</url>
     <local-filename>cpp-driver.zip</local-filename>
     <format>tgz</format>
+    <md5>e0bf6b31b19afbc72e92f0e3de655e0d</md5>
     <rename>cpp-driver</rename>
     <patches>
       <patch strip="1">cpp-driver-libcql_patch1.diff</patch>
