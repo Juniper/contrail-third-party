@@ -176,10 +176,16 @@ def main(filename):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    try:
+        shutil.rmtree(_PACKAGE_CACHE)
+    except:
+        print "Error: Cannot remove " + _PACKAGE_CACHE
+        exit(1)
 
     try:
         os.makedirs(_PACKAGE_CACHE)
     except OSError as exc:
-        pass
+        print "Error: Cannot create " + _PACKAGE_CACHE
+        exit(1)
 
     main('packages.xml')
