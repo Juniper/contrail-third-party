@@ -7,6 +7,7 @@
     <patches>
       <patch strip="2">boost_1_48_patch1.diff</patch>
       <patch strip="2">boost_1_48_patch2.diff</patch>
+      <patch strip="2">boost_1_48_patch3.diff</patch>
       <patch strip="0">boost_time_utc.patch</patch>
     </patches>
   </package>
