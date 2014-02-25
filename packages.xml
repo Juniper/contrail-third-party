@@ -141,6 +141,9 @@
     <url>http://rapidjson.googlecode.com/files/rapidjson-0.11.zip</url>
     <format>zip</format>
     <md5>96a4b1b57ece8bc6a807ceb14ccaaf94</md5>
+    <patches>
+      <patch strip="2">rapidjson_patch1.diff</patch>
+    </patches>
   </package>
   <package>
     <name>ISC Bind</name>
