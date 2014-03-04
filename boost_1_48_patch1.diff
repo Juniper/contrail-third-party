@@ -6153,7 +6153,7 @@ index e4b15d7..f4ee1fb 100644
              return empty;
          }
  
-@@ -84,12 +89,51 @@ namespace boost { namespace program_options {
+@@ -84,12 +89,57 @@ namespace boost { namespace program_options {
      {
          validators::check_first_occurrence(v);
          std::basic_string<charT> s(validators::get_single_string(xs));
@@ -6169,6 +6169,9 @@ index e4b15d7..f4ee1fb 100644
 +        if (typeid(T) == typeid(int)) {
 +            int tmp = strtol(s.c_str(), NULL, 0);
 +            v = any(tmp);
++        } else if (typeid(T) == typeid(short)) {
++            short tmp = (short) strtoul(s.c_str(), NULL, 0);
++            v = any(tmp);
 +        } else if (typeid(T) == typeid(long)) {
 +            long tmp = strtol(s.c_str(), NULL, 0);
 +            v = any(tmp);
@@ -6177,6 +6180,9 @@ index e4b15d7..f4ee1fb 100644
 +            v = any(tmp);
 +        } else if (typeid(T) == typeid(unsigned int)) {
 +            unsigned int tmp = strtoul(s.c_str(), NULL, 0);
++            v = any(tmp);
++        } else if (typeid(T) == typeid(unsigned short)) {
++            unsigned short tmp = (unsigned short) strtoul(s.c_str(), NULL, 0);
 +            v = any(tmp);
 +        } else if (typeid(T) == typeid(unsigned long)) {
 +            unsigned long tmp = strtoul(s.c_str(), NULL, 0);
@@ -6205,7 +6211,7 @@ index e4b15d7..f4ee1fb 100644
      }
  
      BOOST_PROGRAM_OPTIONS_DECL void validate(boost::any& v, 
-@@ -138,7 +182,9 @@ namespace boost { namespace program_options {
+@@ -138,7 +188,9 @@ namespace boost { namespace program_options {
          assert(NULL != tv);
          for (unsigned i = 0; i < s.size(); ++i)
          {
@@ -6215,7 +6221,7 @@ index e4b15d7..f4ee1fb 100644
                  /* We call validate so that if user provided
                     a validator for class T, we use it even
                     when parsing vector<T>.  */
-@@ -147,10 +193,12 @@ namespace boost { namespace program_options {
+@@ -147,10 +199,12 @@ namespace boost { namespace program_options {
                  cv.push_back(s[i]);
                  validate(a, cv, (T*)0, 0);                
                  tv->push_back(boost::any_cast<T>(a));
