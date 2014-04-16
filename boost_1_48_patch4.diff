@@ -1,0 +1,22 @@
+diff --git a/boost_1_48_0/boost/uuid/seed_rng.hpp b/boost_1_48_0/boost/uuid/seed_rng.hpp
+index b8beb2f..f870836 100644
+--- a/boost_1_48_0/boost/uuid/seed_rng.hpp
++++ b/boost_1_48_0/boost/uuid/seed_rng.hpp
+@@ -109,6 +109,8 @@ public:
+     }
+ 
+ private:
++    inline void ignore_size(size_t) {}
++
+     static unsigned int * sha1_random_digest_state_()
+     {
+         // intentionally left uninitialized
+@@ -149,7 +151,7 @@ private:
+ 
+             if(random_)
+             {
+-                std::fread( buffer, 1, 20, random_ );
++                ignore_size(std::fread( buffer, 1, 20, random_ ));
+             }
+ 
+             // using an uninitialized buffer[] if fopen fails
