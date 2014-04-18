@@ -114,6 +114,7 @@
     <md5>8afa09423807df4287994231c24a8518</md5>
     <patches>
       <patch strip="2">ifmap-python-patch1.diff</patch>
+      <patch strip="2">ifmap-python-patch2.diff</patch>
     </patches>
   </package>
   <package>
