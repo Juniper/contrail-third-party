@@ -1,0 +1,91 @@
+diff --git a/third_party/vijava/com/vmware/vim/cf/ManagedObjectWatcher.java b/third_party/vijava/com/vmware/vim/cf/ManagedObjectWatcher.java
+--- a/third_party/vijava/com/vmware/vim/cf/ManagedObjectWatcher.java
++++ b/third_party/vijava/com/vmware/vim/cf/ManagedObjectWatcher.java
+34a35
+> import com.vmware.vim25.AboutInfo;
+39a41
+> import com.vmware.vim25.SelectionSpec;
+43a46
+> import com.vmware.vim25.mo.util.PropertyCollectorUtil;
+59a63,101
+>     public void watch(String[][] typeInfo)
+>     {
+>     	PropertySpec[] ps = 
+>     			PropertyCollectorUtil.buildPropertySpecArray(typeInfo);
+>     	PropertyFilterSpec pfs = new PropertyFilterSpec();
+>     	ObjectSpec[] oss = new ObjectSpec[] {new ObjectSpec()};
+>     	oss[0].setObj(
+>     			pc.getServerConnection().getServiceInstance().getRootFolder().getMOR());
+>     	oss[0].setSkip(true);
+>     	SelectionSpec[] selectionSpecs = null;
+>         AboutInfo ai = 
+>         		pc.getServerConnection().getServiceInstance().getAboutInfo();
+>         
+>         /* The apiVersion values in all the shipped products
+>         "2.0.0"    VI 3.0
+>         "2.5.0"    VI 3.5 (and u1)
+>         "2.5u2"   VI 3.5u2 (and u3, u4)
+>         "4.0"       vSphere 4.0 (and u1)
+>         "4.1"       vSphere 4.1
+>         "5.0"       vSphere 5.0
+>         ******************************************************/
+>         if (ai.apiVersion.startsWith("4") || 
+>         		ai.apiVersion.startsWith("5"))
+>         {
+>           selectionSpecs = 
+>         		  PropertyCollectorUtil.buildFullTraversalV4();
+>         }
+>         else
+>         {
+>           selectionSpecs = 
+>         		  PropertyCollectorUtil.buildFullTraversal();
+>         }
+>     	oss[0].setSelectSet(selectionSpecs);
+>     	pfs.setObjectSet(oss);
+>     	pfs.setPropSet(ps);
+>     	
+>     	watch(pfs);
+>     }
+>     
+diff --git a/third_party/vijava/com/vmware/vim25/ManagedObjectReference.java b/third_party/vijava/com/vmware/vim25/ManagedObjectReference.java
+--- a/third_party/vijava/com/vmware/vim25/ManagedObjectReference.java
++++ b/third_party/vijava/com/vmware/vim25/ManagedObjectReference.java
+64a65,102
+> 
+>    @Override
+>    public int hashCode() {
+> 	   final int prime = 31;
+> 	   int result = 1;
+> 	   result = prime * result + ((type == null) ? 0 : type.hashCode());
+> 	   result = prime * result + ((val == null) ? 0 : val.hashCode());
+> 	   return result;
+>    }
+> 
+>    @Override
+>    public boolean equals(Object obj) {
+> 	   if (this == obj) {
+> 		   return true;
+> 	   }
+> 	   if (obj == null) {
+> 		   return false;
+> 	   }
+> 	   if (!(obj instanceof ManagedObjectReference)) {
+> 		   return false;
+> 	   }
+> 	   ManagedObjectReference other = (ManagedObjectReference) obj;
+> 	   if (type == null) {
+> 		   if (other.type != null) {
+> 			   return false;
+> 		   }
+> 	   } else if (!type.equals(other.type)) {
+> 		   return false;
+> 	   }
+> 	   if (val == null) {
+> 		   if (other.val != null) {
+> 			   return false;
+> 		   }
+> 	   } else if (!val.equals(other.val)) {
+> 		   return false;
+> 	   }
+> 	   return true;
+>    }
