@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 from time import sleep
 
 _RETRIES = 5
@@ -29,12 +30,12 @@ def getFilename(pkg, url):
     return filename
 
 def getTarDestination(tgzfile, compress_flag):
-    cmd = subprocess.Popen(['tar', compress_flag + 'tvf', tgzfile],
+    cmd = subprocess.Popen(['tar', compress_flag + 'tf', tgzfile],
                            stdout=subprocess.PIPE)
     (output, _) = cmd.communicate()
     (first, _) = output.split('\n', 1)
     fields = first.split()
-    return fields[5]
+    return fields[0]
 
 def getZipDestination(tgzfile):
     cmd = subprocess.Popen(['unzip', '-t', tgzfile],
@@ -190,7 +191,10 @@ def ProcessPackage(pkg):
     ApplyPatches(pkg)
 
 def FindMd5sum(anyfile):
-    cmd = ['md5sum']
+    if sys.platform == 'darwin':
+        cmd = ['md5', '-r']
+    else:
+        cmd = ['md5sum']
     cmd.append(anyfile)
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
     stdout, stderr = proc.communicate()
