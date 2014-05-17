@@ -13,6 +13,7 @@ _RETRIES = 5
 _OPT_VERBOSE = None
 _OPT_DRY_RUN = None
 _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
+_NODE_MODULES='./node_modules'
 
 from lxml import objectify
 
@@ -46,6 +47,12 @@ def getZipDestination(tgzfile):
         if m:
             return m.group(1)
     return None
+
+def getFileDestination(file):
+    start = file.rfind('/')
+    if start < 0:
+        return None
+    return file[start+1:]
 
 def ApplyPatches(pkg):
     stree = pkg.find('patches')
@@ -116,6 +123,10 @@ def ProcessPackage(pkg):
             dest = getTarDestination(ccfile, 'j')
         elif pkg.format == 'zip':
             dest = getZipDestination(ccfile)
+        elif pkg.format == 'npm':
+            dest = getTarDestination(ccfile, 'z')
+        else:
+            dest = getFileDestination(ccfile)
 
     #
     # clean directory before unpacking and applying patches
@@ -144,13 +155,24 @@ def ProcessPackage(pkg):
         cmd = ['tar', 'jxvf', ccfile]
     elif pkg.format == 'zip':
         cmd = ['unzip', '-o', ccfile]
+    elif pkg.format == 'npm':
+        cmd = ['npm', 'install', ccfile]
+    elif pkg.format == '':
+        cmd = ['cp', '-af', ccfile, dest]
+        print 'Empty format'
     else:
         print 'Unexpected format: %s' % (pkg.format)
         return
+
     if not _OPT_DRY_RUN:
         cd = None
         if unpackdir:
             cd = str(unpackdir)
+        if pkg.format == 'npm':
+            try:
+                os.makedirs(_NODE_MODULES)
+            except OSError:
+                pass
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
 
