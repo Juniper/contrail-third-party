@@ -125,7 +125,7 @@ def ProcessPackage(pkg):
             dest = getZipDestination(ccfile)
         elif pkg.format == 'npm':
             dest = getTarDestination(ccfile, 'z')
-        else:
+        elif pkg.format == 'file':
             dest = getFileDestination(ccfile)
 
     #
@@ -157,9 +157,8 @@ def ProcessPackage(pkg):
         cmd = ['unzip', '-o', ccfile]
     elif pkg.format == 'npm':
         cmd = ['npm', 'install', ccfile]
-    elif pkg.format == '':
+    elif pkg.format == 'file':
         cmd = ['cp', '-af', ccfile, dest]
-        print 'Empty format'
     else:
         print 'Unexpected format: %s' % (pkg.format)
         return

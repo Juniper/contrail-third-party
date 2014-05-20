@@ -4,7 +4,7 @@
         name    : Specify name of the package.
         url     : URL to download the package.
         format  : Format of the downloaded file.
-                  If format is set as empty value, then after downloading the 
+                  If format is set as 'file', then after downloading the 
                   file, same file gets renamed (if rename tag is specfied) and
                   copied to currect directory, else based on the format, the
                   zipped file gets extracted and gets copied in current directory
@@ -210,14 +210,14 @@
     <name>xdate-0.7</name>
     <url>http://arshaw.com/xdate/downloads/0.7/xdate.js</url>
     <local-filename>xdate.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>42c52543133c9bcbc5866eae98337bc0</md5>
   </package>
   <package>
     <name>jsonpath-0.8.0</name>
     <url>https://jsonpath.googlecode.com/files/jsonpath-0.8.0.js.txt</url>
     <local-filename>jsonpath-0.8.0.js.txt</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>49db6e311e23284059626fbc53d6ea74</md5>
     <rename>jsonpath-0.8.0.js</rename>
   </package>
@@ -225,77 +225,77 @@
     <name>jquery.xml2json.js</name>
     <url>http://jquery-xml2json-plugin.googlecode.com/svn/trunk/jquery.xml2json.js</url>
     <local-filename>jquery.xml2json.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>396a695751d02153f66f830d60a7f5cc</md5>
   </package>
   <package>
     <name>jquery.ui.touch-punch.min-0.2.2</name>
     <url>http://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js</url>
     <local-filename>jquery.ui.touch-punch.min.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>0e390e86b02e36b6240ef27c01b63a4b</md5>
   </package>
   <package>
     <name>jquery.ba-bbq.min</name>
     <url>https://raw.githubusercontent.com/cowboy/jquery-bbq/master/jquery.ba-bbq.min.js</url>
     <local-filename>jquery.ba-bbq.min.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>856cc20a1756ca55dc9f13eecf5b1b2d</md5>
   </package>
   <package>
     <name>jquery.timer</name>
     <url>https://jquery-timer.googlecode.com/files/jquery.timer.js</url>
     <local-filename>jquery.timer.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>f0e0d96ae2016855f2f3e7ef3b59b2aa</md5>
   </package>
   <package>
     <name>jquery.json-2.4.min</name>
     <url>https://jquery-json.googlecode.com/files/jquery.json-2.4.min.js</url>
     <local-filename>jquery.json-2.4.min.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>f7b87723e700272150f9785de8f03f1c</md5>
   </package>
   <package>
     <name>jquery.dataTables.min</name>
     <url>http://datatables.net/download/build/jquery.dataTables.min.js</url>
     <local-filename>jquery.dataTables.min.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>3b4c0c1835e854ca63e7036a48e2ea73</md5>
   </package>
   <package>
     <name>jquery.min-1.8.3</name>
     <url>http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js</url>
     <local-filename>jquery-1.8.3.min.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>3576a6e73c9dccdbbc4a2cf8ff544ad7</md5>
   </package>
   <package>
     <name>jquery.min-1.9.1</name>
     <url>http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js</url>
     <local-filename>jquery-1.9.1.min.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>397754ba49e9e0cf4e7c190da78dda05</md5>
   </package>
  <package>
     <name>openSans</name>
     <url>http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,300</url>
     <local-filename>openSans.css</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>d3cf5d42c93db828e7e70e8c915b8226</md5>
   </package>
   <package>
     <name>ImageFile</name>
     <url>http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTaRDOzjiPcYnFooOUGCOsRk.woff</url>
     <local-filename>DXI1ORHCpsQm3Vp6mXoaTaRDOzjiPcYnFooOUGCOsRk.woff</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>28c393ca13c13e26565160a2866eb300</md5>
   </package>
   <package>
     <name>ImageFile</name>
     <url>http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff</url>
     <local-filename>cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>d5eabde73507468c5748065193713a42</md5>
   </package>
   <package>
@@ -353,7 +353,7 @@
     <name>knockout-3.0.0</name>
     <url>http://knockoutjs.com/downloads/knockout-3.0.0.js</url>
     <local-filename>knockout-3.0.0.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>104d5d1d77adfc68cf2b08fb37c237a7</md5>
   </package>
   <package>
@@ -403,7 +403,7 @@
     <name>handlebars-v1.3.0</name>
     <url>http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js</url>
     <local-filename>handlebars-v1.3.0.js</local-filename>
-    <format></format>
+    <format>file</format>
     <md5>d7a58c286b230beb275041d8718e6d64</md5>
   </package>
   <package>
