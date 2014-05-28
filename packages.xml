@@ -272,6 +272,9 @@
     <local-filename>openSans.css</local-filename>
     <format>file</format>
     <md5>d3cf5d42c93db828e7e70e8c915b8226</md5>
+    <patches>
+      <patch strip="2">openSans.patch</patch>
+    </patches>
   </package>
   <package>
     <name>ImageFile</name>
