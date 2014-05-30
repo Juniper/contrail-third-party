@@ -432,37 +432,37 @@
     </patches>
    </package>
    <package>
-    <name>express-3.0.3</name>
+    <name>express</name>
     <url>http://registry.npmjs.org/express/-/express-3.0.3.tgz</url>
     <format>npm</format>
     <md5>79d614fefed24df49b0efad4111f6cf4</md5>
   </package>
   <package>
-    <name>winston-0.6.2</name>
+    <name>winston</name>
     <url>http://registry.npmjs.org/winston/-/winston-0.6.2.tgz</url>
     <format>npm</format>
     <md5>8e9e33f1a8ac48e36c4d41fd17794a4b</md5>
   </package>
   <package>
-    <name>underscore-1.4.3</name>
+    <name>underscore</name>
     <url>http://registry.npmjs.org/underscore/-/underscore-1.4.3.tgz</url>
     <format>npm</format>
     <md5>49b1b1ef4da4fd3f32b9a83e8ff5630a</md5>
   </package>
   <package>
-    <name>cluster-0.7.7</name>
+    <name>cluster</name>
     <url>http://registry.npmjs.org/cluster/-/cluster-0.7.7.tgz</url>
     <format>npm</format>
     <md5>86c1c7585ed7203fa3a3595a6574b423</md5>
   </package>
   <package>
-    <name>async-0.1.22</name>
+    <name>async</name>
     <url>http://registry.npmjs.org/async/-/async-0.1.22.tgz</url>
     <format>npm</format>
     <md5>5189fe6248a510d600c25e7d4b49ddba</md5>
   </package>
   <package>
-    <name>mime-1.2.9</name>
+    <name>mime</name>
     <url>http://registry.npmjs.org/mime/-/mime-1.2.9.tgz</url>
     <format>npm</format>
     <md5>40801e98c1107519eb8e234019f6444a</md5>
@@ -474,31 +474,31 @@
     <md5>42b6022998d5306446645c5289ec24c5</md5>
   </package>
   <package>
-    <name>kue-0.5.0</name>
+    <name>kue</name>
     <url>http://registry.npmjs.org/kue/-/kue-0.5.0.tgz</url>
     <format>npm</format>
     <md5>6a1ad10276b80d7087d69f63120c3b83</md5>
   </package>
   <package>
-    <name>axon-0.5.0</name>
+    <name>axon</name>
     <url>http://registry.npmjs.org/axon/-/axon-0.5.0.tgz</url>
     <format>npm</format>
     <md5>e0dabc0d4728e094c6e2792480787e17</md5>
   </package>
   <package>
-    <name>redis-v0.8.3</name>
+    <name>redis</name>
     <url>http://registry.npmjs.org/redis/-/redis-0.8.3.tgz</url>
     <format>npm</format>
     <md5>6b12d28e9ffcec8e027294e3d066c199</md5>
   </package>
   <package>
-    <name>request-2.12.0</name>
+    <name>request</name>
     <url>http://registry.npmjs.org/request/-/request-2.12.0.tgz</url>
     <format>npm</format>
     <md5>e3ed48005e0d11bc4385be9c96f7cee9</md5>
   </package>
   <package>
-    <name>restler-2.0.1</name>
+    <name>restler</name>
     <url>http://registry.npmjs.org/restler/-/restler-2.0.1.tgz</url>
     <format>npm</format>
     <md5>e9ea18d49431ec4d3e0831bfc8e455a1</md5>
@@ -507,37 +507,37 @@
     </patches>
   </package>
   <package>
-    <name>JSONPath-0.9.1</name>
+    <name>JSONPath</name>
     <url>http://registry.npmjs.org/JSONPath/-/JSONPath-0.9.1.tgz</url>
     <format>npm</format>
     <md5>ddde227f039fca0af0d6fb161a1f9b7a</md5>
   </package>
   <package>
-    <name>crypto-0.0.3</name>
+    <name>crypto</name>
     <url>http://registry.npmjs.org/crypto/-/crypto-0.0.3.tgz</url>
     <format>npm</format>
     <md5>c41d642a53ca991e750863f103cd85b5</md5>
   </package>
   <package>
-    <name>helenus-0.6.2</name>
+    <name>helenus</name>
     <url>http://registry.npmjs.org/helenus/-/helenus-0.6.2.tgz</url>
     <format>npm</format>
     <md5>aab099afa36b09dfde8b4d71f60f666d</md5>
   </package>
   <package>
-    <name>ssh2-0.2.12</name>
+    <name>ssh2</name>
     <url>http://registry.npmjs.org/ssh2/-/ssh2-0.2.12.tgz</url>
     <format>npm</format>
     <md5>2b5393f54cb5f163a5ee53ba85243681</md5>
   </package>
   <package>
-    <name>uuid-js-0.7.4</name>
+    <name>uuid-js</name>
     <url>http://registry.npmjs.org/uuid-js/-/uuid-js-0.7.4.tgz</url>
     <format>npm</format>
     <md5>4d1920d2bc9d8ab279baad3f0226ff41</md5>
   </package>
   <package>
-    <name>xml2js-0.2.3</name>
+    <name>xml2js</name>
     <url>http://registry.npmjs.org/xml2js/-/xml2js-0.2.3.tgz</url>
     <format>npm</format>
     <md5>49af3a50d17c76d846d8adecd42ded41</md5>
@@ -546,13 +546,13 @@
     </patches>
   </package>
   <package>
-    <name>redis-rstream-0.1.2</name>
+    <name>redis-rstream</name>
     <url>http://registry.npmjs.org/redis-rstream/-/redis-rstream-0.1.2.tgz</url>
     <format>npm</format>
     <md5>5f2325013aaa4709a13ab7d608d3935d</md5>
   </package>
   <package>
-    <name>connect-redis-1.4.5</name>
+    <name>connect-redis</name>
     <url>http://registry.npmjs.org/connect-redis/-/connect-redis-1.4.5.tgz</url>
     <format>npm</format>
     <md5>1c298617219e8d622b9bfff937055c2f</md5>
@@ -561,7 +561,7 @@
     </patches>
   </package>
   <package>
-    <name>request-timeout-0.0.2</name>
+    <name>request-timeout</name>
     <url>http://registry.npmjs.org/request-timeout/-/request-timeout-0.0.2.tgz</url>
     <format>npm</format>
     <md5>6d459246c1c9a614f6503e3a892e4a53</md5>
