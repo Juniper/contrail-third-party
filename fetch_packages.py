@@ -13,6 +13,7 @@ _OPT_VERBOSE = None
 _OPT_DRY_RUN = None
 _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
 _NODE_MODULES='./node_modules'
+_TMP_NODE_MODULES=_PACKAGE_CACHE + '/' + _NODE_MODULES
 
 from lxml import objectify
 
@@ -155,7 +156,7 @@ def ProcessPackage(pkg):
     elif pkg.format == 'zip':
         cmd = ['unzip', '-o', ccfile]
     elif pkg.format == 'npm':
-        cmd = ['npm', 'install', ccfile]
+        cmd = ['npm', 'install', ccfile, '--prefix', _PACKAGE_CACHE]
     elif pkg.format == 'file':
         cmd = ['cp', '-af', ccfile, dest]
     else:
@@ -171,6 +172,15 @@ def ProcessPackage(pkg):
                 os.makedirs(_NODE_MODULES)
             except OSError:
                 pass
+            npmCmd = ['cp', '-af', _TMP_NODE_MODULES + '/' + pkg['name'],
+                      './node_modules/']
+            if os.path.exists(_TMP_NODE_MODULES + '/' + pkg['name']):
+                cmd = npmCmd
+            else:
+                p = subprocess.Popen(cmd, cwd = cd)
+                p.wait()
+                cmd = npmCmd
+
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
 
