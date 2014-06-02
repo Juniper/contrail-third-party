@@ -278,17 +278,73 @@
   </package>
   <package>
     <name>ImageFile</name>
-    <url>http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTaRDOzjiPcYnFooOUGCOsRk.woff</url>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/DXI1ORHCpsQm3Vp6mXoaTaRDOzjiPcYnFooOUGCOsRk.woff</url>
     <local-filename>DXI1ORHCpsQm3Vp6mXoaTaRDOzjiPcYnFooOUGCOsRk.woff</local-filename>
     <format>file</format>
-    <md5>28c393ca13c13e26565160a2866eb300</md5>
+    <md5>5a3fdd02dc4e99dfbecaa7c38280d3a5</md5>
   </package>
   <package>
     <name>ImageFile</name>
-    <url>http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff</url>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff</url>
     <local-filename>cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff</local-filename>
     <format>file</format>
-    <md5>d5eabde73507468c5748065193713a42</md5>
+    <md5>71c4b3129c1b036c625882343856515f</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/MTP_ySUJH_bn48VBG8sNSqRDOzjiPcYnFooOUGCOsRk.woff</url>
+    <local-filename>MTP_ySUJH_bn48VBG8sNSqRDOzjiPcYnFooOUGCOsRk.woff</local-filename>
+    <format>file</format>
+    <md5>81a5f64a75da2bc1d1b382a83235d1d9</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff</url>
+    <local-filename>k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff</local-filename>
+    <format>file</format>
+    <md5>3ccbd41bfd4962b57199a8fcfbcbde66</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/EInbV5DfGHOiMmvb1Xr-hqRDOzjiPcYnFooOUGCOsRk.woff</url>
+    <local-filename>EInbV5DfGHOiMmvb1Xr-hqRDOzjiPcYnFooOUGCOsRk.woff</local-filename>
+    <format>file</format>
+    <md5>d75a015348f9ad93466768092a250c58</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/PRmiXeptR36kaC0GEAetxvR_54zmj3SbGZQh3vCOwvY.woff</url>
+    <local-filename>PRmiXeptR36kaC0GEAetxvR_54zmj3SbGZQh3vCOwvY.woff</local-filename>
+    <format>file</format>
+    <md5>fd786e1aedaba0667fbc7d2e1025e599</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/xjAJXh38I15wypJXxuGMBrrIa-7acMAeDBVuclsi6Gc.woff</url>
+    <local-filename>xjAJXh38I15wypJXxuGMBrrIa-7acMAeDBVuclsi6Gc.woff</local-filename>
+    <format>file</format>
+    <md5>0ffd6c9760dbd98b33b40cda7c5fe855</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/PRmiXeptR36kaC0GEAetxuw_rQOTGi-AJs5XCWaKIhU.woff</url>
+    <local-filename>PRmiXeptR36kaC0GEAetxuw_rQOTGi-AJs5XCWaKIhU.woff</local-filename>
+    <format>file</format>
+    <md5>0e62218ac4e10c750107c310f81b2819</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/PRmiXeptR36kaC0GEAetxhbnBKKEOwRKgsHDreGcocg.woff</url>
+    <local-filename>PRmiXeptR36kaC0GEAetxhbnBKKEOwRKgsHDreGcocg.woff</local-filename>
+    <format>file</format>
+    <md5>84b1d9bb65b585d4b4a72ee9cefb2ac2</md5>
+  </package>
+  <package>
+    <name>ImageFile</name>
+    <url>http://themes.googleusercontent.com/static/fonts/opensans/v8/PRmiXeptR36kaC0GEAetxsBo4hlZyBvkZICS3KpNonM.woff</url>
+    <local-filename>PRmiXeptR36kaC0GEAetxsBo4hlZyBvkZICS3KpNonM.woff</local-filename>
+    <format>file</format>
+    <md5>c19f25fe27b2341bd1b1a13d9992dfe6</md5>
   </package>
   <package>
     <name>jquery-ui-1.10.4</name>
