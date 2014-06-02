@@ -13,6 +13,8 @@ _RETRIES = 5
 _OPT_VERBOSE = None
 _OPT_DRY_RUN = None
 _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
+_NODE_MODULES='./node_modules'
+_TMP_NODE_MODULES=_PACKAGE_CACHE + '/' + _NODE_MODULES
 
 from lxml import objectify
 
@@ -46,6 +48,12 @@ def getZipDestination(tgzfile):
         if m:
             return m.group(1)
     return None
+
+def getFileDestination(file):
+    start = file.rfind('/')
+    if start < 0:
+        return None
+    return file[start+1:]
 
 def ApplyPatches(pkg):
     stree = pkg.find('patches')
@@ -116,6 +124,10 @@ def ProcessPackage(pkg):
             dest = getTarDestination(ccfile, 'j')
         elif pkg.format == 'zip':
             dest = getZipDestination(ccfile)
+        elif pkg.format == 'npm':
+            dest = getTarDestination(ccfile, 'z')
+        elif pkg.format == 'file':
+            dest = getFileDestination(ccfile)
 
     #
     # clean directory before unpacking and applying patches
@@ -144,13 +156,32 @@ def ProcessPackage(pkg):
         cmd = ['tar', 'jxvf', ccfile]
     elif pkg.format == 'zip':
         cmd = ['unzip', '-o', ccfile]
+    elif pkg.format == 'npm':
+        cmd = ['npm', 'install', ccfile, '--prefix', _PACKAGE_CACHE]
+    elif pkg.format == 'file':
+        cmd = ['cp', '-af', ccfile, dest]
     else:
         print 'Unexpected format: %s' % (pkg.format)
         return
+
     if not _OPT_DRY_RUN:
         cd = None
         if unpackdir:
             cd = str(unpackdir)
+        if pkg.format == 'npm':
+            try:
+                os.makedirs(_NODE_MODULES)
+            except OSError:
+                pass
+            npmCmd = ['cp', '-af', _TMP_NODE_MODULES + '/' + pkg['name'],
+                      './node_modules/']
+            if os.path.exists(_TMP_NODE_MODULES + '/' + pkg['name']):
+                cmd = npmCmd
+            else:
+                p = subprocess.Popen(cmd, cwd = cd)
+                p.wait()
+                cmd = npmCmd
+
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
 
