@@ -130,6 +130,7 @@
     <patches>
       <patch strip="2">ifmap-python-patch1.diff</patch>
       <patch strip="2">ifmap-python-patch2.diff</patch>
+      <patch strip="2">ifmap-python-patch3.diff</patch>
     </patches>
   </package>
   <package>
