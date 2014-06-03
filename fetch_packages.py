@@ -178,10 +178,13 @@ def ProcessPackage(pkg):
             if os.path.exists(_TMP_NODE_MODULES + '/' + pkg['name']):
                 cmd = npmCmd
             else:
-                p = subprocess.Popen(cmd, cwd = cd)
-                p.wait()
-                cmd = npmCmd
-
+		try:
+                   p = subprocess.Popen(cmd, cwd = cd)
+                   p.wait()
+                   cmd = npmCmd
+		except OSError:
+		   print ' '.join(cmd) + ' could not be executed, bailing out!'
+		   return
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
 
