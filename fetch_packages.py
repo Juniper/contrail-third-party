@@ -3,6 +3,7 @@
 # Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
 #
 import os
+import errno
 import re
 import shutil
 import subprocess
@@ -171,8 +172,14 @@ def ProcessPackage(pkg):
         if pkg.format == 'npm':
             try:
                 os.makedirs(_NODE_MODULES)
-            except OSError:
-                pass
+                os.makedirs(_TMP_NODE_MODULES)
+            except OSError as exc:
+                if exc.errno == errno.EEXIST:
+                    pass
+                else:
+                    print 'mkdirs of ' + _NODE_MODULES + ' ' + _TMP_NODE_MODULES + ' failed.. Exiting..'
+                    return
+
             npmCmd = ['cp', '-af', _TMP_NODE_MODULES + '/' + pkg['name'],
                       './node_modules/']
             if os.path.exists(_TMP_NODE_MODULES + '/' + pkg['name']):
