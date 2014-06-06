@@ -12,7 +12,7 @@ index 8040268..d2e22b1 100644
 +# set the number of connections ulimited otherwise It is actually not possible
 +# to set it to None or less than 0 since lock.BoundedSemaphore will return an
 +# exception. https://github.com/gwik/geventhttpclient/blob/master/src/geventhttpclient/connectionpool.py#L37
-+concurrency = 100 # arbitrary value since it is not possible to use ulimited.
++concurrency = 1 # arbitrary value since it is not possible to use ulimited.
 +
  class client:
  	"""
