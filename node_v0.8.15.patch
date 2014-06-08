@@ -1,0 +1,59 @@
+--- node-v0.8.15/Makefile	2014-06-08 11:07:38.000000000 +0530
++++ node-v0.8.15/Makefile	2014-06-08 11:22:25.000000000 +0530
+@@ -216,31 +216,9 @@
+ 
+ PKGDIR=out/dist-osx
+ 
+-release-only:
+-	@if [ "$(shell git status --porcelain | egrep -v '^\?\? ')" = "" ]; then \
+-		exit 0 ; \
+-	else \
+-	  echo "" >&2 ; \
+-		echo "The git repository is not clean." >&2 ; \
+-		echo "Please commit changes before building release tarball." >&2 ; \
+-		echo "" >&2 ; \
+-		git status --porcelain | egrep -v '^\?\?' >&2 ; \
+-		echo "" >&2 ; \
+-		exit 1 ; \
+-	fi
+-	@if [ "$(RELEASE)" = "1" ]; then \
+-		exit 0; \
+-	else \
+-	  echo "" >&2 ; \
+-		echo "#NODE_VERSION_IS_RELEASE is set to $(RELEASE)." >&2 ; \
+-	  echo "Did you remember to update src/node_version.cc?" >&2 ; \
+-	  echo "" >&2 ; \
+-		exit 1 ; \
+-	fi
+-
+ pkg: $(PKG)
+ 
+-$(PKG): release-only
++$(PKG):
+ 	rm -rf $(PKGDIR)
+ 	rm -rf out/deps out/Release
+ 	./configure --prefix=$(PKGDIR)/32/usr/local --without-snapshot --dest-cpu=ia32
+@@ -261,7 +239,7 @@
+ 		--out $(PKG)
+ 	SIGN="$(SIGN)" PKG="$(PKG)" bash tools/osx-productsign.sh
+ 
+-$(TARBALL): release-only node doc
++$(TARBALL): node doc
+ 	git archive --format=tar --prefix=$(TARNAME)/ HEAD | tar xf -
+ 	mkdir -p $(TARNAME)/doc/api
+ 	cp doc/node.1 $(TARNAME)/doc/node.1
+@@ -275,7 +253,7 @@
+ 
+ tar: $(TARBALL)
+ 
+-$(BINARYTAR): release-only
++$(BINARYTAR): 
+ 	rm -rf $(BINARYNAME)
+ 	rm -rf out/deps out/Release
+ 	./configure --prefix=/ --without-snapshot --dest-cpu=$(DESTCPU)
+@@ -313,4 +291,4 @@
+ 
+ lint: jslint cpplint
+ 
+-.PHONY: lint cpplint jslint bench clean docopen docclean doc dist distclean check uninstall install install-includes install-bin all staticlib dynamiclib test test-all website-upload pkg blog blogclean tar binary release-only
++.PHONY: lint cpplint jslint bench clean docopen docclean doc dist distclean check uninstall install install-includes install-bin all staticlib dynamiclib test test-all website-upload pkg blog blogclean tar binary
