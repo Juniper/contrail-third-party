@@ -626,4 +626,10 @@
     <format>npm</format>
     <md5>6d459246c1c9a614f6503e3a892e4a53</md5>
   </package>
+  <package>
+    <name>node-dir</name>
+    <url>http://registry.npmjs.org/node-dir/-/node-dir-0.1.5.tgz</url>
+    <format>npm</format>
+    <md5>c56d5282783a6d5e6fe99a5cacc1010a</md5>
+  </package>
 </packages>
