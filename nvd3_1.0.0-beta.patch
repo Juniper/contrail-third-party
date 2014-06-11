@@ -105,7 +105,7 @@ diff -Naur old/third_party/nvd3/nv.d3.js new/third_party/nvd3/nv.d3.js
 +    if (x.domain()[0] === x.domain()[1] || y.domain()[0] === y.domain()[1]) singlePoint = true;
 +
 +    if(singlePoint == true) {
-+        minXDomain = x.domain()[0] - x.domain()[0] * 0.01;
++        minXDomain = x.domain()[0] - x.domain()[0] * 0.9;
 +        minYDomain = y.domain()[0] - y.domain()[0] * 0.01;
 +    } else {
 +        if(x.domain()[0] == 0 || Math.abs(xDomainDiff/x.domain()[0]*100) < 5)
@@ -137,7 +137,7 @@ diff -Naur old/third_party/nvd3/nv.d3.js new/third_party/nvd3/nv.d3.js
          x.domain()[0] ?
 -            x.domain([x.domain()[0] - x.domain()[0] * 0.01, x.domain()[1] + x.domain()[1] * 0.01])
 -          : x.domain([-1,1]);
-+            x.domain([minXDomain, x.domain()[1] + x.domain()[1] * 0.01])
++            x.domain([minXDomain, x.domain()[1] + x.domain()[1] * 0.9])
 +          : x.domain([0,1]);
  
 +      //Info:In case of single value,adjust the domain range
