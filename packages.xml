@@ -173,17 +173,6 @@
     </patches>
   </package>
   <package>
-    <name>NodeJS</name>
-    <url>http://nodejs.org/dist/v0.8.15/node-v0.8.15.tar.gz</url>
-    <local-filename>node-v0.8.15.tar.gz</local-filename>
-    <format>tgz</format>
-    <md5>6cb31180b07475db103e694f65e8bb9b</md5>
-    <rename>node-v0.8.15</rename>
-    <patches>
-      <patch strip="0">node_v0.8.15.patch</patch>
-    </patches>
-  </package>
-  <package>
     <name>vijava</name>
     <url>http://sourceforge.net/projects/vijava/files/vijava/VI%20Java%20API%205.5%20Beta/vijava55b20130927src.jar/download</url>
     <local-filename>vijava55b20130927src.jar</local-filename>
