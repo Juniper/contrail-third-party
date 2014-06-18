@@ -86,7 +86,7 @@ def DownloadPackage(url, pkg, md5):
     
     retry_count = 0
     while True:
-        subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url])
+	subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
         md5sum = FindMd5sum(pkg)
         if _OPT_VERBOSE:
             print "Calculated md5sum: %s" % md5sum
