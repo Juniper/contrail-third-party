@@ -626,4 +626,10 @@
     <format>npm</format>
     <md5>6d459246c1c9a614f6503e3a892e4a53</md5>
   </package>
+  <package>
+    <name>protobuf</name>
+    <url>https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.bz2</url>
+    <format>tbz</format>
+    <md5>a72001a9067a4c2c4e0e836d0f92ece4</md5>
+  </package>
 </packages>
