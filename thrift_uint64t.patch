@@ -1,0 +1,50 @@
+diff -crN a/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.cpp b/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.cpp
+*** a/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.cpp	2011-11-26 19:00:41.000000000 +0000
+--- b/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.cpp	2014-07-03 06:02:08.187901128 +0000
+***************
+*** 347,353 ****
+  
+  // TSSLSocketFactory implementation
+  bool     TSSLSocketFactory::initialized = false;
+! uint64_t TSSLSocketFactory::count_ = 0;
+  Mutex    TSSLSocketFactory::mutex_;
+  
+  TSSLSocketFactory::TSSLSocketFactory(): server_(false) {
+--- 347,353 ----
+  
+  // TSSLSocketFactory implementation
+  bool     TSSLSocketFactory::initialized = false;
+! boost::uint64_t TSSLSocketFactory::count_ = 0;
+  Mutex    TSSLSocketFactory::mutex_;
+  
+  TSSLSocketFactory::TSSLSocketFactory(): server_(false) {
+diff -crN a/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.h b/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.h
+*** a/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.h	2011-11-26 19:00:41.000000000 +0000
+--- b/third_party/thrift-0.8.0/lib/cpp/src/transport/TSSLSocket.h	2014-07-03 06:02:41.030816551 +0000
+***************
+*** 21,26 ****
+--- 21,27 ----
+  #define _THRIFT_TRANSPORT_TSSLSOCKET_H_ 1
+  
+  #include <string>
++ #include <boost/cstdint.hpp>
+  #include <boost/shared_ptr.hpp>
+  #include <openssl/ssl.h>
+  #include "concurrency/Mutex.h"
+***************
+*** 207,213 ****
+    boost::shared_ptr<AccessManager> access_;
+    static bool initialized;
+    static concurrency::Mutex mutex_;
+!   static uint64_t count_;
+    void setup(boost::shared_ptr<TSSLSocket> ssl);
+    static int passwordCallback(char* password, int size, int, void* data);
+  };
+--- 208,214 ----
+    boost::shared_ptr<AccessManager> access_;
+    static bool initialized;
+    static concurrency::Mutex mutex_;
+!   static boost::uint64_t count_;
+    void setup(boost::shared_ptr<TSSLSocket> ssl);
+    static int passwordCallback(char* password, int size, int, void* data);
+  };

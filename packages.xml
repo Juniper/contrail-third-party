@@ -98,6 +98,7 @@
     <patches>
       <patch strip="2">thrift_patch1.diff</patch>
       <patch strip="2">thrift_autoconf.patch</patch>
+      <patch strip="2">thrift_uint64t.patch</patch>
     </patches>
     <format>tgz</format>
     <md5>d29dfcd38d476cbc420b6f4d80ab966c</md5>
