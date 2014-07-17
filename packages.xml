@@ -261,11 +261,11 @@
     <md5>f7b87723e700272150f9785de8f03f1c</md5>
   </package>
   <package>
-    <name>jquery.dataTables.min</name>
-    <url>http://datatables.net/download/build/jquery.dataTables.min.js</url>
+    <name>jquery.dataTables.min-1.10.0</name>
+    <url>http://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.0/jquery.dataTables.min.js</url>
     <local-filename>jquery.dataTables.min.js</local-filename>
     <format>file</format>
-    <md5>3b4c0c1835e854ca63e7036a48e2ea73</md5>
+    <md5>e28a848e7f64c9801bfb6d41c3941f76</md5>
   </package>
   <package>
     <name>jquery.min-1.8.3</name>
