@@ -101,6 +101,7 @@
     </patches>
     <format>tgz</format>
     <md5>d29dfcd38d476cbc420b6f4d80ab966c</md5>
+    <autoreconf>true</autoreconf>
   </package>
   <package>
     <name>hiredis boostasio-adapter</name>
