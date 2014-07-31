@@ -102,6 +102,24 @@ def DownloadPackage(url, pkg, md5):
             raise RuntimeError("MD5sum %s, expected(%s) dosen't match for the "
                                "downloaded package %s" % (md5sum, md5, pkg))
 
+
+def ReconfigurePackageSources(path):
+    """Run autoreconf tool from GNU Autotools suite.
+
+    Some packages' Makefile.am files are patched after being dowloaded (like
+    thirf). The configure script has to be regenerated in this case. Since
+    there might be differences in version of aclocal, autoconf and automake
+    tools used while preparing the package's sources and those present on the
+    installation host, autoreconf should be run on the pathed sources before
+    running configure && make && make install commands.
+    """
+    proc = subprocess.Popen(['autoreconf', '--force', '--install'],
+                            cwd=path)
+    ret = proc.wait()
+    if ret is not 0:
+        sys.exit('Terminating: autoreconf returned with error code: %d', ret)
+
+
 def ProcessPackage(pkg):
     print "Processing %s ..." % (pkg['name'])
     url = str(pkg['url'])
@@ -197,8 +215,13 @@ def ProcessPackage(pkg):
 
     if rename and dest:
         os.rename(dest, str(rename))
+        dest = str(rename)
 
     ApplyPatches(pkg)
+
+    autoreconf = pkg.find('autoreconf')
+    if autoreconf and str(autoreconf).lower() == 'true':
+        ReconfigurePackageSources(dest)
 
 def FindMd5sum(anyfile):
     # MD5 command is different on FreeBSD systems
