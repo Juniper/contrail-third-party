@@ -83,7 +83,7 @@ def DownloadPackage(url, pkg, md5):
             return
         else:
             os.remove(pkg)
-    
+
     retry_count = 0
     while True:
 	subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
@@ -201,8 +201,10 @@ def ProcessPackage(pkg):
     ApplyPatches(pkg)
 
 def FindMd5sum(anyfile):
-    if sys.platform == 'darwin':
-        cmd = ['md5', '-r']
+    # MD5 command is different on FreeBSD systems
+    if sys.platform.startswith('freebsd'):
+        cmd = ['md5']
+        cmd.append('-q')
     else:
         cmd = ['md5sum']
     cmd.append(anyfile)
