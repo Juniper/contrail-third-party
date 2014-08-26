@@ -4,6 +4,7 @@
 #
 import os
 import errno
+import platform
 import re
 import shutil
 import subprocess
@@ -119,8 +120,46 @@ def ReconfigurePackageSources(path):
     if ret is not 0:
         sys.exit('Terminating: autoreconf returned with error code: %d', ret)
 
+def PlatformInfo():
+    (distname, version, _) = platform.dist()
+    return (distname.lower(), version)
+
+def PlatformMatch(system, spec):
+    if system[0] != spec[0]:
+        return False
+    version = float(system[1])
+    v_str = str(spec[1])
+    if v_str.find('+'):
+        v_cmp = float(v_str[:-1])
+        return version >= v_cmp
+    elif v_str.find('-'):
+        v_cmp = float(v_str[1:])
+        return version <= v_cmp
+    else:
+        v_cmp = float(v_str)
+        return version == v_cmp
+    return False
+    
+def PlatformRequires(pkg):
+    platform = pkg.find('platform')
+    if platform is None:
+        return True
+
+    info = PlatformInfo()
+
+    exclude = platform.find('exclude')
+    for distro in exclude.iterchildren('distribution'):
+        name = distro.find('name')
+        version = distro.find('version')
+        if PlatformMatch(info, (name, version)):
+            return False
+
+    return True
 
 def ProcessPackage(pkg):
+    if not PlatformRequires(pkg):
+        return
+
     print "Processing %s ..." % (pkg['name'])
     url = str(pkg['url'])
     filename = getFilename(pkg, url)

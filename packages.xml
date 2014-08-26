@@ -26,6 +26,14 @@
       <patch strip="0">boost_time_utc.patch</patch>
       <patch strip="1">boost_1_48_patch4.diff</patch>
     </patches>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>curl 7.24</name>
