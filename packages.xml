@@ -210,4 +210,22 @@
       <patch strip="2">vijava_patch1.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>redis-server</name>
+    <url>http://us.archive.ubuntu.com/ubuntu/pool/universe/r/redis/redis-server_2.6.13-1_amd64.deb</url>
+    <format>file</format>
+    <md5>b860b9cb5558ca6bac3e70547766db59</md5>
+  </package>
+  <package>
+    <name>zookeeper</name>
+    <url>http://apache.mirrors.hoobly.com/zookeeper/stable/zookeeper-3.4.6.tar.gz</url>
+    <format>tgz</format>
+    <md5>971c379ba65714fd25dc5fe8f14e9ad1</md5>
+  </package>
+  <package>
+    <name>ncclient</name>
+    <url>https://code.grnet.gr/attachments/download/1172/ncclient-v0.3.2.tar.gz</url>
+    <format>file</format>
+    <md5>5e2912270ed3b5c534b97702f41f56ed</md5>
+  </package>
 </packages>
