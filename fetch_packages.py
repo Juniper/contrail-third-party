@@ -10,15 +10,30 @@ import shutil
 import subprocess
 import sys
 from time import sleep
+import argparse
+from lxml import objectify
+
+parser = argparse.ArgumentParser()
+inputfile = None
+destdir =  None
+parser.add_argument("--file", dest="filename",default="packages.xml",
+                      help="read data from FILENAME")
+parser.add_argument("--dir", dest="dirname",
+                      help="dir ")
+args = parser.parse_args()
+inputfile=args.filename
+destdir=args.dirname
+
+if destdir:
+    _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/'+destdir
+else:
+    _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
 
 _RETRIES = 5
 _OPT_VERBOSE = None
 _OPT_DRY_RUN = None
-_PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
 _NODE_MODULES='./node_modules'
 _TMP_NODE_MODULES=_PACKAGE_CACHE + '/' + _NODE_MODULES
-
-from lxml import objectify
 
 def getFilename(pkg, url):
     element = pkg.find("local-filename")
@@ -290,4 +305,4 @@ if __name__ == '__main__':
     except OSError:
         pass
 
-    main('packages.xml')
+    main(inputfile)
