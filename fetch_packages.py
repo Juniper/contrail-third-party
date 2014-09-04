@@ -291,3 +291,5 @@ if __name__ == '__main__':
         pass
 
     main('packages.xml')
+    if sys.platform.startswith('freebsd'):
+        main('freebsd.xml')

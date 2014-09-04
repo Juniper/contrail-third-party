@@ -1,0 +1,24 @@
+<packages>
+  <!--
+    Tags:
+        name    : Specify name of the package.
+        url     : URL to download the package.
+        format  : Format of the downloaded file.
+                  If format is set as 'file', then after downloading the
+                  file, same file gets renamed (if rename tag is specfied) and
+                  copied to currect directory, else based on the format, the
+                  zipped file gets extracted and gets copied in current directory
+        md5     : md5 checksum to compare, against the md5 checksum of the
+                  downloaded file
+        rename  : Rename the directory/downloaded file to this.
+        patches : Specify the patch files which will be applied on the files once
+                  download and copy to currect directory is complete.
+  -->
+  <package>
+    <name>ICU - International Components for Unicode</name>
+    <url>http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
+    <format>tgz</format>
+    <md5>9e96ed4c1d99c0d14ac03c140f9f346c</md5>
+  </package>
+</packages>
+
