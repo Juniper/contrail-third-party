@@ -10,15 +10,16 @@ import shutil
 import subprocess
 import sys
 from time import sleep
+import argparse
+from lxml import objectify
+
 
 _RETRIES = 5
 _OPT_VERBOSE = None
 _OPT_DRY_RUN = None
-_PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
 _NODE_MODULES='./node_modules'
-_TMP_NODE_MODULES=_PACKAGE_CACHE + '/' + _NODE_MODULES
-
-from lxml import objectify
+_PACKAGE_CACHE = None
+_TMP_NODE_MODULES = None
 
 def getFilename(pkg, url):
     element = pkg.find("local-filename")
@@ -275,6 +276,17 @@ def FindMd5sum(anyfile):
     md5sum = stdout.split()[0]
     return md5sum
 
+def _parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", dest="filename",default="packages.xml",
+                      help="read data from FILENAME")
+    parser.add_argument("--dir", dest="dirname",
+                      help="dir ")
+    args = parser.parse_args()
+    inputfile=args.filename
+    destdir=args.dirname
+    return inputfile,destdir
+
 def main(filename):
     tree = objectify.parse(filename)
     root = tree.getroot()
@@ -286,8 +298,14 @@ def main(filename):
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
     try:
+        (inputfile,destdir)=_parse_args()
+        if destdir:
+           _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/'+destdir
+        else:
+           _PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
+        _TMP_NODE_MODULES=_PACKAGE_CACHE + '/' + _NODE_MODULES
         os.makedirs(_PACKAGE_CACHE)
     except OSError:
         pass
 
-    main('packages.xml')
+    main(inputfile)
