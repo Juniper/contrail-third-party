@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 from time import sleep
+from distutils.spawn import find_executable
 
 _RETRIES = 5
 _OPT_VERBOSE = None
@@ -124,21 +125,24 @@ def PlatformInfo():
     (distname, version, _) = platform.dist()
     return (distname.lower(), version)
 
+def VersionMatch(v_sys, v_spec):
+    from distutils.version import LooseVersion
+    """
+    Returns True if the system version matches the specified version.
+       version_spec := -version | version | version+
+       version := [0-9]+(\.[0-9]+)*
+    """
+    if v_spec.find('+') >= 0:
+        return LooseVersion(v_sys) >= LooseVersion(v_spec[:-1])
+    elif v_spec.find('-') >= 0:
+        return LooseVersion(v_sys) <= LooseVersion(v_spec[1:])
+    else:
+        return LooseVersion(v_sys) == LooseVersion(v_spec)
+
 def PlatformMatch(system, spec):
     if system[0] != spec[0]:
         return False
-    version = float(system[1])
-    v_str = str(spec[1])
-    if v_str.find('+'):
-        v_cmp = float(v_str[:-1])
-        return version >= v_cmp
-    elif v_str.find('-'):
-        v_cmp = float(v_str[1:])
-        return version <= v_cmp
-    else:
-        v_cmp = float(v_str)
-        return version == v_cmp
-    return False
+    return VersionMatch(str(system[1]), str(spec[1]))
     
 def PlatformRequires(pkg):
     platform = pkg.find('platform')
@@ -284,6 +288,20 @@ def main(filename):
             ProcessPackage(object)
 
 if __name__ == '__main__':
+    dependencies = [
+        'autoconf',
+        'automake',
+        'bzip2',
+        'libtool',
+        'patch',
+        'unzip',
+        'wget',
+    ]
+    for exc in dependencies:
+        if not find_executable(exc):
+            print 'Please install %s' % exc
+            sys.exit(1)
+
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
     try:
         os.makedirs(_PACKAGE_CACHE)
