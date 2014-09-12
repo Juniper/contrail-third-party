@@ -11,6 +11,7 @@ import subprocess
 import sys
 from time import sleep
 from distutils.spawn import find_executable
+import argparse
 
 _RETRIES = 5
 _OPT_VERBOSE = None
@@ -279,6 +280,12 @@ def FindMd5sum(anyfile):
     md5sum = stdout.split()[0]
     return md5sum
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", dest="filename",default="packages.xml",
+                      help="read data from FILENAME")
+    return parser.parse_args()
+
 def main(filename):
     tree = objectify.parse(filename)
     root = tree.getroot()
@@ -302,10 +309,12 @@ if __name__ == '__main__':
             print 'Please install %s' % exc
             sys.exit(1)
 
+    args = parse_args()
+
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
     try:
         os.makedirs(_PACKAGE_CACHE)
     except OSError:
         pass
 
-    main('packages.xml')
+    main(args.filename)
