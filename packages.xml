@@ -260,6 +260,7 @@
     <md5>44b9d1feb11de09811160775f94c2554</md5>
     <patches>
       <patch strip="2">bind_patch1.diff</patch>
+      <patch strip="1">bind_patch2.diff</patch>
     </patches>
   </package>
   <package>
