@@ -184,17 +184,6 @@
     </patches>
   </package>
   <package>
-    <name>NodeJS</name>
-    <url>http://nodejs.org/dist/v0.8.15/node-v0.8.15.tar.gz</url>
-    <local-filename>node-v0.8.15.tar.gz</local-filename>
-    <format>tgz</format>
-    <md5>6cb31180b07475db103e694f65e8bb9b</md5>
-    <rename>node-v0.8.15</rename>
-    <patches>
-      <patch strip="0">node_v0.8.15.patch</patch>
-    </patches>
-  </package>
-  <package>
     <name>ICU - International Components for Unicode</name>
     <url>http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
     <format>tgz</format>
