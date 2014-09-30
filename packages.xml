@@ -32,6 +32,10 @@
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
 	</distribution>
+	<distribution>
+	  <name>centos</name>
+	  <version>7.0+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -48,6 +52,10 @@
 	<distribution>
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
+	</distribution>
+	<distribution>
+	  <name>centos</name>
+	  <version>7.0+</version>
 	</distribution>
       </exclude>
     </platform>
@@ -138,6 +146,10 @@
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
 	</distribution>
+	<distribution>
+	  <name>centos</name>
+	  <version>7.0+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -225,6 +237,10 @@
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
 	</distribution>
+	<distribution>
+	  <name>centos</name>
+	  <version>7.0+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -257,6 +273,10 @@
 	<distribution>
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
+	</distribution>
+	<distribution>
+	  <name>centos</name>
+	  <version>7.0+</version>
 	</distribution>
       </exclude>
     </platform>
