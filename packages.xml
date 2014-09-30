@@ -195,6 +195,12 @@
     </patches>
   </package>
   <package>
+    <name>ICU - International Components for Unicode</name>
+    <url>http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
+    <format>tgz</format>
+    <md5>9e96ed4c1d99c0d14ac03c140f9f346c</md5>
+  </package>
+  <package>
     <name>vijava</name>
     <url>http://sourceforge.net/projects/vijava/files/vijava/VI%20Java%20API%205.5%20Beta/vijava55b20130927src.jar/download</url>
     <local-filename>vijava55b20130927src.jar</local-filename>
