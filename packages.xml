@@ -43,6 +43,14 @@
     <patches>
       <patch strip="2">curl-7.24.0_patch1.diff</patch>
     </patches>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>Google C++ Testing Framework 1.6.0</name>
@@ -52,18 +60,42 @@
     </patches>
     <format>zip</format>
     <md5>4577b49f2973c90bf9ba69aa8166b786</md5>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>Google C++ Mocking Framework 1.6.0</name>
     <url>http://googlemock.googlecode.com/files/gmock-1.6.0.zip</url>
     <format>zip</format>
     <md5>f547f47321ca88d3965ca2efdcc2a3c1</md5>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>Google perftools</name>
     <url>http://gperftools.googlecode.com/files/gperftools-2.1.tar.gz</url>
     <format>tgz</format>
     <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>Minimalistic C client for Redis v0.11</name>
@@ -83,6 +115,14 @@
     <patches>
       <patch strip="2">log4cplus-1.1.1_patch1.diff</patch>
     </patches>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>Thread Building Blocks 4.0 Update 2</name>
@@ -92,6 +132,14 @@
     <patches>
       <patch strip="2">tbb40_20111130oss_patch1.diff</patch>
     </patches>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>Pugi XML 1.2</name>
@@ -151,6 +199,14 @@
     <patches>
       <patch strip="2">bottle_patch1.diff</patch>
     </patches>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>pYthOn Finite State Machine</name>
@@ -163,6 +219,14 @@
     <url>http://xmlsoft.org/sources/libxml2-2.8.0.tar.gz</url>
     <format>tgz</format>
     <md5>c62106f02ee00b6437f0fb9d370c1093</md5>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>JSON parser/generator for C++</name>
@@ -188,6 +252,14 @@
     <url>http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
     <format>tgz</format>
     <md5>9e96ed4c1d99c0d14ac03c140f9f346c</md5>
+    <platform>
+      <exclude>
+	<distribution>
+	  <name>ubuntu</name>
+	  <version>14.04+</version>
+	</distribution>
+      </exclude>
+    </platform>
   </package>
   <package>
     <name>vijava</name>
