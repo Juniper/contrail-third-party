@@ -292,4 +292,12 @@
       <patch strip="2">vijava_patch1.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>libipfix</name>
+    <url>http://sourceforge.net/projects/libipfix/files/libipfix/libipfix-arrabiata-release/libipfix
+_releases-arrabiata_100224.tgz/download</url>
+    <local-filename>libipfix_releases-arrabiata_100224.tgz</local-filename>
+    <format>tgz</format>
+    <md5>d63c9f1a27a75a4158aa6941f2c58c7f</md5>
+  </package>
 </packages>
