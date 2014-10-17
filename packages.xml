@@ -292,4 +292,14 @@
       <patch strip="2">vijava_patch1.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>Open vSwitch version 2.3.0</name>
+    <url>http://openvswitch.org/releases/openvswitch-2.3.0.tar.gz</url>
+    <local-filename>openvswitch-2.3.0.tar.gz</local-filename>
+    <format>tgz</format>
+    <md5>9c4d1471a56718132e0157af1bfc9310</md5>
+    <patches>
+      <patch strip="1">openvswitch.diff</patch>
+    </patches>
+  </package>
 </packages>

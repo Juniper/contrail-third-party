@@ -1,0 +1,511 @@
+diff --git a/openvswitch-2.3.0/lib/ovsdb-idl.c b/openvswitch-2.3.0/lib/ovsdb-idl.c
+--- a/openvswitch-2.3.0/lib/ovsdb-idl.c
++++ b/openvswitch-2.3.0/lib/ovsdb-idl.c
+@@ -90,6 +90,12 @@ struct ovsdb_idl {
+     /* Transaction support. */
+     struct ovsdb_idl_txn *txn;
+     struct hmap outstanding_txns;
++
++#ifdef OPEN_CONTRAIL_CLIENT
++    void *open_contrail_client;
++    idl_callback cb;
++    txn_ack_callback ack_cb;
++#endif
+ };
+ 
+ struct ovsdb_idl_txn {
+@@ -192,7 +198,12 @@ ovsdb_idl_create(const char *remote, con
+ 
+     idl = xzalloc(sizeof *idl);
+     idl->class = class;
++#ifndef OPEN_CONTRAIL_CLIENT
+     idl->session = jsonrpc_session_open(remote, retry);
++#else
++    ovs_assert(remote == NULL);
++    idl->cb = NULL;
++#endif
+     shash_init(&idl->table_by_name);
+     idl->tables = xmalloc(class->n_tables * sizeof *idl->tables);
+     for (i = 0; i < class->n_tables; i++) {
+@@ -229,7 +240,9 @@ ovsdb_idl_destroy(struct ovsdb_idl *idl)
+ 
+         ovs_assert(!idl->txn);
+         ovsdb_idl_clear(idl);
++#ifndef OPEN_CONTRAIL_CLIENT
+         jsonrpc_session_close(idl->session);
++#endif
+ 
+         for (i = 0; i < idl->class->n_tables; i++) {
+             struct ovsdb_idl_table *table = &idl->tables[i];
+@@ -286,6 +299,7 @@ ovsdb_idl_clear(struct ovsdb_idl *idl)
+ /* Processes a batch of messages from the database server on 'idl'.  This may
+  * cause the IDL's contents to change.  The client may check for that with
+  * ovsdb_idl_get_seqno(). */
++#ifndef OPEN_CONTRAIL_CLIENT
+ void
+ ovsdb_idl_run(struct ovsdb_idl *idl)
+ {
+@@ -313,6 +327,32 @@ ovsdb_idl_run(struct ovsdb_idl *idl)
+             break;
+         }
+ 
++#else
++void
++ovsdb_idl_set_callback(struct ovsdb_idl *idl, void *idl_base, idl_callback i_cb,
++        txn_ack_callback ack_cb)
++{
++    idl->open_contrail_client = idl_base;
++    idl->cb = i_cb;
++    idl->ack_cb = ack_cb;
++}
++
++bool
++ovsdb_idl_is_txn_success(struct ovsdb_idl_txn *txn)
++{
++    return (txn->status == TXN_SUCCESS);
++}
++
++void
++ovsdb_idl_run(struct ovsdb_idl *idl)
++{
++}
++
++void
++ovsdb_idl_msg_process(struct ovsdb_idl *idl, struct jsonrpc_msg *msg)
++{
++#endif
++
+         if (msg->type == JSONRPC_NOTIFY
+             && !strcmp(msg->method, "update")
+             && msg->params->type == JSON_ARRAY
+@@ -355,7 +395,9 @@ ovsdb_idl_run(struct ovsdb_idl *idl)
+                      jsonrpc_msg_type_to_string(msg->type));
+         }
+         jsonrpc_msg_destroy(msg);
++#ifndef OPEN_CONTRAIL_CLIENT
+     }
++#endif
+ }
+ 
+ /* Arranges for poll_block() to wake up when ovsdb_idl_run() has something to
+@@ -550,9 +592,19 @@ ovsdb_idl_omit(struct ovsdb_idl *idl, co
+     *ovsdb_idl_get_mode(idl, column) = 0;
+ }
+ 
++#ifndef OPEN_CONTRAIL_CLIENT
++static void
++ovsdb_idl_send_monitor_request(struct ovsdb_idl *idl)
++#else
+ static void
+ ovsdb_idl_send_monitor_request(struct ovsdb_idl *idl)
+ {
++}
++
++struct jsonrpc_msg *
++ovsdb_idl_encode_monitor_request(struct ovsdb_idl *idl)
++#endif
++{
+     struct json *monitor_requests;
+     struct jsonrpc_msg *msg;
+     size_t i;
+@@ -588,7 +640,11 @@ ovsdb_idl_send_monitor_request(struct ov
+         json_array_create_3(json_string_create(idl->class->database),
+                             json_null_create(), monitor_requests),
+         &idl->monitor_request_id);
++#ifndef OPEN_CONTRAIL_CLIENT
+     jsonrpc_session_send(idl->session, msg);
++#else
++    return msg;
++#endif
+ }
+ 
+ static void
+@@ -936,6 +992,10 @@ ovsdb_idl_row_reparse_backrefs(struct ov
+     LIST_FOR_EACH_SAFE (arc, next, dst_node, &row->dst_arcs) {
+         struct ovsdb_idl_row *ref = arc->src;
+ 
++#ifdef OPEN_CONTRAIL_CLIENT
++        if (row->table->idl->cb)
++            row->table->idl->cb(ref->table->idl->open_contrail_client, 1, ref);
++#endif
+         ovsdb_idl_row_unparse(ref);
+         ovsdb_idl_row_clear_arcs(ref, false);
+         ovsdb_idl_row_parse(ref);
+@@ -988,11 +1048,19 @@ ovsdb_idl_insert_row(struct ovsdb_idl_ro
+     ovsdb_idl_row_parse(row);
+ 
+     ovsdb_idl_row_reparse_backrefs(row);
++#ifdef OPEN_CONTRAIL_CLIENT
++    if (row->table->idl->cb)
++        row->table->idl->cb(row->table->idl->open_contrail_client, 1, row);
++#endif
+ }
+ 
+ static void
+ ovsdb_idl_delete_row(struct ovsdb_idl_row *row)
+ {
++#ifdef OPEN_CONTRAIL_CLIENT
++    if (row->table->idl->cb)
++        row->table->idl->cb(row->table->idl->open_contrail_client, 0, row);
++#endif
+     ovsdb_idl_row_unparse(row);
+     ovsdb_idl_row_clear_arcs(row, true);
+     ovsdb_idl_row_clear_old(row);
+@@ -1015,6 +1083,10 @@ ovsdb_idl_modify_row(struct ovsdb_idl_ro
+     changed = ovsdb_idl_row_update(row, row_json);
+     ovsdb_idl_row_parse(row);
+ 
++#ifdef OPEN_CONTRAIL_CLIENT
++    if (row->table->idl->cb)
++        row->table->idl->cb(row->table->idl->open_contrail_client, 1, row);
++#endif
+     return changed;
+ }
+ 
+@@ -1526,9 +1598,22 @@ ovsdb_idl_txn_disassemble(struct ovsdb_i
+  * IDL's copy of the database.  If the transaction commits successfully, then
+  * the database server will send an update and, thus, the IDL will be updated
+  * with the committed changes. */
++#ifndef OPEN_CONTRAIL_CLIENT
++enum ovsdb_idl_txn_status
++ovsdb_idl_txn_commit(struct ovsdb_idl_txn *txn)
++{
++#else
+ enum ovsdb_idl_txn_status
+ ovsdb_idl_txn_commit(struct ovsdb_idl_txn *txn)
+ {
++    return TXN_SUCCESS;
++}
++
++struct jsonrpc_msg *
++ovsdb_idl_txn_encode(struct ovsdb_idl_txn *txn)
++{
++    struct jsonrpc_msg *msg;
++#endif
+     struct ovsdb_idl_row *row;
+     struct json *operations;
+     bool any_updates;
+@@ -1713,6 +1798,7 @@ ovsdb_idl_txn_commit(struct ovsdb_idl_tx
+     if (!any_updates) {
+         txn->status = TXN_UNCHANGED;
+         json_destroy(operations);
++#ifndef OPEN_CONTRAIL_CLIENT
+     } else if (!jsonrpc_session_send(
+                    txn->idl->session,
+                    jsonrpc_create_request(
+@@ -1722,6 +1808,14 @@ ovsdb_idl_txn_commit(struct ovsdb_idl_tx
+         txn->status = TXN_INCOMPLETE;
+     } else {
+         txn->status = TXN_TRY_AGAIN;
++#else
++        msg = NULL;
++    } else {
++        msg = jsonrpc_create_request("transact", operations, &txn->request_id);
++        hmap_insert(&txn->idl->outstanding_txns, &txn->hmap_node,
++                    json_hash(txn->request_id, 0));
++        txn->status = TXN_INCOMPLETE;
++#endif
+     }
+ 
+ disassemble_out:
+@@ -1738,7 +1832,11 @@ coverage_out:
+     case TXN_ERROR:         COVERAGE_INC(txn_error);          break;
+     }
+ 
++#ifndef OPEN_CONTRAIL_CLIENT
+     return txn->status;
++#else
++    return msg;
++#endif
+ }
+ 
+ /* Attempts to commit 'txn', blocking until the commit either succeeds or
+@@ -1847,6 +1945,10 @@ ovsdb_idl_txn_complete(struct ovsdb_idl_
+ {
+     txn->status = status;
+     hmap_remove(&txn->idl->outstanding_txns, &txn->hmap_node);
++#ifdef OPEN_CONTRAIL_CLIENT
++    if (txn->idl->ack_cb)
++        txn->idl->ack_cb(txn->idl->open_contrail_client, txn);
++#endif
+ }
+ 
+ /* Writes 'datum' to the specified 'column' in 'row_'.  Updates both 'row_'
+diff --git a/openvswitch-2.3.0/lib/ovsdb-idl.h b/openvswitch-2.3.0/lib/ovsdb-idl.h
+--- a/openvswitch-2.3.0/lib/ovsdb-idl.h
++++ b/openvswitch-2.3.0/lib/ovsdb-idl.h
+@@ -41,6 +41,14 @@ struct ovsdb_idl_class;
+ struct ovsdb_idl_column;
+ struct ovsdb_idl_table_class;
+ struct uuid;
++#ifdef OPEN_CONTRAIL_CLIENT
++struct ovsdb_idl_row;
++struct ovsdb_idl_txn;
++
++typedef void (*idl_callback)(void *, int, struct ovsdb_idl_row *);
++typedef void (*txn_ack_callback)(void *, struct ovsdb_idl_txn *);
++bool ovsdb_idl_is_txn_success(struct ovsdb_idl_txn *);
++#endif
+ 
+ struct ovsdb_idl *ovsdb_idl_create(const char *remote,
+                                    const struct ovsdb_idl_class *,
+diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
+--- a/openvswitch-2.3.0/lib/vtep-idl.c
++++ b/openvswitch-2.3.0/lib/vtep-idl.c
+@@ -3636,7 +3636,9 @@ void
+ vteprec_physical_port_verify_port_fault_status(const struct vteprec_physical_port *row)
+ {
+     ovs_assert(inited);
++#ifndef OPEN_CONTRAIL_CLIENT
+     ovsdb_idl_txn_verify(&row->header_, &vteprec_physical_port_columns[VTEPREC_PHYSICAL_PORT_COL_PORT_FAULT_STATUS]);
++#endif
+ }
+ 
+ void
+@@ -3719,7 +3721,11 @@ vteprec_physical_port_get_port_fault_sta
+ 	enum ovsdb_atomic_type key_type OVS_UNUSED)
+ {
+     ovs_assert(key_type == OVSDB_TYPE_STRING);
++#ifndef OPEN_CONTRAIL_CLIENT
+     return ovsdb_idl_read(&row->header_, &vteprec_physical_port_col_port_fault_status);
++#else
++    return NULL;
++#endif
+ }
+ 
+ /* Returns the vlan_bindings column's value in 'row' as a struct ovsdb_datum.
+@@ -3816,7 +3822,9 @@ vteprec_physical_port_set_port_fault_sta
+         datum.keys[i].string = xstrdup(port_fault_status[i]);
+     }
+     ovsdb_datum_sort_unique(&datum, OVSDB_TYPE_STRING, OVSDB_TYPE_VOID);
++#ifndef OPEN_CONTRAIL_CLIENT
+     ovsdb_idl_txn_write(&row->header_, &vteprec_physical_port_columns[VTEPREC_PHYSICAL_PORT_COL_PORT_FAULT_STATUS], &datum);
++#endif
+ }
+ 
+ void
+@@ -3886,6 +3894,7 @@ vteprec_physical_port_columns_init(void)
+     c->parse = vteprec_physical_port_parse_name;
+     c->unparse = vteprec_physical_port_unparse_name;
+ 
++#ifndef OPEN_CONTRAIL_CLIENT
+     /* Initialize vteprec_physical_port_col_port_fault_status. */
+     c = &vteprec_physical_port_col_port_fault_status;
+     c->name = "port_fault_status";
+@@ -3897,6 +3906,7 @@ vteprec_physical_port_columns_init(void)
+     c->mutable = true;
+     c->parse = vteprec_physical_port_parse_port_fault_status;
+     c->unparse = vteprec_physical_port_unparse_port_fault_status;
++#endif
+ 
+     /* Initialize vteprec_physical_port_col_vlan_bindings. */
+     c = &vteprec_physical_port_col_vlan_bindings;
+@@ -4185,7 +4195,9 @@ void
+ vteprec_physical_switch_verify_switch_fault_status(const struct vteprec_physical_switch *row)
+ {
+     ovs_assert(inited);
++#ifndef OPEN_CONTRAIL_CLIENT
+     ovsdb_idl_txn_verify(&row->header_, &vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_SWITCH_FAULT_STATUS]);
++#endif
+ }
+ 
+ void
+@@ -4199,7 +4211,9 @@ void
+ vteprec_physical_switch_verify_tunnels(const struct vteprec_physical_switch *row)
+ {
+     ovs_assert(inited);
++#ifndef OPEN_CONTRAIL_CLIENT
+     ovsdb_idl_txn_verify(&row->header_, &vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_TUNNELS]);
++#endif
+ }
+ 
+ /* Returns the description column's value in 'row' as a struct ovsdb_datum.
+@@ -4314,7 +4328,11 @@ vteprec_physical_switch_get_switch_fault
+ 	enum ovsdb_atomic_type key_type OVS_UNUSED)
+ {
+     ovs_assert(key_type == OVSDB_TYPE_STRING);
++#ifndef OPEN_CONTRAIL_CLIENT
+     return ovsdb_idl_read(&row->header_, &vteprec_physical_switch_col_switch_fault_status);
++#else
++    return NULL;
++#endif
+ }
+ 
+ /* Returns the tunnel_ips column's value in 'row' as a struct ovsdb_datum.
+@@ -4360,7 +4378,11 @@ vteprec_physical_switch_get_tunnels(cons
+ 	enum ovsdb_atomic_type key_type OVS_UNUSED)
+ {
+     ovs_assert(key_type == OVSDB_TYPE_UUID);
++#ifndef OPEN_CONTRAIL_CLIENT
+     return ovsdb_idl_read(&row->header_, &vteprec_physical_switch_col_tunnels);
++#else
++    return NULL;
++#endif
+ }
+ 
+ void
+@@ -4439,7 +4461,9 @@ vteprec_physical_switch_set_switch_fault
+         datum.keys[i].string = xstrdup(switch_fault_status[i]);
+     }
+     ovsdb_datum_sort_unique(&datum, OVSDB_TYPE_STRING, OVSDB_TYPE_VOID);
++#ifndef OPEN_CONTRAIL_CLIENT
+     ovsdb_idl_txn_write(&row->header_, &vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_SWITCH_FAULT_STATUS], &datum);
++#endif
+ }
+ 
+ void
+@@ -4473,7 +4497,9 @@ vteprec_physical_switch_set_tunnels(cons
+         datum.keys[i].uuid = tunnels[i]->header_.uuid;
+     }
+     ovsdb_datum_sort_unique(&datum, OVSDB_TYPE_UUID, OVSDB_TYPE_VOID);
++#ifndef OPEN_CONTRAIL_CLIENT
+     ovsdb_idl_txn_write(&row->header_, &vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_TUNNELS], &datum);
++#endif
+ }
+ 
+ struct ovsdb_idl_column vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_N_COLUMNS];
+@@ -4532,6 +4558,7 @@ vteprec_physical_switch_columns_init(voi
+     c->parse = vteprec_physical_switch_parse_ports;
+     c->unparse = vteprec_physical_switch_unparse_ports;
+ 
++#ifndef OPEN_CONTRAIL_CLIENT
+     /* Initialize vteprec_physical_switch_col_switch_fault_status. */
+     c = &vteprec_physical_switch_col_switch_fault_status;
+     c->name = "switch_fault_status";
+@@ -4543,6 +4570,7 @@ vteprec_physical_switch_columns_init(voi
+     c->mutable = true;
+     c->parse = vteprec_physical_switch_parse_switch_fault_status;
+     c->unparse = vteprec_physical_switch_unparse_switch_fault_status;
++#endif
+ 
+     /* Initialize vteprec_physical_switch_col_tunnel_ips. */
+     c = &vteprec_physical_switch_col_tunnel_ips;
+@@ -4556,6 +4584,7 @@ vteprec_physical_switch_columns_init(voi
+     c->parse = vteprec_physical_switch_parse_tunnel_ips;
+     c->unparse = vteprec_physical_switch_unparse_tunnel_ips;
+ 
++#ifndef OPEN_CONTRAIL_CLIENT
+     /* Initialize vteprec_physical_switch_col_tunnels. */
+     c = &vteprec_physical_switch_col_tunnels;
+     c->name = "tunnels";
+@@ -4568,6 +4597,7 @@ vteprec_physical_switch_columns_init(voi
+     c->mutable = true;
+     c->parse = vteprec_physical_switch_parse_tunnels;
+     c->unparse = vteprec_physical_switch_unparse_tunnels;
++#endif
+ }
+ 
+ /* Tunnel table. */
+@@ -5890,12 +5920,6 @@ vteprec_ucast_macs_remote_columns_init(v
+ }
+ 
+ struct ovsdb_idl_table_class vteprec_table_classes[VTEPREC_N_TABLES] = {
+-    {"Arp_Sources_Local", true,
+-     vteprec_arp_sources_local_columns, ARRAY_SIZE(vteprec_arp_sources_local_columns),
+-     sizeof(struct vteprec_arp_sources_local), vteprec_arp_sources_local_init__},
+-    {"Arp_Sources_Remote", true,
+-     vteprec_arp_sources_remote_columns, ARRAY_SIZE(vteprec_arp_sources_remote_columns),
+-     sizeof(struct vteprec_arp_sources_remote), vteprec_arp_sources_remote_init__},
+     {"Global", true,
+      vteprec_global_columns, ARRAY_SIZE(vteprec_global_columns),
+      sizeof(struct vteprec_global), vteprec_global_init__},
+@@ -5929,15 +5953,23 @@ struct ovsdb_idl_table_class vteprec_tab
+     {"Physical_Switch", false,
+      vteprec_physical_switch_columns, ARRAY_SIZE(vteprec_physical_switch_columns),
+      sizeof(struct vteprec_physical_switch), vteprec_physical_switch_init__},
+-    {"Tunnel", false,
+-     vteprec_tunnel_columns, ARRAY_SIZE(vteprec_tunnel_columns),
+-     sizeof(struct vteprec_tunnel), vteprec_tunnel_init__},
+     {"Ucast_Macs_Local", true,
+      vteprec_ucast_macs_local_columns, ARRAY_SIZE(vteprec_ucast_macs_local_columns),
+      sizeof(struct vteprec_ucast_macs_local), vteprec_ucast_macs_local_init__},
+     {"Ucast_Macs_Remote", true,
+      vteprec_ucast_macs_remote_columns, ARRAY_SIZE(vteprec_ucast_macs_remote_columns),
+      sizeof(struct vteprec_ucast_macs_remote), vteprec_ucast_macs_remote_init__},
++#ifndef OPEN_CONTRAIL_CLIENT
++    {"Arp_Sources_Local", true,
++     vteprec_arp_sources_local_columns, ARRAY_SIZE(vteprec_arp_sources_local_columns),
++     sizeof(struct vteprec_arp_sources_local), vteprec_arp_sources_local_init__},
++    {"Arp_Sources_Remote", true,
++     vteprec_arp_sources_remote_columns, ARRAY_SIZE(vteprec_arp_sources_remote_columns),
++     sizeof(struct vteprec_arp_sources_remote), vteprec_arp_sources_remote_init__},
++    {"Tunnel", false,
++     vteprec_tunnel_columns, ARRAY_SIZE(vteprec_tunnel_columns),
++     sizeof(struct vteprec_tunnel), vteprec_tunnel_init__},
++#endif
+ };
+ 
+ struct ovsdb_idl_class vteprec_idl_class = {
+diff --git a/openvswitch-2.3.0/lib/vtep-idl.h b/openvswitch-2.3.0/lib/vtep-idl.h
+--- a/openvswitch-2.3.0/lib/vtep-idl.h
++++ b/openvswitch-2.3.0/lib/vtep-idl.h
+@@ -704,14 +704,18 @@ struct vteprec_physical_port {
+ enum {
+     VTEPREC_PHYSICAL_PORT_COL_DESCRIPTION,
+     VTEPREC_PHYSICAL_PORT_COL_NAME,
++#ifndef OPEN_CONTRAIL_CLIENT
+     VTEPREC_PHYSICAL_PORT_COL_PORT_FAULT_STATUS,
++#endif
+     VTEPREC_PHYSICAL_PORT_COL_VLAN_BINDINGS,
+     VTEPREC_PHYSICAL_PORT_COL_VLAN_STATS,
+     VTEPREC_PHYSICAL_PORT_N_COLUMNS
+ };
+ 
+ #define vteprec_physical_port_col_name (vteprec_physical_port_columns[VTEPREC_PHYSICAL_PORT_COL_NAME])
++#ifndef OPEN_CONTRAIL_CLIENT
+ #define vteprec_physical_port_col_port_fault_status (vteprec_physical_port_columns[VTEPREC_PHYSICAL_PORT_COL_PORT_FAULT_STATUS])
++#endif
+ #define vteprec_physical_port_col_vlan_bindings (vteprec_physical_port_columns[VTEPREC_PHYSICAL_PORT_COL_VLAN_BINDINGS])
+ #define vteprec_physical_port_col_vlan_stats (vteprec_physical_port_columns[VTEPREC_PHYSICAL_PORT_COL_VLAN_STATS])
+ #define vteprec_physical_port_col_description (vteprec_physical_port_columns[VTEPREC_PHYSICAL_PORT_COL_DESCRIPTION])
+@@ -792,18 +796,26 @@ enum {
+     VTEPREC_PHYSICAL_SWITCH_COL_MANAGEMENT_IPS,
+     VTEPREC_PHYSICAL_SWITCH_COL_NAME,
+     VTEPREC_PHYSICAL_SWITCH_COL_PORTS,
++#ifndef OPEN_CONTRAIL_CLIENT
+     VTEPREC_PHYSICAL_SWITCH_COL_SWITCH_FAULT_STATUS,
++#endif
+     VTEPREC_PHYSICAL_SWITCH_COL_TUNNEL_IPS,
++#ifndef OPEN_CONTRAIL_CLIENT
+     VTEPREC_PHYSICAL_SWITCH_COL_TUNNELS,
++#endif
+     VTEPREC_PHYSICAL_SWITCH_N_COLUMNS
+ };
+ 
+ #define vteprec_physical_switch_col_management_ips (vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_MANAGEMENT_IPS])
+ #define vteprec_physical_switch_col_description (vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_DESCRIPTION])
+ #define vteprec_physical_switch_col_tunnel_ips (vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_TUNNEL_IPS])
++#ifndef OPEN_CONTRAIL_CLIENT
+ #define vteprec_physical_switch_col_switch_fault_status (vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_SWITCH_FAULT_STATUS])
++#endif
+ #define vteprec_physical_switch_col_ports (vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_PORTS])
++#ifndef OPEN_CONTRAIL_CLIENT
+ #define vteprec_physical_switch_col_tunnels (vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_TUNNELS])
++#endif
+ #define vteprec_physical_switch_col_name (vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_COL_NAME])
+ 
+ extern struct ovsdb_idl_column vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_N_COLUMNS];
+@@ -1070,8 +1082,6 @@ void vteprec_ucast_macs_remote_set_logic
+ 
+ 
+ enum {
+-    VTEPREC_TABLE_ARP_SOURCES_LOCAL,
+-    VTEPREC_TABLE_ARP_SOURCES_REMOTE,
+     VTEPREC_TABLE_GLOBAL,
+     VTEPREC_TABLE_LOGICAL_BINDING_STATS,
+     VTEPREC_TABLE_LOGICAL_ROUTER,
+@@ -1083,9 +1093,13 @@ enum {
+     VTEPREC_TABLE_PHYSICAL_LOCATOR_SET,
+     VTEPREC_TABLE_PHYSICAL_PORT,
+     VTEPREC_TABLE_PHYSICAL_SWITCH,
+-    VTEPREC_TABLE_TUNNEL,
+     VTEPREC_TABLE_UCAST_MACS_LOCAL,
+     VTEPREC_TABLE_UCAST_MACS_REMOTE,
++#ifndef OPEN_CONTRAIL_CLIENT,
++    VTEPREC_TABLE_ARP_SOURCES_LOCAL,
++    VTEPREC_TABLE_ARP_SOURCES_REMOTE,
++    VTEPREC_TABLE_TUNNEL,
++#endif
+     VTEPREC_N_TABLES
+ };
+ 
