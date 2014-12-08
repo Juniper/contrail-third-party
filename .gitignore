@@ -16,6 +16,7 @@ ifmap-python-client/
 libvirt/
 libxml2-2.8.0/
 log4cplus-1.1.1/
+openvswitch-2.3.0/
 pugixml/
 rapidjson/
 tbb40_20111130oss/
