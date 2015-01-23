@@ -4,14 +4,14 @@
         name    : Specify name of the package.
         url     : URL to download the package.
         format  : Format of the downloaded file.
-                  If format is set as 'file', then after downloading the 
+                  If format is set as 'file', then after downloading the
                   file, same file gets renamed (if rename tag is specfied) and
                   copied to currect directory, else based on the format, the
                   zipped file gets extracted and gets copied in current directory
-        md5     : md5 checksum to compare, against the md5 checksum of the 
+        md5     : md5 checksum to compare, against the md5 checksum of the
                   downloaded file
         rename  : Rename the directory/downloaded file to this.
-        patches : Specify the patch files which will be applied on the files once 
+        patches : Specify the patch files which will be applied on the files once
                   download and copy to currect directory is complete.
   -->
   <package>
@@ -201,6 +201,7 @@
       <patch strip="2">ifmap-python-patch2.diff</patch>
       <patch strip="2">ifmap-python-patch3.diff</patch>
       <patch strip="0">ifmap-python-async.patch</patch>
+      <patch strip="0">ifmap-python-patch4.diff</patch>
     </patches>
   </package>
   <package>
