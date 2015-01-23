@@ -1,0 +1,11 @@
+--- ifmap-python-client/ifmap/client.py.orig	2015-01-23 09:51:43.971587879 +0000
++++ ifmap-python-client/ifmap/client.py	2015-01-22 10:19:33.295516906 +0000
+@@ -144,7 +144,7 @@
+ 			#if ns_prefix == "env": break # don't add the envelope namespace again
+ 			if ns_prefix == "env": continue # don't add the envelope namespace again
+ 			_ns += "xmlns:"+ns_prefix+'="'+ns_uri+'" '
+-		return self.__envelope % {'body':body, 'ns': _ns}
++		return str(self.__envelope % {'body':body, 'ns': _ns})
+ 
+ 	def call(self, method, body):
+ 		xml = self.envelope(body)
