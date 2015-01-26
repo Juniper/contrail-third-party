@@ -29,8 +29,8 @@
  
  		except	HttpException, e:
 +				log.error("HTTP Connection error in IF-MAP client: %s", e.reason)
-+		except:
-+				log.error("Uknown error sending IF-MAP message to server")
++		except Exception as e:
++				log.error("Uknown error sending IF-MAP message to server %s", str(e))
 +				raise
 +
 +	def call_async_result(self, method, body):
