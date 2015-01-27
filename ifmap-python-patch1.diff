@@ -57,7 +57,7 @@ index c0f748c..103caa6 100644
  	__namespaces = None
 +	__ssl_options = {
 +		'cert_reqs'   : gevent.ssl.CERT_NONE,
-+		'ssl_version' : PROTOCOL_SSLv3
++		'ssl_version' : PROTOCOL_SSLv23
 +	}
  
  	__envelope ="""<?xml version="1.0" encoding="UTF-8"?>
@@ -162,7 +162,7 @@ index c0f748c..103caa6 100644
 +
 +				#self.http = HTTPClient(*self.__url, ssl = True,
 +				#                       ssl_options = {'cert_reqs': gevent.ssl.CERT_NONE,
-+				#		                      'ssl_version': PROTOCOL_SSLv3})
++				#		                      'ssl_version': PROTOCOL_SSLv23})
 +				#response = self.http.post('/', body = xml, headers = headers)
 +				response = self._http.post('/', body = xml, headers = headers)
 +				content = response.read()
