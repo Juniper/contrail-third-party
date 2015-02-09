@@ -18,7 +18,7 @@ index c0f748c..103caa6 100644
 +
 +import base64
 +import cStringIO
-+
++import sys
 +
 +
  from logging import getLogger
@@ -29,7 +29,6 @@ index c0f748c..103caa6 100644
  			return f.info(), f.read()
  
 +#import urllib2 as http_client_lib
-+#HttpException = (http_client_lib.URLError, http_client_lib.HTTPError)
 +#class Http(): # wrapper to use when httplib2 not available
 +#	def request(self, url, method, body, headers):
 +#		f = http_client_lib.urlopen(http_client_lib.Request(url, body, headers))
@@ -57,8 +56,9 @@ index c0f748c..103caa6 100644
 +	__ssl_options = {
 +		'cert_reqs'   : gevent.ssl.CERT_NONE,
 +		'ssl_version' : PROTOCOL_SSLv23,
-+		'ciphers'     : "RC4-SHA"
 +	}
++	if sys.version_info >= (2,7):
++		__ssl_options['ciphers'] = "RC4-SHA"
  
  	__envelope ="""<?xml version="1.0" encoding="UTF-8"?>
  <env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" %(ns)s>
