@@ -36,6 +36,10 @@
 	  <name>centos</name>
 	  <version>7.0+</version>
 	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -57,6 +61,10 @@
 	  <name>centos</name>
 	  <version>7.0+</version>
 	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -74,6 +82,10 @@
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
 	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -88,6 +100,10 @@
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
 	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -101,6 +117,10 @@
 	<distribution>
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
+	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
 	</distribution>
       </exclude>
     </platform>
@@ -129,6 +149,10 @@
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
 	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -149,6 +173,10 @@
 	<distribution>
 	  <name>centos</name>
 	  <version>7.0+</version>
+	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
 	</distribution>
       </exclude>
     </platform>
@@ -242,6 +270,10 @@
 	  <name>centos</name>
 	  <version>7.0+</version>
 	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -278,6 +310,10 @@
 	<distribution>
 	  <name>centos</name>
 	  <version>7.0+</version>
+	</distribution>
+	<distribution>
+	  <name>fedora</name>
+	  <version>20+</version>
 	</distribution>
       </exclude>
     </platform>
