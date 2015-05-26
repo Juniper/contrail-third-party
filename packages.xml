@@ -107,7 +107,7 @@
   </package>
   <package>
     <name>Minimalistic C client for Redis v0.11</name>
-    <url>https://github.com/redis/hiredis/archive/v0.11.0.tar.gz</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-0.11.0.tar.gz</url>
     <local-filename>hiredis-v0.11.0.tar.gz</local-filename>
     <format>tgz</format>
     <md5>e2ac29509823ccc96990b6fe765b5d46</md5>
@@ -173,10 +173,10 @@
   </package>
   <package>
     <name>hiredis boostasio-adapter</name>
-    <url>https://github.com/ryangraham/hiredis-boostasio-adapter/archive/master.zip</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-boostasio-adapter-master.zip</url>
     <local-filename>hiredis-master.zip</local-filename>
     <format>zip</format>
-    <md5>313963b89b08aa11ed18f8edc9e5054a</md5>
+    <md5>c3ba292cb8a6d84da3aae774a33d4356</md5>
     <rename>hiredis-boostasio-adapter</rename>
     <patches>
       <patch strip="2">hiredis-asio-patch1.diff</patch>
