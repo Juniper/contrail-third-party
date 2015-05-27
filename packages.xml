@@ -223,7 +223,7 @@
     <local-filename>ifmap-python-master.zip</local-filename>
     <rename>ifmap-python-client</rename>
     <format>zip</format>
-    <md5>8afa09423807df4287994231c24a8518</md5>
+    <md5>372d7700a8e2c429c51deb11131a896d</md5>
     <patches>
       <patch strip="2">ifmap-python-patch1.diff</patch>
       <patch strip="2">ifmap-python-patch2.diff</patch>
