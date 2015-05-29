@@ -176,7 +176,7 @@
     <url>https://github.com/ryangraham/hiredis-boostasio-adapter/archive/master.zip</url>
     <local-filename>hiredis-master.zip</local-filename>
     <format>zip</format>
-    <md5>313963b89b08aa11ed18f8edc9e5054a</md5>
+    <md5>c3ba292cb8a6d84da3aae774a33d4356</md5>
     <rename>hiredis-boostasio-adapter</rename>
     <patches>
       <patch strip="2">hiredis-asio-patch1.diff</patch>
@@ -195,7 +195,7 @@
     <local-filename>ifmap-python-master.zip</local-filename>
     <rename>ifmap-python-client</rename>
     <format>zip</format>
-    <md5>8afa09423807df4287994231c24a8518</md5>
+    <md5>372d7700a8e2c429c51deb11131a896d</md5>
     <patches>
       <patch strip="2">ifmap-python-patch1.diff</patch>
       <patch strip="2">ifmap-python-patch2.diff</patch>
