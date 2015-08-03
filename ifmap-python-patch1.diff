@@ -9,7 +9,7 @@ index c0f748c..103caa6 100644
  # Open Source, see LICENSE
  #
  
-+from _ssl import PROTOCOL_SSLv3, PROTOCOL_SSLv23, PROTOCOL_TLSv1
++import ssl
 +import gevent
 +import geventhttpclient
 +from geventhttpclient import HTTPClient
@@ -24,7 +24,7 @@ index c0f748c..103caa6 100644
  from logging import getLogger
  
  log = getLogger(__name__) # when imported, the logger will be named "ifmap.client"
-@@ -23,23 +34,35 @@ except ImportError:
+@@ -23,23 +34,33 @@ except ImportError:
  			f = http_client_lib.urlopen(http_client_lib.Request(url, body, headers))
  			return f.info(), f.read()
  
@@ -54,15 +54,13 @@ index c0f748c..103caa6 100644
  	__last_received = None
  	__namespaces = None
 +	__ssl_options = {
-+		'cert_reqs'   : gevent.ssl.CERT_NONE,
-+		'ssl_version' : PROTOCOL_SSLv23,
++		'cert_reqs'   : ssl.CERT_NONE,
++		'ssl_version' : ssl.PROTOCOL_TLSv1,
 +	}
-+	if sys.version_info >= (2,7):
-+		__ssl_options['ciphers'] = "RC4-SHA"
  
  	__envelope ="""<?xml version="1.0" encoding="UTF-8"?>
  <env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" %(ns)s>
-@@ -49,18 +72,31 @@ class client:
+@@ -49,18 +70,31 @@ class client:
  </env:Envelope>
  """
  
@@ -102,7 +100,7 @@ index c0f748c..103caa6 100644
  
  	def last_sent(self):
  		return self.__last_sent
-@@ -71,31 +107,77 @@ class client:
+@@ -71,31 +105,77 @@ class client:
  	def envelope(self, body) :
  		_ns = ""
  		for ns_prefix, ns_uri in self.__namespaces.items():
