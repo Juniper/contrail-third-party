@@ -40,6 +40,10 @@
 	  <name>fedora</name>
 	  <version>20+</version>
 	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -65,6 +69,10 @@
 	  <name>fedora</name>
 	  <version>20+</version>
 	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -86,6 +94,10 @@
 	  <name>fedora</name>
 	  <version>20+</version>
 	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -104,6 +116,10 @@
 	  <name>fedora</name>
 	  <version>20+</version>
 	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -121,6 +137,10 @@
 	<distribution>
 	  <name>fedora</name>
 	  <version>20+</version>
+	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
 	</distribution>
       </exclude>
     </platform>
@@ -152,6 +172,10 @@
 	<distribution>
 	  <name>fedora</name>
 	  <version>20+</version>
+	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
 	</distribution>
       </exclude>
     </platform>
@@ -246,6 +270,10 @@
 	  <name>ubuntu</name>
 	  <version>14.04+</version>
 	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -273,6 +301,10 @@
 	<distribution>
 	  <name>fedora</name>
 	  <version>20+</version>
+	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
 	</distribution>
       </exclude>
     </platform>
@@ -314,6 +346,10 @@
 	<distribution>
 	  <name>fedora</name>
 	  <version>20+</version>
+	</distribution>
+	<distribution>
+	  <name>suse</name>
+	  <version>12+</version>
 	</distribution>
       </exclude>
     </platform>
