@@ -13,12 +13,16 @@ from time import sleep
 from distutils.spawn import find_executable
 import argparse
 
+# arguments (given by command line or defaults)
+ARGS = dict()
+ARGS['filename'] = 'packages.xml'
+ARGS['cache_dir']=  '/tmp/cache/' + os.environ['USER'] + '/third_party'
+ARGS['node_modules_dir'] = 'node_modules'
+ARGS['node_modules_tmp_dir'] = ARGS['cache_dir'] + '/' + ARGS['node_modules_dir']
+ARGS['verbose'] = False
+ARGS['dry_run'] = False
+
 _RETRIES = 5
-_OPT_VERBOSE = None
-_OPT_DRY_RUN = None
-_PACKAGE_CACHE='/tmp/cache/' + os.environ['USER'] + '/third_party'
-_NODE_MODULES='./node_modules'
-_TMP_NODE_MODULES=_PACKAGE_CACHE + '/' + _NODE_MODULES
 
 from lxml import objectify
 
@@ -68,9 +72,9 @@ def ApplyPatches(pkg):
         if patch.get('strip'):
             cmd.append('-p')
             cmd.append(patch.get('strip'))
-        if _OPT_VERBOSE:
+        if ARGS['verbose']:
             print "Patching %s <%s..." % (' '.join(cmd), str(patch))
-        if not _OPT_DRY_RUN:
+        if not ARGS['dry_run']:
             fp = open(str(patch), 'r')
             proc = subprocess.Popen(cmd, stdin = fp)
             proc.communicate()
@@ -91,7 +95,7 @@ def DownloadPackage(url, pkg, md5):
     while True:
 	subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
         md5sum = FindMd5sum(pkg)
-        if _OPT_VERBOSE:
+        if ARGS['verbose']:
             print "Calculated md5sum: %s" % md5sum
             print "Expected md5sum: %s" % md5
         if md5sum == md5:
@@ -168,7 +172,7 @@ def ProcessPackage(pkg):
     print "Processing %s ..." % (pkg['name'])
     url = str(pkg['url'])
     filename = getFilename(pkg, url)
-    ccfile = _PACKAGE_CACHE + '/' + filename
+    ccfile = ARGS['cache_dir'] + '/' + filename
     DownloadPackage(url, ccfile, pkg.md5)
 
     #
@@ -197,13 +201,13 @@ def ProcessPackage(pkg):
     #
     rename = pkg.find('rename')
     if rename and os.path.isdir(str(rename)):
-        if not _OPT_DRY_RUN:
+        if not ARGS['dry_run']:
             shutil.rmtree(str(rename))
 
     elif dest and os.path.isdir(dest):
-        if _OPT_VERBOSE:
+        if ARGS['verbose']:
             print "Clean directory %s" % dest
-        if not _OPT_DRY_RUN:
+        if not ARGS['dry_run']:
             shutil.rmtree(dest)
 
     if unpackdir:
@@ -220,31 +224,31 @@ def ProcessPackage(pkg):
     elif pkg.format == 'zip':
         cmd = ['unzip', '-o', ccfile]
     elif pkg.format == 'npm':
-        cmd = ['npm', 'install', ccfile, '--prefix', _PACKAGE_CACHE]
+        cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
     elif pkg.format == 'file':
         cmd = ['cp', '-af', ccfile, dest]
     else:
         print 'Unexpected format: %s' % (pkg.format)
         return
 
-    if not _OPT_DRY_RUN:
+    if not ARGS['dry_run']:
         cd = None
         if unpackdir:
             cd = str(unpackdir)
         if pkg.format == 'npm':
             try:
-                os.makedirs(_NODE_MODULES)
-                os.makedirs(_TMP_NODE_MODULES)
+                os.makedirs(ARGS['node_modules_dir'])
+                os.makedirs(ARGS['node_modules_tmp_dir'])
             except OSError as exc:
                 if exc.errno == errno.EEXIST:
                     pass
                 else:
-                    print 'mkdirs of ' + _NODE_MODULES + ' ' + _TMP_NODE_MODULES + ' failed.. Exiting..'
+                    print 'mkdirs of ' + ARGS['node_modules_dir'] + ' ' + ARGS['node_modules_tmp_dir'] + ' failed.. Exiting..'
                     return
 
-            npmCmd = ['cp', '-af', _TMP_NODE_MODULES + '/' + pkg['name'],
-                      './node_modules/']
-            if os.path.exists(_TMP_NODE_MODULES + '/' + pkg['name']):
+            npmCmd = ['cp', '-af', ARGS['node_modules_tmp_dir'] + '/' + pkg['name'],
+                      ARGS['node_modules_dir']]
+            if os.path.exists(ARGS['node_modules_tmp_dir'] + '/' + pkg['name']):
                 cmd = npmCmd
             else:
 		try:
@@ -280,14 +284,22 @@ def FindMd5sum(anyfile):
     md5sum = stdout.split()[0]
     return md5sum
 
-def parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--file", dest="filename",default="packages.xml",
-                      help="read data from FILENAME")
-    return parser.parse_args()
 
-def main(filename):
-    tree = objectify.parse(filename)
+def parse_args():
+    global ARGS
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", dest="filename",default=ARGS['filename'],
+                      help="read data from FILENAME")
+    parser.add_argument("--cache-dir", default=ARGS['cache_dir'])
+    parser.add_argument("--node-module-dir", default=ARGS['node_modules_dir'])
+    parser.add_argument("--node-module-tmp-dir", default=ARGS['node_modules_tmp_dir'])
+    parser.add_argument("--verbose", default=ARGS['verbose'], action='store_true')
+    parser.add_argument("--dry-run", default=ARGS['dry_run'], action='store_true')
+    ARGS = vars(parser.parse_args())
+
+
+def main():
+    tree = objectify.parse(ARGS['filename'])
     root = tree.getroot()
 
     for object in root.iterchildren():
@@ -295,6 +307,7 @@ def main(filename):
             ProcessPackage(object)
 
 if __name__ == '__main__':
+    parse_args()
     dependencies = [
         'autoconf',
         'automake',
@@ -309,12 +322,10 @@ if __name__ == '__main__':
             print 'Please install %s' % exc
             sys.exit(1)
 
-    args = parse_args()
-
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
     try:
-        os.makedirs(_PACKAGE_CACHE)
+        os.makedirs(ARGS['cache_dir'])
     except OSError:
         pass
 
-    main(args.filename)
+    main()
