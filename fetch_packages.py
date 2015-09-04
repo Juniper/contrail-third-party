@@ -21,6 +21,7 @@ ARGS['node_modules_dir'] = 'node_modules'
 ARGS['node_modules_tmp_dir'] = ARGS['cache_dir'] + '/' + ARGS['node_modules_dir']
 ARGS['verbose'] = False
 ARGS['dry_run'] = False
+ARGS['skip_download'] = False
 
 _RETRIES = 5
 
@@ -83,6 +84,8 @@ def ApplyPatches(pkg):
 #    return re.sub(r'\${filename}', filename, cmdstr)
 
 def DownloadPackage(url, pkg, md5):
+    if ARGS['skip_download']:
+        return
     #Check if the package already exists
     if os.path.isfile(pkg):
         md5sum = FindMd5sum(pkg)
@@ -295,6 +298,7 @@ def parse_args():
     parser.add_argument("--node-module-tmp-dir", default=ARGS['node_modules_tmp_dir'])
     parser.add_argument("--verbose", default=ARGS['verbose'], action='store_true')
     parser.add_argument("--dry-run", default=ARGS['dry_run'], action='store_true')
+    parser.add_argument("--skip-download", default=ARGS['dry_run'], action='store_true')
     ARGS = vars(parser.parse_args())
 
 
