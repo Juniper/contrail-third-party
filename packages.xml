@@ -25,6 +25,7 @@
       <patch strip="2">boost_1_48_patch3.diff</patch>
       <patch strip="0">boost_time_utc.patch</patch>
       <patch strip="1">boost_1_48_patch4.diff</patch>
+      <patch strip="1">boost_1_48_patch5.diff</patch>
     </patches>
     <platform>
       <exclude>
