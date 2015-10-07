@@ -201,6 +201,7 @@
       <patch strip="2">ifmap-python-patch2.diff</patch>
       <patch strip="2">ifmap-python-patch3.diff</patch>
       <patch strip="0">ifmap-python-async.patch</patch>
+      <patch strip="2">ifmap-python-patch4.diff</patch>
     </patches>
   </package>
   <package>

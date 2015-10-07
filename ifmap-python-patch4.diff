@@ -1,0 +1,148 @@
+diff --git a/third_party/ifmap-python-client/ifmap/client.py b/third_party/ifmap-python-client/ifmap/client.py
+index 602a4cf..ff5921f 100644
+--- a/third_party/ifmap-python-client/ifmap/client.py
++++ b/third_party/ifmap-python-client/ifmap/client.py
+@@ -18,6 +18,7 @@ import sys
+ 
+ 
+ from logging import getLogger
++import xml.etree.ElementTree as etree
+ 
+ log = getLogger(__name__) # when imported, the logger will be named "ifmap.client"
+ 
+@@ -142,7 +143,9 @@ class client:
+ 			#if ns_prefix == "env": break # don't add the envelope namespace again
+ 			if ns_prefix == "env": continue # don't add the envelope namespace again
+ 			_ns += "xmlns:"+ns_prefix+'="'+ns_uri+'" '
+-		return self.__envelope % {'body':body, 'ns': _ns}
++		return str(self.__envelope % {'body':body, 'ns': _ns})
+ 
+ 	def call(self, method, body):
+ 		xml = self.envelope(body)
+diff --git a/third_party/ifmap-python-client/ifmap/id.py b/third_party/ifmap-python-client/ifmap/id.py
+index 7a71d51..aa30e6e 100644
+--- a/third_party/ifmap-python-client/ifmap/id.py
++++ b/third_party/ifmap-python-client/ifmap/id.py
+@@ -10,6 +10,7 @@
+ #  >>> print ifmap.id.IPAdress('10.0.0.1')
+ 
+ from util import attr
++from xml.sax.saxutils import escape
+ 
+ class ifmapIDFactory:
+     pass
+@@ -76,10 +77,10 @@ class Device(ifmapIDFactory):
+ 
+ 	def __str__(self):
+ 		self.__XML = "<device>"
+-		self.__XML += '<name>'+self.__name+'</name>'
++		self.__XML += '<name>%s</name>' % escape(self.__name)
+ 		# aik_name is optional
+ 		if self.__aik_name:
+-			self.__XML += '<aik-name>'+self.__aik_name+'<aik-name>'
++			self.__XML += '<aik-name>%s</aik-name>' % escape(self.__aik_name)
+ 		self.__XML += "</device>"
+ 		return self.__XML
+ 
+@@ -100,13 +101,10 @@ class AccessRequest(ifmapIDFactory):
+ 		return self.__name
+ 
+ 	def __str__(self):
+-		self.__XML = "<access-request"
+-		self.__XML += ' name="'+self.__name+'"'
+-		# administrative_domain is optional
++		attr_dict = {'name': self.__name}
+ 		if self.__administrative_domain:
+-			self.__XML += ' administrative-domain="'+self.__administrative_domain+'"'
+-		self.__XML += " />"
+-		return self.__XML
++			attr_dict.update({'administrative-domain': self.__administrative_domain})
++		return '<access-request %s' % attr(attr_dict) + ' />'
+ 
+ class Identity(ifmapIDFactory):
+ 	"""
+@@ -133,17 +131,15 @@ class Identity(ifmapIDFactory):
+ 		return self.__other_type
+ 
+ 	def __str__(self):
+-		self.__XML = "<identity"
+-		self.__XML += ' name="'+self.__name+'"'
++		attr_dict = {'name': self.__name}
+ 		# type and administrative_domain are optional
+ 		if self.__type:
+-			self.__XML +=' type="'+self.__type+'"'
++			attr_dict.update({'type': self.__type})
+ 		if self.__other_type:
+-			self.__XML +=' other-type-definition="'+self.__other_type+'"'
++			attr_dict.update({'other-type-definition': self.__other_type})
+ 		if self.__administrative_domain:
+-			self.__XML += ' administrative-domain="'+self.__administrative_domain+'"'
+-		self.__XML += " />"
+-		return self.__XML
++			attr_dict.update({'administrative-domain':self.__administrative_domain})
++		return '<identity %s' % attr(attr_dict) + ' />'
+ 
+ 
+ class CustomIdentity(ifmapIDFactory):
+@@ -184,8 +180,7 @@ class CustomIdentity(ifmapIDFactory):
+ 
+ 		self.__XML += self.__namespace
+ 
+-		if self.__attributes and (type(self.__attributes) == type({})) and self.__attributes.items():
+-			for key, attribute in self.__attributes.items():
+-				self.__XML += ' '+key+'="'+attribute+'"'
++		if self.__attributes:
++			self.__XML += attr(self.__attributes)
+ 		self.__XML += " /></custom-identifier>"
+ 		return self.__XML
+diff --git a/third_party/ifmap-python-client/ifmap/operations.py b/third_party/ifmap-python-client/ifmap/operations.py
+index c4c2055..6add4c4 100644
+--- a/third_party/ifmap-python-client/ifmap/operations.py
++++ b/third_party/ifmap-python-client/ifmap/operations.py
+@@ -3,6 +3,7 @@
+ # Open Source, see LICENSE
+ #
+ from util import attr, link_ids
++from xml.sax.saxutils import quoteattr
+ 
+ class OperationBase:
+ 	""" foundation class for operation factory """
+@@ -60,14 +61,14 @@ class SubscribeUpdateOperation(OperationBase):
+ 		
+ 	def __str__(self):
+ 		__attr = attr(self.__parameters)
+-		return '<update name="'+ self.__name + '" ' + __attr + '>' + self.__identifier +'</update>'
++		return '<update name=%s %s>%s</update>' % (quoteattr(self.__name), __attr, self.__identifier)
+ 	
+ class SubscribeDeleteOperation(OperationBase):
+ 	def __init__(self, name):
+ 		self.__name = name
+ 	
+ 	def __str__(self):
+-		return '<delete name="'+ self.__name + '" />'
++		return '<delete name=%s />' % quoteattr(self.__name)
+ 	
+ 
+ 
+diff --git a/third_party/ifmap-python-client/ifmap/util.py b/third_party/ifmap-python-client/ifmap/util.py
+index e4d06dd..0eb706a 100644
+--- a/third_party/ifmap-python-client/ifmap/util.py
++++ b/third_party/ifmap-python-client/ifmap/util.py
+@@ -5,6 +5,8 @@
+ # Open Source, see LICENSE
+ #
+ 
++from xml.sax.saxutils import quoteattr
++
+ def attr(attributes):
+     """
+     attr creates an XML string for any attribute that has a value
+@@ -14,7 +16,7 @@ def attr(attributes):
+         __xml = ""
+         for label, value in attributes.items():
+             if value != None:
+-                __xml += label + '="' + value + '" '
++                __xml += '%s=%s ' % (label, quoteattr(value))
+         return __xml
+     else:
+         return ''
