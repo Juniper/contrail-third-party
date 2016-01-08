@@ -29,6 +29,11 @@ _RETRIES = 5
 
 from lxml import objectify
 
+
+class PatchError(Exception):
+    pass
+
+
 def getFilename(pkg, url):
     element = pkg.find("local-filename")
     if element:
@@ -81,6 +86,8 @@ def ApplyPatches(pkg):
             fp = open(str(patch), 'r')
             proc = subprocess.Popen(cmd, stdin = fp)
             proc.communicate()
+            if not proc.returncode == 0:
+                raise PatchError('Failed to apply patch %s' % str(patch))
 
 #def VarSubst(cmdstr, filename):
 #    return re.sub(r'\${filename}', filename, cmdstr)
