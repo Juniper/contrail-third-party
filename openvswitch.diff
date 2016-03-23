@@ -255,7 +255,18 @@ diff --git a/openvswitch-2.3.0/lib/ovsdb-idl.h b/openvswitch-2.3.0/lib/ovsdb-idl
 diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
 --- a/openvswitch-2.3.0/lib/vtep-idl.c
 +++ b/openvswitch-2.3.0/lib/vtep-idl.c
-@@ -3636,7 +3636,9 @@ void
+@@ -3327,6 +3327,10 @@ vteprec_physical_locator_set_unparse_loc
+ 
+     ovs_assert(inited);
+     free(row->locators);
++#ifdef OPEN_CONTRAIL_CLIENT
++    row->locators = NULL;
++    row->n_locators = 0;
++#endif
+ }
+ 
+ static void
+@@ -3636,7 +3640,9 @@ void
  vteprec_physical_port_verify_port_fault_status(const struct vteprec_physical_port *row)
  {
      ovs_assert(inited);
@@ -265,7 +276,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  void
-@@ -3719,7 +3721,11 @@ vteprec_physical_port_get_port_fault_sta
+@@ -3719,7 +3725,11 @@ vteprec_physical_port_get_port_fault_sta
  	enum ovsdb_atomic_type key_type OVS_UNUSED)
  {
      ovs_assert(key_type == OVSDB_TYPE_STRING);
@@ -277,7 +288,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  /* Returns the vlan_bindings column's value in 'row' as a struct ovsdb_datum.
-@@ -3816,7 +3822,9 @@ vteprec_physical_port_set_port_fault_sta
+@@ -3816,7 +3826,9 @@ vteprec_physical_port_set_port_fault_sta
          datum.keys[i].string = xstrdup(port_fault_status[i]);
      }
      ovsdb_datum_sort_unique(&datum, OVSDB_TYPE_STRING, OVSDB_TYPE_VOID);
@@ -287,7 +298,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  void
-@@ -3886,6 +3894,7 @@ vteprec_physical_port_columns_init(void)
+@@ -3886,6 +3898,7 @@ vteprec_physical_port_columns_init(void)
      c->parse = vteprec_physical_port_parse_name;
      c->unparse = vteprec_physical_port_unparse_name;
  
@@ -295,7 +306,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
      /* Initialize vteprec_physical_port_col_port_fault_status. */
      c = &vteprec_physical_port_col_port_fault_status;
      c->name = "port_fault_status";
-@@ -3897,6 +3906,7 @@ vteprec_physical_port_columns_init(void)
+@@ -3897,6 +3910,7 @@ vteprec_physical_port_columns_init(void)
      c->mutable = true;
      c->parse = vteprec_physical_port_parse_port_fault_status;
      c->unparse = vteprec_physical_port_unparse_port_fault_status;
@@ -303,7 +314,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  
      /* Initialize vteprec_physical_port_col_vlan_bindings. */
      c = &vteprec_physical_port_col_vlan_bindings;
-@@ -4185,7 +4195,9 @@ void
+@@ -4185,7 +4199,9 @@ void
  vteprec_physical_switch_verify_switch_fault_status(const struct vteprec_physical_switch *row)
  {
      ovs_assert(inited);
@@ -313,7 +324,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  void
-@@ -4199,7 +4211,9 @@ void
+@@ -4199,7 +4215,9 @@ void
  vteprec_physical_switch_verify_tunnels(const struct vteprec_physical_switch *row)
  {
      ovs_assert(inited);
@@ -323,7 +334,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  /* Returns the description column's value in 'row' as a struct ovsdb_datum.
-@@ -4314,7 +4328,11 @@ vteprec_physical_switch_get_switch_fault
+@@ -4314,7 +4332,11 @@ vteprec_physical_switch_get_switch_fault
  	enum ovsdb_atomic_type key_type OVS_UNUSED)
  {
      ovs_assert(key_type == OVSDB_TYPE_STRING);
@@ -335,7 +346,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  /* Returns the tunnel_ips column's value in 'row' as a struct ovsdb_datum.
-@@ -4360,7 +4378,11 @@ vteprec_physical_switch_get_tunnels(cons
+@@ -4360,7 +4382,11 @@ vteprec_physical_switch_get_tunnels(cons
  	enum ovsdb_atomic_type key_type OVS_UNUSED)
  {
      ovs_assert(key_type == OVSDB_TYPE_UUID);
@@ -347,7 +358,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  void
-@@ -4439,7 +4461,9 @@ vteprec_physical_switch_set_switch_fault
+@@ -4439,7 +4465,9 @@ vteprec_physical_switch_set_switch_fault
          datum.keys[i].string = xstrdup(switch_fault_status[i]);
      }
      ovsdb_datum_sort_unique(&datum, OVSDB_TYPE_STRING, OVSDB_TYPE_VOID);
@@ -357,7 +368,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  void
-@@ -4473,7 +4497,9 @@ vteprec_physical_switch_set_tunnels(cons
+@@ -4473,7 +4501,9 @@ vteprec_physical_switch_set_tunnels(cons
          datum.keys[i].uuid = tunnels[i]->header_.uuid;
      }
      ovsdb_datum_sort_unique(&datum, OVSDB_TYPE_UUID, OVSDB_TYPE_VOID);
@@ -367,7 +378,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  struct ovsdb_idl_column vteprec_physical_switch_columns[VTEPREC_PHYSICAL_SWITCH_N_COLUMNS];
-@@ -4532,6 +4558,7 @@ vteprec_physical_switch_columns_init(voi
+@@ -4532,6 +4562,7 @@ vteprec_physical_switch_columns_init(voi
      c->parse = vteprec_physical_switch_parse_ports;
      c->unparse = vteprec_physical_switch_unparse_ports;
  
@@ -375,7 +386,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
      /* Initialize vteprec_physical_switch_col_switch_fault_status. */
      c = &vteprec_physical_switch_col_switch_fault_status;
      c->name = "switch_fault_status";
-@@ -4543,6 +4570,7 @@ vteprec_physical_switch_columns_init(voi
+@@ -4543,6 +4574,7 @@ vteprec_physical_switch_columns_init(voi
      c->mutable = true;
      c->parse = vteprec_physical_switch_parse_switch_fault_status;
      c->unparse = vteprec_physical_switch_unparse_switch_fault_status;
@@ -383,7 +394,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  
      /* Initialize vteprec_physical_switch_col_tunnel_ips. */
      c = &vteprec_physical_switch_col_tunnel_ips;
-@@ -4556,6 +4584,7 @@ vteprec_physical_switch_columns_init(voi
+@@ -4556,6 +4588,7 @@ vteprec_physical_switch_columns_init(voi
      c->parse = vteprec_physical_switch_parse_tunnel_ips;
      c->unparse = vteprec_physical_switch_unparse_tunnel_ips;
  
@@ -391,7 +402,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
      /* Initialize vteprec_physical_switch_col_tunnels. */
      c = &vteprec_physical_switch_col_tunnels;
      c->name = "tunnels";
-@@ -4568,6 +4597,7 @@ vteprec_physical_switch_columns_init(voi
+@@ -4568,6 +4601,7 @@ vteprec_physical_switch_columns_init(voi
      c->mutable = true;
      c->parse = vteprec_physical_switch_parse_tunnels;
      c->unparse = vteprec_physical_switch_unparse_tunnels;
@@ -399,7 +410,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
  }
  
  /* Tunnel table. */
-@@ -5890,12 +5920,14 @@ vteprec_ucast_macs_remote_columns_init(v
+@@ -5890,12 +5924,14 @@ vteprec_ucast_macs_remote_columns_init(v
  }
  
  struct ovsdb_idl_table_class vteprec_table_classes[VTEPREC_N_TABLES] = {
@@ -414,7 +425,7 @@ diff --git a/openvswitch-2.3.0/lib/vtep-idl.c b/openvswitch-2.3.0/lib/vtep-idl.c
      {"Global", true,
       vteprec_global_columns, ARRAY_SIZE(vteprec_global_columns),
       sizeof(struct vteprec_global), vteprec_global_init__},
-@@ -5929,9 +5961,11 @@ struct ovsdb_idl_table_class vteprec_tab
+@@ -5929,9 +5965,11 @@ struct ovsdb_idl_table_class vteprec_tab
      {"Physical_Switch", false,
       vteprec_physical_switch_columns, ARRAY_SIZE(vteprec_physical_switch_columns),
       sizeof(struct vteprec_physical_switch), vteprec_physical_switch_init__},
