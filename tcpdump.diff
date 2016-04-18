@@ -1,0 +1,106 @@
+diff --git a/tcpdump-4.4.0/print-ether.c b/tcpdump-4.4.0-modified/print-ether.c
+index f783341..e3f4f17 100644
+--- a/tcpdump-4.4.0/print-ether.c
++++ b/tcpdump-4.4.0-modified/print-ether.c
+@@ -88,6 +88,20 @@ const struct tok ethertype_values[] = {
+     { 0, NULL}
+ };
+ 
++extern u_int agt_hdr;
++struct agent_hdr {
++    unsigned short hdr_ifindex;
++    unsigned short hdr_vrf;
++    unsigned short hdr_cmd;
++    unsigned int hdr_cmd_param;
++    unsigned int hdr_cmd_param_1;
++    unsigned int hdr_cmd_param_2;
++    unsigned int hdr_cmd_param_3;
++    unsigned int hdr_cmd_param_4;
++    uint8_t hdr_cmd_param_5;
++    uint8_t hdr_cmd_param_5_pack[3];
++} __attribute__((packed));
++
+ static inline void
+ ether_hdr_print(netdissect_options *ndo,
+                 const u_char *bp, u_int length)
+@@ -238,6 +252,39 @@ recurse:
+ 	}
+ }
+ 
++static int print_agent_header(const u_char *sp)
++{
++	struct ether_header *ep = (struct ether_header *)sp;
++	u_int16_t ether_type;
++
++	ether_type = EXTRACT_16BITS(&ep->ether_type);
++	if (agt_hdr && ether_type == ETHERTYPE_IP) {
++	/* skip external Ether Hdr */
++        struct agent_hdr agent_h = *(struct agent_hdr *)(sp + 14);
++        agent_h.hdr_ifindex = EXTRACT_16BITS(&agent_h.hdr_ifindex);
++        agent_h.hdr_vrf = EXTRACT_16BITS(&agent_h.hdr_vrf);
++        agent_h.hdr_cmd = EXTRACT_16BITS(&agent_h.hdr_cmd);
++        agent_h.hdr_cmd_param = EXTRACT_32BITS(&agent_h.hdr_cmd_param);
++        agent_h.hdr_cmd_param_1 = EXTRACT_32BITS(&agent_h.hdr_cmd_param_1);
++        agent_h.hdr_cmd_param_2 = EXTRACT_32BITS(&agent_h.hdr_cmd_param_2);
++        agent_h.hdr_cmd_param_3 = EXTRACT_32BITS(&agent_h.hdr_cmd_param_3);
++        agent_h.hdr_cmd_param_4 = EXTRACT_32BITS(&agent_h.hdr_cmd_param_4);
++        (void)printf("Agent Hdr : intf idx = %d, vrf = %d, cmd = %d, cmd param"
++                     " = %d, cmd param 1 = %d , cmd param 2 = %d , cmd param 3 = %d "
++                     ", cmd param 4 = %d  cmd param 5 = %d, cmd param 5 pack[0] = %d "
++                     ", cmd param 5 pack[1] = %d , cmd param 5 pack[2] = %d\n",
++                     agent_h.hdr_ifindex,
++                     agent_h.hdr_vrf, agent_h.hdr_cmd,
++                     agent_h.hdr_cmd_param, agent_h.hdr_cmd_param_1,
++                     agent_h.hdr_cmd_param_2, agent_h.hdr_cmd_param_3,
++                     agent_h.hdr_cmd_param_4, agent_h.hdr_cmd_param_5,
++                     agent_h.hdr_cmd_param_5_pack[0], agent_h.hdr_cmd_param_5_pack[1],
++                     agent_h.hdr_cmd_param_5_pack[2]);
++		return 1;
++}
++	return 0;
++}
++
+ /*
+  * This is the top level routine of the printer.  'p' points
+  * to the ether header of the packet, 'h->ts' is the timestamp,
+@@ -248,7 +295,18 @@ u_int
+ ether_if_print(netdissect_options *ndo, const struct pcap_pkthdr *h,
+                const u_char *p)
+ {
+-	ether_print(ndo, p, h->len, h->caplen, NULL, NULL);
++	int ret = 0, shift_bytes = 0;
++
++	ret = print_agent_header(p);
++
++	shift_bytes = 14 + sizeof(struct agent_hdr);
++
++	if (ret) {
++		ether_print(ndo, p + shift_bytes, h->len, (h->caplen) - shift_bytes,
++				NULL, NULL);
++	} else {
++		ether_print(ndo, p, h->len, h->caplen, NULL, NULL);
++	}
+ 
+ 	return (ETHER_HDRLEN);
+ }
+diff --git a/tcpdump-4.4.0/tcpdump.c b/tcpdump-4.4.0-modified/tcpdump.c
+index 66d81bb..ebe6852 100644
+--- a/tcpdump-4.4.0/tcpdump.c
++++ b/tcpdump-4.4.0-modified/tcpdump.c
+@@ -143,6 +143,7 @@ RETSIGTYPE requestinfo(int);
+ 
+ static void info(int);
+ static u_int packets_captured;
++u_int agt_hdr;
+ 
+ struct printer {
+         if_printer f;
+@@ -876,6 +877,8 @@ main(int argc, char **argv)
+ 			}
+ #endif /* HAVE_PCAP_FINDALLDEVS */
+ 			device = optarg;
++			if (!strcmp(optarg, "pkt0"))
++				agt_hdr = 1;
+ 			break;
+ 
+ #ifdef HAVE_PCAP_CREATE
