@@ -1,8 +1,8 @@
-diff --git a/tcpdump-4.4.0/print-ether.c b/tcpdump-4.4.0-modified/print-ether.c
-index f783341..6244f50 100644
---- a/tcpdump-4.4.0/print-ether.c
-+++ b/tcpdump-4.4.0-modified/print-ether.c
-@@ -88,6 +88,20 @@ const struct tok ethertype_values[] = {
+diff --git a/tcpdump-4.7.4/print-ether.c b/tcpdump-4.7.4-modified/print-ether.c
+index e57d993..99cc748 100644
+--- a/tcpdump-4.7.4/print-ether.c
++++ b/tcpdump-4.7.4-modified/print-ether.c
+@@ -86,6 +86,20 @@ const struct tok ethertype_values[] = {
      { 0, NULL}
  };
  
@@ -23,7 +23,7 @@ index f783341..6244f50 100644
  static inline void
  ether_hdr_print(netdissect_options *ndo,
                  const u_char *bp, u_int length)
-@@ -238,6 +252,35 @@ recurse:
+@@ -233,6 +247,35 @@ recurse:
  	}
  }
  
@@ -59,31 +59,34 @@ index f783341..6244f50 100644
  /*
   * This is the top level routine of the printer.  'p' points
   * to the ether header of the packet, 'h->ts' is the timestamp,
-@@ -248,7 +291,18 @@ u_int
+@@ -243,9 +286,20 @@ u_int
  ether_if_print(netdissect_options *ndo, const struct pcap_pkthdr *h,
                 const u_char *p)
  {
 -	ether_print(ndo, p, h->len, h->caplen, NULL, NULL);
-+	int ret = 0, shift_bytes = 0;
++        int ret = 0, shift_bytes = 0;
 +
-+	ret = print_agent_header(p);
++        ret = print_agent_header(p);
 +
-+	shift_bytes = 14 + sizeof(struct agent_hdr);
++        shift_bytes = 14 + sizeof(struct agent_hdr);
 +
-+	if (ret) {
-+		ether_print(ndo, p + shift_bytes, h->len, (h->caplen) - shift_bytes,
-+				NULL, NULL);
-+	} else {
-+		ether_print(ndo, p, h->len, h->caplen, NULL, NULL);
-+	}
++        if (ret) {
++                ether_print(ndo, p + shift_bytes, h->len, (h->caplen) - shift_bytes,
++                                NULL, NULL);
++        } else {
++                ether_print(ndo, p, h->len, h->caplen, NULL, NULL);
++        }
  
- 	return (ETHER_HDRLEN);
+-	return (ETHER_HDRLEN);
++        return (ETHER_HDRLEN);
  }
-diff --git a/tcpdump-4.4.0/tcpdump.c b/tcpdump-4.4.0-modified/tcpdump.c
-index 66d81bb..f43bd11 100644
---- a/tcpdump-4.4.0/tcpdump.c
-+++ b/tcpdump-4.4.0-modified/tcpdump.c
-@@ -143,6 +143,7 @@ RETSIGTYPE requestinfo(int);
+ 
+ /*
+diff --git a/tcpdump-4.7.4/tcpdump.c b/tcpdump-4.7.4-modified/tcpdump.c
+index 2b71d27..9859aea 100644
+--- a/tcpdump-4.7.4/tcpdump.c
++++ b/tcpdump-4.7.4-modified/tcpdump.c
+@@ -191,6 +191,7 @@ RETSIGTYPE requestinfo(int);
  
  static void info(int);
  static u_int packets_captured;
@@ -91,32 +94,31 @@ index 66d81bb..f43bd11 100644
  
  struct printer {
          if_printer f;
-@@ -735,7 +736,7 @@ main(int argc, char **argv)
+@@ -664,7 +665,7 @@ show_devices_and_exit (void)
+ #define Q_FLAG
  #endif
  
- 	while (
--	    (op = getopt(argc, argv, "aAb" B_FLAG "c:C:d" D_FLAG "eE:fF:G:hHi:" I_FLAG j_FLAG J_FLAG "KlLm:M:nNOpqr:Rs:StT:u" U_FLAG "V:vw:W:xXy:Yz:Z:")) != -1)
-+	    (op = getopt(argc, argv, "aAb" B_FLAG "c:C:d" D_FLAG "eE:fF:gG:hHi:" I_FLAG j_FLAG J_FLAG "KlLm:M:nNOpqr:Rs:StT:u" U_FLAG "V:vw:W:xXy:Yz:Z:")) != -1)
- 		switch (op) {
+-#define SHORTOPTS "aAb" B_FLAG "c:C:d" D_FLAG "eE:fF:G:hHi:" I_FLAG j_FLAG J_FLAG "KlLm:M:nNOpq" Q_FLAG "r:Rs:StT:u" U_FLAG "vV:w:W:xXy:Yz:Z:#"
++#define SHORTOPTS "aAb" B_FLAG "c:C:d" D_FLAG "eE:fF:gG:hHi:" I_FLAG j_FLAG J_FLAG "KlLm:M:nNOpq" Q_FLAG "r:Rs:StT:u" U_FLAG "vV:w:W:xXy:Yz:Z:#"
  
- 		case 'a':
-@@ -813,6 +814,10 @@ main(int argc, char **argv)
+ /*
+  * Long options.
+@@ -1138,6 +1139,9 @@ main(int argc, char **argv)
+ 		case 'F':
  			infile = optarg;
  			break;
- 
 +                case 'g':
 +                        agt_hdr = 1;
 +                        break;
-+
+ 
  		case 'G':
  			Gflag = atoi(optarg);
- 			if (Gflag < 0)
-@@ -2076,7 +2081,7 @@ usage(void)
- #endif /* WIN32 */
- #endif /* HAVE_PCAP_LIB_VERSION */
+@@ -2658,7 +2662,7 @@ print_usage(void)
+ {
+ 	print_version();
  	(void)fprintf(stderr,
--"Usage: %s [-aAbd" D_FLAG "efhH" I_FLAG J_FLAG "KlLnNOpqRStu" U_FLAG "vxX]" B_FLAG_USAGE " [ -c count ]\n", program_name);
-+"Usage: %s [-aAbd" D_FLAG "efghH" I_FLAG J_FLAG "KlLnNOpqRStu" U_FLAG "vxX]" B_FLAG_USAGE " [ -c count ]\n", program_name);
+-"Usage: %s [-aAbd" D_FLAG "efhH" I_FLAG J_FLAG "KlLnNOpqRStu" U_FLAG "vxX#]" B_FLAG_USAGE " [ -c count ]\n", program_name);
++"Usage: %s [-aAbd" D_FLAG "efghH" I_FLAG J_FLAG "KlLnNOpqRStu" U_FLAG "vxX#]" B_FLAG_USAGE " [ -c count ]\n", program_name);
  	(void)fprintf(stderr,
  "\t\t[ -C file_size ] [ -E algo:secret ] [ -F file ] [ -G seconds ]\n");
  	(void)fprintf(stderr,
