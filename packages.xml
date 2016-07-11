@@ -376,28 +376,4 @@
       <patch strip="1">openvswitch.diff</patch>
     </patches>
   </package>
-  <package>
-    <name>libnl version 3.2.25</name>
-    <url>http://www.infradead.org/~tgr/libnl/files/libnl-3.2.25.tar.gz</url>
-    <local-filename>libnl-3.2.25.tar.gz</local-filename>
-    <format>tgz</format>
-    <md5>03f74d0cd5037cadc8cdfa313bbd195c</md5>
-  </package>
-  <package>
-    <name>pcap version 1.4.0</name>
-    <url>http://www.tcpdump.org/release/libpcap-1.4.0.tar.gz</url>
-    <local-filename>libpcap-1.4.0.tar.gz</local-filename>
-    <format>tgz</format>
-    <md5>56e88a5aabdd1e04414985ac24f7e76c</md5>
-  </package>
-  <package>
-    <name>tcpdump version 4.4.0</name>
-    <url>http://www.tcpdump.org/release/tcpdump-4.4.0.tar.gz</url>
-    <local-filename>tcpdump-4.4.0.tar.gz</local-filename>
-    <format>tgz</format>
-    <md5>6f75aabcffd012f73bd7c331bb5d8232</md5>
-    <patches>
-      <patch strip="1">tcpdump.diff</patch>
-    </patches>
-  </package>
 </packages>
