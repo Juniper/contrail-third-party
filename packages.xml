@@ -378,7 +378,7 @@
   </package>
   <package>
     <name>libnl version 3.2.25</name>
-    <url>http://www.infradead.org/~tgr/libnl/files/libnl-3.2.25.tar.gz</url>
+    <url>https://github.com/thom311/libnl/releases/download/libnl3_2_25/libnl-3.2.25.tar.gz</url>
     <local-filename>libnl-3.2.25.tar.gz</local-filename>
     <format>tgz</format>
     <md5>03f74d0cd5037cadc8cdfa313bbd195c</md5>
