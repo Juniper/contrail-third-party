@@ -78,12 +78,13 @@
   </package>
   <package>
     <name>Google C++ Testing Framework 1.6.0</name>
-    <url>http://googletest.googlecode.com/files/gtest-1.6.0.zip</url>
+    <url>https://github.com/google/googletest/archive/release-1.6.0.zip</url>
+    <rename>gtest-1.6.0</rename>
     <patches>
       <patch strip="2">gtest-1.6.0_patch1.diff</patch>
     </patches>
     <format>zip</format>
-    <md5>4577b49f2973c90bf9ba69aa8166b786</md5>
+    <md5>c7fbb1ddde072afd938c25c65e94750e</md5>
     <platform>
       <exclude>
 	<distribution>
@@ -103,9 +104,10 @@
   </package>
   <package>
     <name>Google C++ Mocking Framework 1.6.0</name>
-    <url>http://googlemock.googlecode.com/files/gmock-1.6.0.zip</url>
+    <url>https://github.com/google/googlemock/archive/release-1.6.0.zip</url>
     <format>zip</format>
-    <md5>f547f47321ca88d3965ca2efdcc2a3c1</md5>
+    <rename>gmock-1.6.0</rename>
+    <md5>b51cc3e69a8ef16ac54cee9889b79646</md5>
     <platform>
       <exclude>
 	<distribution>
@@ -125,7 +127,7 @@
   </package>
   <package>
     <name>Google perftools</name>
-    <url>http://gperftools.googlecode.com/files/gperftools-2.1.tar.gz</url>
+    <url>https://github.com/gperftools/gperftools/releases/download/gperftools-2.1/gperftools-2.1.tar.gz</url>
     <format>tgz</format>
     <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
     <platform>
@@ -207,7 +209,7 @@
   </package>
   <package>
     <name>Pugi XML 1.2</name>
-    <url>https://pugixml.googlecode.com/files/pugixml-1.2.tar.gz</url>
+    <url>https://github.com/zeux/pugixml/releases/download/v1.2/pugixml-1.2.tar.gz</url>
     <unpack-directory>pugixml</unpack-directory>
     <format>tgz</format>
     <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
@@ -311,7 +313,7 @@
   </package>
   <package>
     <name>JSON parser/generator for C++</name>
-    <url>http://rapidjson.googlecode.com/files/rapidjson-0.11.zip</url>
+    <url>https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rapidjson/rapidjson-0.11.zip</url>
     <format>zip</format>
     <md5>96a4b1b57ece8bc6a807ceb14ccaaf94</md5>
     <patches>
