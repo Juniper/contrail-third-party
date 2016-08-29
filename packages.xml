@@ -330,6 +330,15 @@
     </patches>
   </package>
   <package>
+    <name>ISC Bind</name>
+    <url>http://www.mirrorservice.org/sites/ftp.isc.org/isc/bind9/9.10.4-P2/bind-9.10.4-P2.tar.gz</url>
+    <format>tgz</format>
+    <md5>50163d229020c48929c84bec5b0068d7</md5>
+    <patches>
+      <patch strip="1">bind-9.10.4-P2-patch1.diff</patch>
+    </patches>
+  </package>
+  <package>
     <name>ICU - International Components for Unicode</name>
     <url>http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
     <format>tgz</format>
