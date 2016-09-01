@@ -208,7 +208,7 @@
   </package>
   <package>
     <name>Pugi XML 1.2</name>
-    <url>https://pugixml.googlecode.com/files/pugixml-1.2.tar.gz</url>
+    <url>https://github.com/zeux/pugixml/releases/download/v1.2/pugixml-1.2.tar.gz</url>
     <unpack-directory>pugixml</unpack-directory>
     <format>tgz</format>
     <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
@@ -312,7 +312,7 @@
   </package>
   <package>
     <name>JSON parser/generator for C++</name>
-    <url>http://rapidjson.googlecode.com/files/rapidjson-0.11.zip</url>
+    <url>https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rapidjson/rapidjson-0.11.zip</url>
     <format>zip</format>
     <md5>96a4b1b57ece8bc6a807ceb14ccaaf94</md5>
     <patches>
