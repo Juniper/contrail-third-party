@@ -323,16 +323,6 @@
   </package>
   <package>
     <name>ISC Bind</name>
-    <url>http://www.mirrorservice.org/sites/ftp.isc.org/isc/bind9/9.9.2-P1/bind-9.9.2-P1.tar.gz</url>
-    <format>tgz</format>
-    <md5>44b9d1feb11de09811160775f94c2554</md5>
-    <patches>
-      <patch strip="2">bind_patch1.diff</patch>
-      <patch strip="1">bind_patch2.diff</patch>
-    </patches>
-  </package>
-  <package>
-    <name>ISC Bind</name>
     <url>http://www.mirrorservice.org/sites/ftp.isc.org/isc/bind9/9.10.4-P2/bind-9.10.4-P2.tar.gz</url>
     <format>tgz</format>
     <md5>50163d229020c48929c84bec5b0068d7</md5>
