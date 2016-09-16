@@ -1,0 +1,67 @@
+diff --git a/bind-9.10.4-P2/configure b/bind-9.10.4-P2/configure
+index 7d91fd0..c26b015 100755
+--- a/bind-9.10.4-P2/configure
++++ b/bind-9.10.4-P2/configure
+@@ -16656,7 +16656,7 @@ $as_echo_n "checking for json library... " >&6; }
+ if test "${with_libjson+set}" = set; then :
+   withval=$with_libjson; use_libjson="$withval"
+ else
+-  use_libjson="auto"
++  use_libjson="no"
+ fi
+ 
+ 
+diff --git a/bind-9.10.4-P2/lib/dns/dispatch.c b/bind-9.10.4-P2/lib/dns/dispatch.c
+index 1968964..135f421 100644
+--- a/bind-9.10.4-P2/lib/dns/dispatch.c
++++ b/bind-9.10.4-P2/lib/dns/dispatch.c
+@@ -2001,20 +2001,35 @@ dns_dispatchmgr_create(isc_mem_t *mctx, isc_entropy_t *entropy,
+ 	}
+ 
+ 	isc_mempool_setname(mgr->depool, "dispmgr_depool");
++#ifdef CONTRAIL_DNS
++	isc_mempool_setmaxalloc(mgr->depool, UINT_MAX);
++	isc_mempool_setfreemax(mgr->depool, 3276800);
++#else
+ 	isc_mempool_setmaxalloc(mgr->depool, 32768);
+ 	isc_mempool_setfreemax(mgr->depool, 32768);
++#endif
+ 	isc_mempool_associatelock(mgr->depool, &mgr->depool_lock);
+ 	isc_mempool_setfillcount(mgr->depool, 32);
+ 
+ 	isc_mempool_setname(mgr->rpool, "dispmgr_rpool");
++#ifdef CONTRAIL_DNS
++	isc_mempool_setmaxalloc(mgr->rpool, UINT_MAX);
++	isc_mempool_setfreemax(mgr->rpool, 3276800);
++#else
+ 	isc_mempool_setmaxalloc(mgr->rpool, 32768);
+ 	isc_mempool_setfreemax(mgr->rpool, 32768);
++#endif
+ 	isc_mempool_associatelock(mgr->rpool, &mgr->rpool_lock);
+ 	isc_mempool_setfillcount(mgr->rpool, 32);
+ 
+ 	isc_mempool_setname(mgr->dpool, "dispmgr_dpool");
++#ifdef CONTRAIL_DNS
++	isc_mempool_setmaxalloc(mgr->dpool, UINT_MAX);
++	isc_mempool_setfreemax(mgr->dpool, 3276800);
++#else
+ 	isc_mempool_setmaxalloc(mgr->dpool, 32768);
+ 	isc_mempool_setfreemax(mgr->dpool, 32768);
++#endif
+ 	isc_mempool_associatelock(mgr->dpool, &mgr->dpool_lock);
+ 	isc_mempool_setfillcount(mgr->dpool, 32);
+ 
+@@ -3087,8 +3102,13 @@ dispatch_createudp(dns_dispatchmgr_t *mgr, isc_socketmgr_t *sockmgr,
+ 		goto kill_sepool;
+ 
+ 	isc_mempool_setname(disp->sepool, "disp_sepool");
++#ifdef CONTRAIL_DNS
++	isc_mempool_setmaxalloc(disp->sepool, UINT_MAX);
++	isc_mempool_setfreemax(disp->sepool, 3276800);
++#else
+ 	isc_mempool_setmaxalloc(disp->sepool, 32768);
+ 	isc_mempool_setfreemax(disp->sepool, 32768);
++#endif
+ 	isc_mempool_associatelock(disp->sepool, &disp->sepool_lock);
+ 	isc_mempool_setfillcount(disp->sepool, 16);
+ 

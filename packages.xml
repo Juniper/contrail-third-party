@@ -328,6 +328,7 @@
     <md5>50163d229020c48929c84bec5b0068d7</md5>
     <patches>
       <patch strip="1">bind-9.10.4-P2-patch1.diff</patch>
+      <patch strip="1">bind-9.10.4-P2-patch2.diff</patch>
     </patches>
   </package>
   <package>
