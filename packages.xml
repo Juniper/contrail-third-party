@@ -79,7 +79,7 @@
   </package>
   <package>
     <name>Google C++ Testing Framework 1.6.0</name>
-    <url>https://github.com/google/googletest/archive/release-1.6.0.zip</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/googletest-release-1.6.0.zip</url>
     <rename>gtest-1.6.0</rename>
     <patches>
       <patch strip="2">gtest-1.6.0_patch1.diff</patch>
@@ -105,7 +105,7 @@
   </package>
   <package>
     <name>Google C++ Mocking Framework 1.6.0</name>
-    <url>https://github.com/google/googlemock/archive/release-1.6.0.zip</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/googlemock-release-1.6.0.zip</url>
     <format>zip</format>
     <rename>gmock-1.6.0</rename>
     <md5>b51cc3e69a8ef16ac54cee9889b79646</md5>
