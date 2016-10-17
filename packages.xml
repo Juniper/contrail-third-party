@@ -128,7 +128,7 @@
   </package>
   <package>
     <name>Google perftools</name>
-    <url>https://github.com/gperftools/gperftools/releases/download/gperftools-2.1/gperftools-2.1.tar.gz</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/gperftools-2.1.tar.gz</url>
     <format>tgz</format>
     <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
     <platform>
@@ -314,7 +314,7 @@
   </package>
   <package>
     <name>JSON parser/generator for C++</name>
-    <url>https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/rapidjson/rapidjson-0.11.zip</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/rapidjson-0.11.zip</url>
     <format>zip</format>
     <md5>96a4b1b57ece8bc6a807ceb14ccaaf94</md5>
     <patches>
