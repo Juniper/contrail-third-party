@@ -1,0 +1,9 @@
+Approved+1: opencontrail-admin <ci-admin@opencontrail.org>
+Code-Review+2: opencontrail-admin <ci-admin@opencontrail.org>
+Verified+2: opencontrail-admin <ci-admin@opencontrail.org>
+Verified+2: Zuul <zuul@lists.opencontrail.org>
+Submitted-by: Zuul <zuul@lists.opencontrail.org>
+Submitted-at: Sun, 16 Oct 2016 23:07:24 -0700
+Reviewed-on: https://review.opencontrail.org/24932
+Project: Juniper/contrail-third-party
+Branch: refs/heads/R3.0.2.x
