@@ -210,7 +210,7 @@
   </package>
   <package>
     <name>Pugi XML 1.2</name>
-    <url>https://pugixml.googlecode.com/files/pugixml-1.2.tar.gz</url>
+    <url>https://github.com/zeux/pugixml/releases/download/v1.2/pugixml-1.2.tar.gz</url>
     <unpack-directory>pugixml</unpack-directory>
     <format>tgz</format>
     <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
