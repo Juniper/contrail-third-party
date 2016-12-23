@@ -216,17 +216,6 @@
     <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
   </package>
   <package>
-    <name>Apache Thrift 0.8</name>
-    <url>http://archive.apache.org/dist/thrift/0.8.0/thrift-0.8.0.tar.gz</url>
-    <patches>
-      <patch strip="2">thrift_patch1.diff</patch>
-      <patch strip="2">thrift_autoconf.patch</patch>
-    </patches>
-    <format>tgz</format>
-    <md5>d29dfcd38d476cbc420b6f4d80ab966c</md5>
-    <autoreconf>true</autoreconf>
-  </package>
-  <package>
     <name>hiredis boostasio-adapter</name>
     <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-boostasio-adapter-master.zip</url>
     <local-filename>hiredis-master.zip</local-filename>
