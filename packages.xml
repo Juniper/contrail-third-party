@@ -245,6 +245,22 @@
     <md5>93d89867996b8077e0140692c55e997c</md5>
   </package>
   <package>
+    <name>Simple AMQP Client</name>
+    <url>https://github.com/alanxz/SimpleAmqpClient/archive/v2.4.0.tar.gz</url>
+    <local-filename>SimpleAmqpClient-2.4.0.tar.gz</local-filename>
+    <format>tgz</format>
+    <rename>SimpleAmqpClient</rename>
+    <md5>fb86236ae98cd6116cbdf94d8d5f20b0</md5>
+  </package>
+  <package>
+    <name>RabbitMQ C</name>
+    <url>https://github.com/alanxz/rabbitmq-c/releases/download/v0.8.0/rabbitmq-c-0.8.0.tar.gz</url>
+    <local-filename>rabbitmq-c-0.8.0.tar.gz</local-filename>
+    <rename>rabbitmq-c</rename>
+    <format>tgz</format>
+    <md5>c15dbcd2dbb8e254c1de0494c1bb8c91</md5>
+  </package>
+  <package>
     <name>IF-MAP Python Client Library</name>
     <url>https://github.com/ITI/ifmap-python-client/archive/master.zip</url>
     <local-filename>ifmap-python-master.zip</local-filename>
