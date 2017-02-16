@@ -1,0 +1,170 @@
+diff --git a/dpdk/mk/rte.app.mk b/dpdk/mk/rte.app.mk
+index 3871205..2862487 100644
+--- a/dpdk/mk/rte.app.mk
++++ b/dpdk/mk/rte.app.mk
+@@ -83,7 +83,6 @@ _LDLIBS-$(CONFIG_RTE_LIBRTE_ACL)            += -lrte_acl
+ _LDLIBS-$(CONFIG_RTE_LIBRTE_METER)          += -lrte_meter
+ 
+ _LDLIBS-$(CONFIG_RTE_LIBRTE_SCHED)          += -lrte_sched
+-_LDLIBS-$(CONFIG_RTE_LIBRTE_SCHED)          += -lm
+ _LDLIBS-$(CONFIG_RTE_LIBRTE_SCHED)          += -lrt
+ 
+ _LDLIBS-$(CONFIG_RTE_LIBRTE_VHOST)          += -lrte_vhost
+diff --git a/dpdk/config/common_bsdapp b/dpdk/config/common_bsdapp
+index b37dcf4..40cdc48 100644
+--- a/dpdk/config/common_bsdapp
++++ b/dpdk/config/common_bsdapp
+@@ -52,7 +52,7 @@ CONFIG_RTE_EXEC_ENV_BSDAPP=y
+ ## Note: if your compiler does not support the relevant -march options,
+ ## it will be compiled with whatever latest processor the compiler supports!
+ ##
+-#CONFIG_RTE_MACHINE="native"
++#CONFIG_RTE_MACHINE="default"
+ #
+ ##
+ ## define the architecture we compile for.
+diff --git a/dpdk/config/common_linuxapp b/dpdk/config/common_linuxapp
+index 0de43d5..0e260c2 100644
+--- a/dpdk/config/common_linuxapp
++++ b/dpdk/config/common_linuxapp
+@@ -52,7 +52,7 @@ CONFIG_RTE_EXEC_ENV_LINUXAPP=y
+ ## Note: if your compiler does not support the relevant -march options,
+ ## it will be compiled with whatever latest processor the compiler supports!
+ ##
+-#CONFIG_RTE_MACHINE="native"
++#CONFIG_RTE_MACHINE="default"
+ #
+ ##
+ ## define the architecture we compile for.
+diff --git a/dpdk/config/defconfig_i686-native-linuxapp-gcc b/dpdk/config/defconfig_i686-native-linuxapp-gcc
+index a90de9b..79e0259 100644
+--- a/dpdk/config/defconfig_i686-native-linuxapp-gcc
++++ b/dpdk/config/defconfig_i686-native-linuxapp-gcc
+@@ -32,7 +32,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="i686"
+ CONFIG_RTE_ARCH_I686=y
+diff --git a/dpdk/config/defconfig_i686-native-linuxapp-icc b/dpdk/config/defconfig_i686-native-linuxapp-icc
+index c021321..f249135 100644
+--- a/dpdk/config/defconfig_i686-native-linuxapp-icc
++++ b/dpdk/config/defconfig_i686-native-linuxapp-icc
+@@ -32,7 +32,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="i686"
+ CONFIG_RTE_ARCH_I686=y
+diff --git a/dpdk/config/defconfig_ppc_64-power8-linuxapp-gcc b/dpdk/config/defconfig_ppc_64-power8-linuxapp-gcc
+index f1af518..81bf496 100644
+--- a/dpdk/config/defconfig_ppc_64-power8-linuxapp-gcc
++++ b/dpdk/config/defconfig_ppc_64-power8-linuxapp-gcc
+@@ -30,7 +30,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="power8"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="ppc_64"
+ CONFIG_RTE_ARCH_PPC_64=y
+diff --git a/dpdk/config/defconfig_tile-tilegx-linuxapp-gcc b/dpdk/config/defconfig_tile-tilegx-linuxapp-gcc
+index a5d8bd6..e1d7227 100644
+--- a/dpdk/config/defconfig_tile-tilegx-linuxapp-gcc
++++ b/dpdk/config/defconfig_tile-tilegx-linuxapp-gcc
+@@ -30,7 +30,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="tilegx"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="tile"
+ CONFIG_RTE_ARCH_TILE=y
+diff --git a/dpdk/config/defconfig_x86_64-native-bsdapp-clang b/dpdk/config/defconfig_x86_64-native-bsdapp-clang
+index 3305cbd..e05c647 100644
+--- a/dpdk/config/defconfig_x86_64-native-bsdapp-clang
++++ b/dpdk/config/defconfig_x86_64-native-bsdapp-clang
+@@ -32,7 +32,7 @@
+ 
+ #include "common_bsdapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="x86_64"
+ CONFIG_RTE_ARCH_X86_64=y
+diff --git a/dpdk/config/defconfig_x86_64-native-bsdapp-gcc b/dpdk/config/defconfig_x86_64-native-bsdapp-gcc
+index aad7add..8ff7dd8 100644
+--- a/dpdk/config/defconfig_x86_64-native-bsdapp-gcc
++++ b/dpdk/config/defconfig_x86_64-native-bsdapp-gcc
+@@ -32,7 +32,7 @@
+ 
+ #include "common_bsdapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="x86_64"
+ CONFIG_RTE_ARCH_X86_64=y
+diff --git a/dpdk/config/defconfig_x86_64-native-linuxapp-clang b/dpdk/config/defconfig_x86_64-native-linuxapp-clang
+index 5f3074e..595d956 100644
+--- a/dpdk/config/defconfig_x86_64-native-linuxapp-clang
++++ b/dpdk/config/defconfig_x86_64-native-linuxapp-clang
+@@ -32,7 +32,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="x86_64"
+ CONFIG_RTE_ARCH_X86_64=y
+diff --git a/dpdk/config/defconfig_x86_64-native-linuxapp-gcc b/dpdk/config/defconfig_x86_64-native-linuxapp-gcc
+index 60baf5b..dde5f74 100644
+--- a/dpdk/config/defconfig_x86_64-native-linuxapp-gcc
++++ b/dpdk/config/defconfig_x86_64-native-linuxapp-gcc
+@@ -32,7 +32,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="x86_64"
+ CONFIG_RTE_ARCH_X86_64=y
+diff --git a/dpdk/config/defconfig_x86_64-native-linuxapp-icc b/dpdk/config/defconfig_x86_64-native-linuxapp-icc
+index 71d1e28..05d1d78 100644
+--- a/dpdk/config/defconfig_x86_64-native-linuxapp-icc
++++ b/dpdk/config/defconfig_x86_64-native-linuxapp-icc
+@@ -32,7 +32,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="x86_64"
+ CONFIG_RTE_ARCH_X86_64=y
+diff --git a/dpdk/config/defconfig_x86_x32-native-linuxapp-gcc b/dpdk/config/defconfig_x86_x32-native-linuxapp-gcc
+index fb0afc4..01e7938 100644
+--- a/dpdk/config/defconfig_x86_x32-native-linuxapp-gcc
++++ b/dpdk/config/defconfig_x86_x32-native-linuxapp-gcc
+@@ -32,7 +32,7 @@
+ 
+ #include "common_linuxapp"
+ 
+-CONFIG_RTE_MACHINE="native"
++CONFIG_RTE_MACHINE="default"
+ 
+ CONFIG_RTE_ARCH="x86_x32"
+ CONFIG_RTE_ARCH_X86_X32=y
+
+

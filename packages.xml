@@ -391,4 +391,25 @@
       <patch strip="1">openvswitch.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>Userspace RCU</name>
+    <url>http://www.lttng.org/files/urcu/userspace-rcu-0.9.3.tar.bz2</url>
+    <local-filename>userspace-rcu-0.9.3.tar.bz2</local-filename>
+    <format>tbz</format>
+    <md5>920970e35a1a2066c8353eabfeab8730</md5>
+  </package>
+  <package>
+    <name>DPDK</name>
+    <url>http://fast.dpdk.org/rel/dpdk-2.1.0.tar.gz</url>
+    <local-filename>dpdk-2.1.0.tar.gz</local-filename>
+    <format>tgz</format>
+    <md5>205a0d12bfd6eb717d57506272f43519</md5>
+    <rename>dpdk</rename>
+    <patches>
+      <patch strip="1">dpdk-dev-v2-1-2-kni-rename-HAVE_NDO_BRIDGE_GETLINK_FILTER_MASK-macro.diff</patch>
+      <patch strip="1">dpdk-dev-v2-2-2-kni-fix-igb-build-with-kernel-4.2.diff</patch>
+      <patch strip="1">dpdk-dev-librte-fix-igb_uio-s-access-to-pci_dev--msi_list-for-kernels-4.3.diff</patch>
+      <patch strip="1">dpdk-config.diff</patch>
+    </patches>
+  </package>
 </packages>
