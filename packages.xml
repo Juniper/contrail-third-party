@@ -391,4 +391,11 @@
       <patch strip="1">openvswitch.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>Go 1.8</name>
+    <url>https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz</url>
+    <local-filename>go1.8.linux-amd64.tar.gz</local-filename>
+    <format>tgz</format>
+    <md5>d0f6de92ccef6489a0d9b8efbb8f577f</md5>
+  </package>
 </packages>
