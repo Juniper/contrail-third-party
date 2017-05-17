@@ -49,7 +49,7 @@
   </package>
   <package>
     <name>curl 7.24</name>
-    <url>http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
+    <url>http://curl.askapache.com/download/curl-7.24.0.tar.gz</url>
     <format>tgz</format>
     <md5>b93420f80a2baaa61a0f45214eddc2ba</md5>
     <patches>
@@ -125,7 +125,7 @@
   </package>
   <package>
     <name>Google perftools</name>
-    <url>http://gperftools.googlecode.com/files/gperftools-2.1.tar.gz</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/gperftools-2.1.tar.gz</url>
     <format>tgz</format>
     <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
     <platform>
