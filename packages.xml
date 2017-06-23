@@ -378,9 +378,15 @@
   </package>
   <package>
     <name>Go 1.8</name>
-    <url>https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/go/go1.8.linux-amd64.tar.gz</url>
     <local-filename>go1.8.linux-amd64.tar.gz</local-filename>
     <format>tgz</format>
     <md5>d0f6de92ccef6489a0d9b8efbb8f577f</md5>
+  </package>
+  <package>
+    <name>Cni Go Deps</name>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/cni/cni_go_deps.tar.gz</url>
+    <format>tgz</format>
+    <md5>9a7136a2f61d7b599573b9f19ecb4451</md5>
   </package>
 </packages>
