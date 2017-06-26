@@ -383,4 +383,10 @@
     <format>tgz</format>
     <md5>d0f6de92ccef6489a0d9b8efbb8f577f</md5>
   </package>
+  <package>
+    <name>Cni Go Deps</name>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/cni/cni_go_deps.tar.gz</url>
+    <format>tgz</format>
+    <md5>823fcd824557fa0b6506e29d7591f76d</md5>
+  </package>
 </packages>
