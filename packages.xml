@@ -199,7 +199,7 @@
 	</distribution>
 	<distribution>
 	  <name>centos</name>
-	  <version>7.0+</version>
+	  <version>6.4+</version>
 	</distribution>
 	<distribution>
 	  <name>fedora</name>
