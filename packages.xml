@@ -184,12 +184,9 @@
   </package>
   <package>
     <name>Thread Building Blocks 4.0 Update 2</name>
-    <url>http://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb40_20111130oss_src.tgz</url>
+    <url>https://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb42_20131118oss_src.tgz</url>
     <format>tgz</format>
-    <md5>1e6926b21e865e79772119cd44fc3ad8</md5>
-    <patches>
-      <patch strip="2">tbb40_20111130oss_patch1.diff</patch>
-    </patches>
+    <md5>108c8c1e481b0aaea61878289eb28b6a</md5>
     <platform>
       <exclude>
 	<distribution>
