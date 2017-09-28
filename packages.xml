@@ -358,7 +358,7 @@
   </package>
   <package>
     <name>vijava</name>
-    <url>http://sourceforge.net/projects/vijava/files/vijava/VI%20Java%20API%205.5%20Beta/vijava55b20130927src.jar/download</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/vmware/vijava55b20130927src.jar</url>
     <local-filename>vijava55b20130927src.jar</local-filename>
     <format>zip</format>
     <md5>3993c5bf9323e55fe9e6c14c974ea155</md5>
