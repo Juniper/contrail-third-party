@@ -390,4 +390,10 @@
     <format>tgz</format>
     <md5>823fcd824557fa0b6506e29d7591f76d</md5>
   </package>
+  <package>
+    <name>node-dir</name>
+    <url>http://registry.npmjs.org/node-dir/-/node-dir-0.1.5.tgz</url>
+    <format>npm</format>
+    <md5>c56d5282783a6d5e6fe99a5cacc1010a</md5>
+  </package>
 </packages>
