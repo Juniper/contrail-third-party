@@ -1,0 +1,136 @@
+<packages>
+  <!--
+    Tags:
+        name    : Specify name of the package.
+        url     : URL to download the package.
+        format  : Format of the downloaded file.
+                  If format is set as 'file', then after downloading the
+                  file, same file gets renamed (if rename tag is specfied) and
+                  copied to currect directory, else based on the format, the
+                  zipped file gets extracted and gets copied in current directory
+        md5     : md5 checksum to compare, against the md5 checksum of the
+                  downloaded file
+        rename  : Rename the directory/downloaded file to this.
+        patches : Specify the patch files which will be applied on the files once
+                  download and copy to currect directory is complete.
+  -->
+  <package>
+    <name>Windows Apache Thrift 0.8</name>
+    <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/thrift-0.8.0.zip</url>
+      <unpack-directory></unpack-directory>
+      <patches>
+          <patch strip="0">windows/thrift_project_files.patch</patch>
+          <patch strip="0">windows/thrift_source_files.patch</patch>          
+      </patches>
+      <destination>thrift-0.8.0</destination>
+    <format>zip</format>
+    <md5>1ba7ee3afdf014fbf7ac3f5da9492ff3</md5>
+  </package>
+  <package>
+        <name>log4cplus-1.1.1</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/log4cplus-1.1.1.zip</url>
+        <unpack-directory></unpack-directory>
+      <destination>log4cplus-1.1.1</destination>
+        <format>zip</format>
+        <md5>1d6aab5aa81bfbe2edaa97995b808279</md5>
+    </package>
+    
+    <package>
+        <name>googletest-release-1.8.0</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/googletest-release-1.8.0.zip</url>
+        <unpack-directory></unpack-directory>
+        <destination>googletest-release-1.8.0</destination>
+        <format>zip</format>
+        <md5>adfafc8512ab65fd3cf7955ef0100ff5</md5>
+    </package>
+
+    <package>
+        <name>rapidjson-0.11</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/rapidjson-0.11.zip</url>
+        <unpack-directory></unpack-directory>
+        <destination>rapidjson</destination>
+        <format>zip</format>
+        <md5>96a4b1b57ece8bc6a807ceb14ccaaf94</md5>
+    </package>
+    
+    <package>
+        <name>boost 1.62.0</name>
+        <url>https://sourceforge.net/projects/boost/files/boost/1.62.0/boost_1_62_0.zip</url>
+        <unpack-directory></unpack-directory>
+        <destination>boost_1_62_0</destination>
+        <format>zip</format>
+        <md5>9495bfde25f46698edb8b8eb02e55eab</md5>
+    </package>
+    <package>
+        <name>openvswitch-2.6.0</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/openvswitch-2.6.0.tar.gz</url>
+        <unpack-directory></unpack-directory>
+        <destination>openvswitch-2.6.0</destination>
+        <format>tgz</format>
+        <md5>7d73a3e48aa60a807663e690c3928d72</md5>
+    </package>
+    <package>
+        <name>http-parser-2.1</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/http-parser-2.1.zip</url>
+        <unpack-directory></unpack-directory>
+        <destination>http-parser-2.1</destination>
+        <format>zip</format>
+        <md5>ebed8ebabaaeff86d75bd2a7bc6ee0ba</md5>
+    </package>
+    <package>
+        <name>pugixml-1.2</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/pugixml-1.2.tar.gz</url>
+        <unpack-directory>pugixml</unpack-directory>
+        <destination>pugixml</destination>
+        <format>tgz</format>
+        <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
+    </package>
+    <package>
+        <name>curl</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/curl-curl-7_52_0.zip</url>
+        <unpack-directory></unpack-directory>
+        <destination>curl-curl-7.52.0</destination>
+        <format>zip</format>
+        <md5>aeac31c330d7a2e87e6058b125602d2d</md5>
+    </package>
+    <package>
+        <name>dirent-1.21</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/dirent-1.21.zip</url>
+        <unpack-directory>dirent</unpack-directory>
+        <destination>dirent-1.21</destination>
+        <format>zip</format>
+        <md5>6f64427134567e20bc498f7bae0b570c</md5>
+    </package>
+    <package>
+        <name>openssl-1.0.2k</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/openssl-1.0.2k.tar.gz</url>
+        <unpack-directory></unpack-directory>
+        <destination>openssl-1.0.2k</destination>
+        <format>tgz</format>
+        <md5>f965fc0bf01bf882b31314b61391ae65</md5>
+    </package>
+    <package>
+        <name>libevent</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libevent-2.0.22.tar.gz</url>
+        <unpack-directory></unpack-directory>
+        <destination>libevent</destination>
+        <format>tgz</format>
+        <md5>c4c56f986aa985677ca1db89630a2e11</md5>
+    </package>
+    <package>
+        <name>libxml2</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libxml2-2.9.4.tar.gz</url>
+        <unpack-directory></unpack-directory>
+        <destination>libxml2</destination>
+        <format>tgz</format>
+        <md5>ae249165c173b1ff386ee8ad676815f5</md5>
+    </package>
+    <package>
+        <name>tbb-2017_U7</name>
+        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/tbb-2017_U7.zip</url>
+        <unpack-directory></unpack-directory>
+        <destination>tbb-2017_U7</destination>
+        <format>zip</format>
+        <md5>885d480693287a093d230460a067afb4</md5>
+    </package>
+</packages>
