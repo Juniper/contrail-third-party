@@ -15,8 +15,16 @@ import argparse
 
 # arguments (given by command line or defaults)
 ARGS = dict()
-ARGS['filename'] = 'packages.xml'
-if 'USER' in os.environ.keys():
+if sys.platform == 'win32':
+    ARGS['filename'] = 'windows_packages.xml'
+    wgettool = 'wget64'
+else:
+    ARGS['filename'] = 'packages.xml'
+    wgettool = 'wget'
+
+if sys.platform == 'win32':
+    ARGS['cache_dir'] = 'windowscache'
+elif 'USER' in os.environ.keys():
     ARGS['cache_dir']=  '/tmp/cache/' + os.environ['USER'] + '/third_party'
 else:
     ARGS['cache_dir'] = '.cache'
@@ -75,8 +83,13 @@ def ApplyPatches(pkg):
     stree = pkg.find('patches')
     if stree is None:
         return
+    destination = pkg.find('destination')
     for patch in stree.getchildren():
         cmd = ['patch']
+        if destination:
+            cmd.append('-d')
+            cmd.append(str(destination))
+
         if patch.get('strip'):
             cmd.append('-p')
             cmd.append(patch.get('strip'))
@@ -103,7 +116,7 @@ def DownloadPackage(url, pkg, md5):
 
     retry_count = 0
     while True:
-	subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
+	subprocess.call([wgettool, '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
         md5sum = FindMd5sum(pkg)
         if ARGS['verbose']:
             print "Calculated md5sum: %s" % md5sum
@@ -184,7 +197,7 @@ def ProcessPackage(pkg):
     filename = getFilename(pkg, url)
     ccfile = ARGS['cache_dir'] + '/' + filename
     DownloadPackage(url, ccfile, pkg.md5)
-
+    cmd1=None
     #
     # Determine the name of the directory created by the package.
     # unpack-directory means that we 'cd' to the given directory before
@@ -192,8 +205,11 @@ def ProcessPackage(pkg):
     #
     dest = None
     unpackdir = pkg.find('unpack-directory')
+    destination = pkg.find('destination')
     if unpackdir:
         dest = str(unpackdir)
+    elif destination:
+        dest = str(destination)
     else:
         if pkg.format == 'tgz':
             dest = getTarDestination(ccfile, 'z')
@@ -225,26 +241,46 @@ def ProcessPackage(pkg):
             os.makedirs(str(unpackdir))
         except OSError as exc:
             pass
-        
+    if sys.platform == 'win32':
+        if pkg.format == 'tgz':
+             ccfile1=  os.path.splitext(ccfile)[0]
+             cmd = '7z x ' + ccfile + ' -o'+ ARGS['cache_dir'] 
+             cmd1 = '7z x ' + ccfile1
+             if unpackdir:
+                 cmd1= cmd1 +' -o'+ str(unpackdir)
+        elif pkg.format == 'tbz':
+            cmd = ['tar', 'jxvf', ccfile]
+        elif pkg.format == 'zip':
+            cmd = '7z x ' + ccfile
+            if unpackdir:
+                 cmd= cmd+' -o'+ str(unpackdir)
 
-    if pkg.format == 'tgz':
-        cmd = ['tar', 'zxvf', ccfile]
-    elif pkg.format == 'tbz':
-        cmd = ['tar', 'jxvf', ccfile]
-    elif pkg.format == 'zip':
-        cmd = ['unzip', '-o', ccfile]
-    elif pkg.format == 'npm':
-        cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
-    elif pkg.format == 'file':
-        cmd = ['cp', '-af', ccfile, dest]
+        elif pkg.format == 'npm':
+            cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
+        elif pkg.format == 'file':
+            cmd = ['cp', '-af', ccfile, dest]
+        else:
+            print 'Unexpected format: %s' % (pkg.format)
+            return
     else:
-        print 'Unexpected format: %s' % (pkg.format)
-        return
-
+        if pkg.format == 'tgz':
+            cmd = ['tar', 'zxvf', ccfile]
+        elif pkg.format == 'tbz':
+            cmd = ['tar', 'jxvf', ccfile]
+        elif pkg.format == 'zip':
+            cmd = ['unzip', '-o', ccfile]
+        elif pkg.format == 'npm':
+            cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
+        elif pkg.format == 'file':
+            cmd = ['cp', '-af', ccfile, dest]
+        else:
+            print 'Unexpected format: %s' % (pkg.format)
+            return
     if not ARGS['dry_run']:
         cd = None
-        if unpackdir:
-            cd = str(unpackdir)
+        if sys.platform != 'win32':
+            if unpackdir:
+                cd = str(unpackdir)
         if pkg.format == 'npm':
             try:
                 os.makedirs(ARGS['node_modules_dir'])
@@ -270,7 +306,9 @@ def ProcessPackage(pkg):
 		   return
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
-
+        if cmd1: #extra stuff for windows
+            p = subprocess.Popen(cmd1, cwd = cd)
+            p.wait()
     if rename and dest:
         os.rename(dest, str(rename))
         dest = str(rename)
@@ -318,15 +356,19 @@ def main():
 
 if __name__ == '__main__':
     parse_args()
-    dependencies = [
-        'autoconf',
-        'automake',
-        'bzip2',
-        'libtool',
-        'patch',
-        'unzip',
-        'wget',
-    ]
+    if sys.platform == 'win32':
+        dependencies = ['7z', 'patch', wgettool]
+    else:
+        dependencies = [
+            'autoconf',
+            'automake',
+            'bzip2',
+            'libtool',
+            'patch',
+            'unzip',
+            wgettool,
+        ]
+ 
     for exc in dependencies:
         if not find_executable(exc):
             print 'Please install %s' % exc

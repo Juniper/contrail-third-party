@@ -1,0 +1,574 @@
+diff -u -r compiler\cpp\compiler.sln compiler\cpp\compiler.sln
+--- compiler\cpp\compiler.sln	Sat Nov 26 11:00:48 2011
++++ compiler\cpp\compiler.sln	Wed Jan 03 18:44:22 2018
+@@ -1,18 +1,26 @@
+ ﻿
+-Microsoft Visual Studio Solution File, Format Version 11.00
+-# Visual Studio 2010
++Microsoft Visual Studio Solution File, Format Version 12.00
++# Visual Studio 14
++VisualStudioVersion = 14.0.25420.1
++MinimumVisualStudioVersion = 10.0.40219.1
+ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compiler", "compiler.vcxproj", "{89975A1A-F799-4556-98B8-64E30AB39A90}"
+ EndProject
+ Global
+ 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+ 		Debug|Win32 = Debug|Win32
++		Debug|x64 = Debug|x64
+ 		Release|Win32 = Release|Win32
++		Release|x64 = Release|x64
+ 	EndGlobalSection
+ 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+ 		{89975A1A-F799-4556-98B8-64E30AB39A90}.Debug|Win32.ActiveCfg = Debug|Win32
+ 		{89975A1A-F799-4556-98B8-64E30AB39A90}.Debug|Win32.Build.0 = Debug|Win32
++		{89975A1A-F799-4556-98B8-64E30AB39A90}.Debug|x64.ActiveCfg = Debug|x64
++		{89975A1A-F799-4556-98B8-64E30AB39A90}.Debug|x64.Build.0 = Debug|x64
+ 		{89975A1A-F799-4556-98B8-64E30AB39A90}.Release|Win32.ActiveCfg = Release|Win32
+ 		{89975A1A-F799-4556-98B8-64E30AB39A90}.Release|Win32.Build.0 = Release|Win32
++		{89975A1A-F799-4556-98B8-64E30AB39A90}.Release|x64.ActiveCfg = Release|x64
++		{89975A1A-F799-4556-98B8-64E30AB39A90}.Release|x64.Build.0 = Release|x64
+ 	EndGlobalSection
+ 	GlobalSection(SolutionProperties) = preSolution
+ 		HideSolutionNode = FALSE
+diff -u -r compiler\cpp\compiler.vcxproj compiler\cpp\compiler.vcxproj
+--- compiler\cpp\compiler.vcxproj	Sat Nov 26 11:00:48 2011
++++ compiler\cpp\compiler.vcxproj	Wed Jan 03 18:44:22 2018
+@@ -1,14 +1,22 @@
+ ﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <ItemGroup Label="ProjectConfigurations">
+     <ProjectConfiguration Include="Debug|Win32">
+       <Configuration>Debug</Configuration>
+       <Platform>Win32</Platform>
+     </ProjectConfiguration>
++    <ProjectConfiguration Include="Debug|x64">
++      <Configuration>Debug</Configuration>
++      <Platform>x64</Platform>
++    </ProjectConfiguration>
+     <ProjectConfiguration Include="Release|Win32">
+       <Configuration>Release</Configuration>
+       <Platform>Win32</Platform>
+     </ProjectConfiguration>
++    <ProjectConfiguration Include="Release|x64">
++      <Configuration>Release</Configuration>
++      <Platform>x64</Platform>
++    </ProjectConfiguration>
+   </ItemGroup>
+   <ItemGroup>
+     <ClInclude Include="src\generate\t_generator.h" />
+@@ -64,8 +72,8 @@
+     <ClCompile Include="src\main.cc" />
+     <ClCompile Include="src\md5.c" />
+     <ClCompile Include="src\parse\parse.cc" />
+-    <ClCompile Include="src\thriftl.cc" />
+     <ClCompile Include="src\thrifty.cc" />
++    <ClCompile Include="thriftl.cc" />
+   </ItemGroup>
+   <ItemGroup>
+     <None Include="README_WINDOWS" />
+@@ -76,18 +84,34 @@
+     <ProjectGuid>{89975A1A-F799-4556-98B8-64E30AB39A90}</ProjectGuid>
+     <Keyword>Win32Proj</Keyword>
+     <RootNamespace>compiler</RootNamespace>
++    <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
+   </PropertyGroup>
+   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+     <ConfigurationType>Application</ConfigurationType>
+     <UseDebugLibraries>true</UseDebugLibraries>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
++  </PropertyGroup>
++  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
++    <ConfigurationType>Application</ConfigurationType>
++    <UseDebugLibraries>true</UseDebugLibraries>
++    <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+     <ConfigurationType>Application</ConfigurationType>
+     <UseDebugLibraries>false</UseDebugLibraries>
+     <WholeProgramOptimization>true</WholeProgramOptimization>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
++  </PropertyGroup>
++  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
++    <ConfigurationType>Application</ConfigurationType>
++    <UseDebugLibraries>false</UseDebugLibraries>
++    <WholeProgramOptimization>true</WholeProgramOptimization>
++    <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+   <ImportGroup Label="ExtensionSettings">
+@@ -95,20 +119,36 @@
+   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+   </ImportGroup>
++  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
++    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
++  </ImportGroup>
+   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+   </ImportGroup>
++  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
++    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
++  </ImportGroup>
+   <PropertyGroup Label="UserMacros" />
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+     <LinkIncremental>true</LinkIncremental>
+     <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(IncludePath)</IncludePath>
+     <TargetName>thrift</TargetName>
+   </PropertyGroup>
++  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
++    <LinkIncremental>true</LinkIncremental>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(IncludePath)</IncludePath>
++    <TargetName>thrift</TargetName>
++  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+     <LinkIncremental>false</LinkIncremental>
+     <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(IncludePath)</IncludePath>
+     <TargetName>thrift</TargetName>
+   </PropertyGroup>
++  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
++    <LinkIncremental>false</LinkIncremental>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(IncludePath)</IncludePath>
++    <TargetName>thrift</TargetName>
++  </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+     <ClCompile>
+       <PrecompiledHeader>
+@@ -128,7 +168,49 @@
+ bison -y -o "src/thrifty.cc" --defines="src/thrifty.h" src/thrifty.yy</Command>
+     </PreBuildEvent>
+   </ItemDefinitionGroup>
++  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
++    <ClCompile>
++      <PrecompiledHeader>
++      </PrecompiledHeader>
++      <WarningLevel>Level3</WarningLevel>
++      <Optimization>Disabled</Optimization>
++      <PreprocessorDefinitions>WIN32;MINGW;YY_NO_UNISTD_H;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <ForcedIncludeFiles>config.h</ForcedIncludeFiles>
++      <CompileAs>CompileAsCpp</CompileAs>
++    </ClCompile>
++    <Link>
++      <SubSystem>Console</SubSystem>
++      <GenerateDebugInformation>true</GenerateDebugInformation>
++    </Link>
++    <PreBuildEvent>
++      <Command>flex -o "src/thriftl.cc" src/thriftl.ll
++bison -y -o "src/thrifty.cc" --defines="src/thrifty.h" src/thrifty.yy</Command>
++    </PreBuildEvent>
++  </ItemDefinitionGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
++    <ClCompile>
++      <WarningLevel>Level3</WarningLevel>
++      <PrecompiledHeader>
++      </PrecompiledHeader>
++      <Optimization>MaxSpeed</Optimization>
++      <FunctionLevelLinking>true</FunctionLevelLinking>
++      <IntrinsicFunctions>true</IntrinsicFunctions>
++      <PreprocessorDefinitions>WIN32;MINGW;YY_NO_UNISTD_H;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <ForcedIncludeFiles>config.h</ForcedIncludeFiles>
++      <CompileAs>CompileAsCpp</CompileAs>
++    </ClCompile>
++    <Link>
++      <SubSystem>Console</SubSystem>
++      <GenerateDebugInformation>true</GenerateDebugInformation>
++      <EnableCOMDATFolding>true</EnableCOMDATFolding>
++      <OptimizeReferences>true</OptimizeReferences>
++    </Link>
++    <PreBuildEvent>
++      <Command>flex -o "src/thriftl.cc" src/thriftl.ll
++bison -y -o "src/thrifty.cc" --defines="src/thrifty.h" src/thrifty.yy</Command>
++    </PreBuildEvent>
++  </ItemDefinitionGroup>
++  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+     <ClCompile>
+       <WarningLevel>Level3</WarningLevel>
+       <PrecompiledHeader>
+diff -u -r compiler\cpp\compiler.vcxproj.filters compiler\cpp\compiler.vcxproj.filters
+--- compiler\cpp\compiler.vcxproj.filters	Sat Nov 26 11:00:48 2011
++++ compiler\cpp\compiler.vcxproj.filters	Wed Jan 03 18:44:22 2018
+@@ -155,9 +155,6 @@
+       <Filter>generate</Filter>
+     </ClCompile>
+     <ClCompile Include="src\md5.c" />
+-    <ClCompile Include="src\thriftl.cc">
+-      <Filter>generated</Filter>
+-    </ClCompile>
+     <ClCompile Include="src\thrifty.cc">
+       <Filter>generated</Filter>
+     </ClCompile>
+@@ -167,6 +164,7 @@
+     <ClCompile Include="src\generate\t_py_generator.cc">
+       <Filter>generate</Filter>
+     </ClCompile>
++    <ClCompile Include="thriftl.cc" />
+   </ItemGroup>
+   <ItemGroup>
+     <None Include="src\thriftl.ll">
+diff -u -r compiler\cpp\src\generate\t_rb_generator.cc compiler\cpp\src\generate\t_rb_generator.cc
+--- compiler\cpp\src\generate\t_rb_generator.cc	Sat Nov 26 11:00:48 2011
++++ compiler\cpp\src\generate\t_rb_generator.cc	Wed Jan 03 18:44:22 2018
+@@ -321,7 +321,7 @@
+   for(c_iter = constants.begin(); c_iter != constants.end(); ++c_iter) {
+     // Populate the hash
+     int value = (*c_iter)->get_value();
+-    first ? first = false : f_types_ << ", ";
++    first ? first = false : static_cast<bool>(f_types_ << ", ");
+     f_types_ << value << " => \"" << capitalize((*c_iter)->get_name()) << "\"";
+   }
+   f_types_ << "}" << endl;
+@@ -331,7 +331,7 @@
+   first = true;
+   for (c_iter = constants.begin(); c_iter != constants.end(); ++c_iter) {
+     // Populate the set
+-    first ? first = false : f_types_ << ", ";
++    first ? first = false : static_cast<bool>(f_types_ << ", ");
+     f_types_ << capitalize((*c_iter)->get_name());
+   }
+   f_types_ << "]).freeze" << endl;
+diff -u -r compiler\cpp\src\thrifty.yy compiler\cpp\src\thrifty.yy
+--- compiler\cpp\src\thrifty.yy	Sat Nov 26 11:00:48 2011
++++ compiler\cpp\src\thrifty.yy	Wed Jan 03 18:44:22 2018
+@@ -629,7 +629,7 @@
+       $$ = new t_const_value();
+       $$->set_integer($1);
+       if (!g_allow_64bit_consts && ($1 < INT32_MIN || $1 > INT32_MAX)) {
+-        pwarning(1, "64-bit constant \"%"PRIi64"\" may not work in all languages.\n", $1);
++        pwarning(1, "64-bit constant \"%" PRIi64 "\" may not work in all languages.\n", $1);
+       }
+     }
+ | tok_dub_constant
+diff -u -r lib\cpp\libthrift.vcxproj lib\cpp\libthrift.vcxproj
+--- lib\cpp\libthrift.vcxproj	Sat Nov 26 11:00:42 2011
++++ lib\cpp\libthrift.vcxproj	Wed Jan 03 18:44:22 2018
+@@ -1,5 +1,5 @@
+ ﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <ItemGroup Label="ProjectConfigurations">
+     <ProjectConfiguration Include="Debug|Win32">
+       <Configuration>Debug</Configuration>
+@@ -213,23 +213,27 @@
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>true</UseDebugLibraries>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>true</UseDebugLibraries>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>false</UseDebugLibraries>
+     <WholeProgramOptimization>true</WholeProgramOptimization>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>false</UseDebugLibraries>
+     <WholeProgramOptimization>true</WholeProgramOptimization>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+   <ImportGroup Label="ExtensionSettings">
+@@ -248,23 +252,23 @@
+   </ImportGroup>
+   <PropertyGroup Label="UserMacros" />
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+     <ClCompile>
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+       <WarningLevel>Level3</WarningLevel>
+       <Optimization>Disabled</Optimization>
+-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+       <ProgramDataBaseFileName>$(IntDir)libthrift.pdb</ProgramDataBaseFileName>
+     </ClCompile>
+@@ -278,7 +282,7 @@
+       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+       <WarningLevel>Level3</WarningLevel>
+       <Optimization>Disabled</Optimization>
+-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+     </ClCompile>
+     <Link>
+@@ -293,7 +297,7 @@
+       <Optimization>MaxSpeed</Optimization>
+       <FunctionLevelLinking>true</FunctionLevelLinking>
+       <IntrinsicFunctions>true</IntrinsicFunctions>
+-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+       <ProgramDataBaseFileName>$(IntDir)libthrift.pdb</ProgramDataBaseFileName>
+     </ClCompile>
+@@ -311,7 +315,7 @@
+       <Optimization>MaxSpeed</Optimization>
+       <FunctionLevelLinking>true</FunctionLevelLinking>
+       <IntrinsicFunctions>true</IntrinsicFunctions>
+-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+     </ClCompile>
+     <Link>
+diff -u -r lib\cpp\libthriftnb.vcxproj lib\cpp\libthriftnb.vcxproj
+--- lib\cpp\libthriftnb.vcxproj	Sat Nov 26 11:00:42 2011
++++ lib\cpp\libthriftnb.vcxproj	Wed Jan 03 18:44:22 2018
+@@ -1,5 +1,5 @@
+ ﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <ItemGroup Label="ProjectConfigurations">
+     <ProjectConfiguration Include="Debug|Win32">
+       <Configuration>Debug</Configuration>
+@@ -19,6 +19,7 @@
+     </ProjectConfiguration>
+   </ItemGroup>
+   <ItemGroup>
++    <ClCompile Include="src\async\TAsioAsync.cpp" />
+     <ClCompile Include="src\async\TAsyncProtocolProcessor.cpp">
+       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+@@ -37,12 +38,7 @@
+       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+     </ClCompile>
+-    <ClCompile Include="src\server\TNonblockingServer.cpp">
+-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-    </ClCompile>
++    <ClCompile Include="src\server\TNonblockingServer.cpp" />
+     <ClCompile Include="src\windows\StdAfx.cpp" />
+   </ItemGroup>
+   <ItemGroup>
+@@ -65,23 +61,27 @@
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>true</UseDebugLibraries>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>true</UseDebugLibraries>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>false</UseDebugLibraries>
+     <WholeProgramOptimization>true</WholeProgramOptimization>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+     <ConfigurationType>StaticLibrary</ConfigurationType>
+     <UseDebugLibraries>false</UseDebugLibraries>
+     <WholeProgramOptimization>true</WholeProgramOptimization>
+     <CharacterSet>MultiByte</CharacterSet>
++    <PlatformToolset>v140</PlatformToolset>
+   </PropertyGroup>
+   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+   <ImportGroup Label="ExtensionSettings">
+@@ -100,16 +100,16 @@
+   </ImportGroup>
+   <PropertyGroup Label="UserMacros" />
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
+   </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+     <ClCompile>
+@@ -117,7 +117,7 @@
+       </PrecompiledHeader>
+       <WarningLevel>Level3</WarningLevel>
+       <Optimization>Disabled</Optimization>
+-      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+       <ProgramDataBaseFileName>$(IntDir)libthriftnb.pdb</ProgramDataBaseFileName>
+     </ClCompile>
+@@ -132,7 +132,7 @@
+       </PrecompiledHeader>
+       <WarningLevel>Level3</WarningLevel>
+       <Optimization>Disabled</Optimization>
+-      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+     </ClCompile>
+     <Link>
+@@ -148,7 +148,7 @@
+       <Optimization>MaxSpeed</Optimization>
+       <FunctionLevelLinking>true</FunctionLevelLinking>
+       <IntrinsicFunctions>true</IntrinsicFunctions>
+-      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+       <ProgramDataBaseFileName>$(IntDir)libthriftnb.pdb</ProgramDataBaseFileName>
+     </ClCompile>
+@@ -167,7 +167,7 @@
+       <Optimization>MaxSpeed</Optimization>
+       <FunctionLevelLinking>true</FunctionLevelLinking>
+       <IntrinsicFunctions>true</IntrinsicFunctions>
+-      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+     </ClCompile>
+     <Link>
+diff -u -r lib\cpp\src\concurrency\FunctionRunner.h lib\cpp\src\concurrency\FunctionRunner.h
+--- lib\cpp\src\concurrency\FunctionRunner.h	Sat Nov 26 11:00:42 2011
++++ lib\cpp\src\concurrency\FunctionRunner.h	Wed Jan 03 18:44:22 2018
+@@ -84,7 +84,7 @@
+   void run() {
+     if (repFunc_) {
+       while(repFunc_()) {
+-        usleep(intervalMs_*1000);
++        thrift_usleep(intervalMs_*1000);
+       }
+     } else {
+       func_();
+diff -u -r lib\cpp\src\Thrift.h lib\cpp\src\Thrift.h
+--- lib\cpp\src\Thrift.h	Wed Sep 21 13:52:44 2016
++++ lib\cpp\src\Thrift.h	Wed Jan 03 18:44:22 2018
+@@ -41,8 +41,11 @@
+ /**
+  * CONTRAIL-CUSTOM
+  */
++
++#ifndef _WINDOWS
+ #include <netinet/in.h>
+ #include <sys/socket.h>
++#endif
+ 
+ #include <string>
+ #include <map>
+diff -u -r lib\cpp\src\transport\TFileTransport.cpp lib\cpp\src\transport\TFileTransport.cpp
+--- lib\cpp\src\transport\TFileTransport.cpp	Sat Nov 26 11:00:42 2011
++++ lib\cpp\src\transport\TFileTransport.cpp	Wed Jan 03 18:44:22 2018
+@@ -412,7 +412,7 @@
+ 
+         while (hasIOError) {
+           T_ERROR("TFileTransport: writer thread going to sleep for %d microseconds due to IO errors", writerThreadIOErrorSleepTime_);
+-          usleep(writerThreadIOErrorSleepTime_);
++          thrift_usleep(writerThreadIOErrorSleepTime_);
+           if (closing_) {
+ #ifndef USE_BOOST_THREAD
+             pthread_exit(NULL);
+@@ -673,7 +673,7 @@
+       } else if (readState_.bufferLen_ == 0) {  // EOF
+         // wait indefinitely if there is no timeout
+         if (readTimeout_ == TAIL_READ_TIMEOUT) {
+-          usleep(eofSleepTime_);
++          thrift_usleep(eofSleepTime_);
+           continue;
+         } else if (readTimeout_ == NO_TAIL_READ_TIMEOUT) {
+           // reset state
+@@ -685,7 +685,7 @@
+             readState_.resetState(0);
+             return NULL;
+           } else {
+-            usleep(readTimeout_ * 1000);
++            thrift_usleep(readTimeout_ * 1000);
+             readTries++;
+             continue;
+           }
+@@ -816,7 +816,7 @@
+       // if tailing the file, wait until there is enough data to start
+       // the next chunk
+       while(curChunk == (getNumChunks() - 1)) {
+-        usleep(DEFAULT_CORRUPTED_SLEEP_TIME_US);
++        thrift_usleep(DEFAULT_CORRUPTED_SLEEP_TIME_US);
+       }
+       seekToChunk(curChunk + 1);
+     } else {
+diff -u -r lib\cpp\src\transport\TSocket.cpp lib\cpp\src\transport\TSocket.cpp
+--- lib\cpp\src\transport\TSocket.cpp	Sat Nov 26 11:00:42 2011
++++ lib\cpp\src\transport\TSocket.cpp	Wed Jan 03 18:44:22 2018
+@@ -468,7 +468,7 @@
+ 
+       if (!eagainThresholdMicros || (readElapsedMicros < eagainThresholdMicros)) {
+         if (retries++ < maxRecvRetries_) {
+-          usleep(50);
++          thrift_usleep(50);
+           goto try_again;
+         } else {
+           throw TTransportException(TTransportException::TIMED_OUT,
+diff -u -r lib\cpp\src\windows\config.h lib\cpp\src\windows\config.h
+--- lib\cpp\src\windows\config.h	Sat Nov 26 11:47:26 2011
++++ lib\cpp\src\windows\config.h	Wed Jan 03 18:44:22 2018
+@@ -58,10 +58,12 @@
+ #if 0
+ #	include <pthread.h>
+ #else
++#ifndef _WINDOWS
+ struct timespec {
+ 	int64_t tv_sec;
+ 	int64_t tv_nsec;
+ };
++#endif
+ #	define USE_BOOST_THREAD 1
+ #	define ctime_r( _clock, _buf ) \
+         ( strcpy( (_buf), ctime( (_clock) ) ),  \
+@@ -71,7 +73,7 @@
+ typedef ptrdiff_t ssize_t;
+ 
+ // Missing functions.
+-#define usleep(ms) Sleep(ms)
++#define thrift_usleep(ms) Sleep(ms)
+ 
+ #if WINVER <= 0x0502
+ #define poll(fds, nfds, timeout) \
+diff -u -r lib\cpp\src\windows\TWinsockSingleton.h lib\cpp\src\windows\TWinsockSingleton.h
+--- lib\cpp\src\windows\TWinsockSingleton.h	Sat Nov 26 11:00:42 2011
++++ lib\cpp\src\windows\TWinsockSingleton.h	Wed Jan 03 18:44:22 2018
+@@ -47,9 +47,9 @@
+     typedef boost::scoped_ptr<TWinsockSingleton> instance_ptr;
+ 
+ private:
+-
++#ifndef _WINDOWS
+     friend void boost::call_once(void (*func)(void), boost::once_flag& flag);
+-
++#endif
+ private:
+ 
+     TWinsockSingleton(void);
