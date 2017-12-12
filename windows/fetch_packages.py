@@ -30,7 +30,7 @@ else:
     ARGS['cache_dir'] = '.cache'
 ARGS['node_modules_dir'] = 'node_modules'
 ARGS['node_modules_tmp_dir'] = ARGS['cache_dir'] + '/' + ARGS['node_modules_dir']
-ARGS['verbose'] = False
+ARGS['verbose'] = True
 ARGS['dry_run'] = False
 
 _RETRIES = 5
@@ -65,6 +65,7 @@ def getZipDestination(tgzfile):
     cmd = subprocess.Popen(['unzip', '-t', tgzfile],
                            stdout=subprocess.PIPE)
     (output, _) = cmd.communicate()
+    print output
     lines = output.split('\n')
     for line in lines:
         print line
@@ -208,8 +209,10 @@ def ProcessPackage(pkg):
     destination = pkg.find('destination')
     if unpackdir:
         dest = str(unpackdir)
+        print "unpacking to: " + dest
     elif destination:
         dest = str(destination)
+        print 'destination is ' + destination
     else:
         if pkg.format == 'tgz':
             dest = getTarDestination(ccfile, 'z')
@@ -241,13 +244,15 @@ def ProcessPackage(pkg):
             os.makedirs(str(unpackdir))
         except OSError as exc:
             pass
-    if sys.platform == 'win32':
+    if sys.platform == 'win32':          
         if pkg.format == 'tgz':
              ccfile1=  os.path.splitext(ccfile)[0]
              cmd = '7z x ' + ccfile + ' -o'+ ARGS['cache_dir'] 
              cmd1 = '7z x ' + ccfile1
              if unpackdir:
-                 cmd1= cmd1 +' -o'+ str(unpackdir)
+                 cmd1= cmd1+' -o'+ str(unpackdir)
+             print str(cmd)
+             print str(cmd1)
         elif pkg.format == 'tbz':
             cmd = ['tar', 'jxvf', ccfile]
         elif pkg.format == 'zip':
@@ -268,7 +273,7 @@ def ProcessPackage(pkg):
         elif pkg.format == 'tbz':
             cmd = ['tar', 'jxvf', ccfile]
         elif pkg.format == 'zip':
-            cmd = ['unzip', '-o', ccfile]
+            cmd = [unziptool, unziptoolparam, ccfile]
         elif pkg.format == 'npm':
             cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
         elif pkg.format == 'file':
@@ -305,9 +310,11 @@ def ProcessPackage(pkg):
 		except OSError:
 		   print ' '.join(cmd) + ' could not be executed, bailing out!'
 		   return
+        print cmd
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
         if cmd1: #extra stuff for windows
+            print cmd1
             p = subprocess.Popen(cmd1, cwd = cd)
             p.wait()
     if rename and dest:
