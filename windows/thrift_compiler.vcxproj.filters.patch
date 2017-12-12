@@ -1,0 +1,8 @@
+--- compiler/cpp/compiler.vcxproj.filters	Mon Jan 01 04:11:44 2018
++++ compiler/cpp/compiler.vcxproj.filters	Mon Oct 02 20:38:17 2017
+@@ -158,3 +157,0 @@
+-    <ClCompile Include="src\thriftl.cc">
+-      <Filter>generated</Filter>
+-    </ClCompile>
+@@ -169,0 +167 @@
++    <ClCompile Include="thriftl.cc" />
