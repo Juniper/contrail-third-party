@@ -1,0 +1,37 @@
+--- lib/cpp/libthrift.vcxproj	Mon Jan 01 04:04:53 2018
++++ lib/cpp/libthrift.vcxproj	Wed Oct 11 15:45:33 2017
+@@ -2 +2 @@
+-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+@@ -215,0 +216 @@
++    <PlatformToolset>v140</PlatformToolset>
+@@ -220,0 +222 @@
++    <PlatformToolset>v140</PlatformToolset>
+@@ -226,0 +229 @@
++    <PlatformToolset>v140</PlatformToolset>
+@@ -232,0 +236 @@
++    <PlatformToolset>v140</PlatformToolset>
+@@ -251 +255 @@
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+@@ -254 +258 @@
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+@@ -257 +261 @@
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+@@ -260 +264 @@
+-    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
+@@ -267 +271 @@
+-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
+@@ -281 +285 @@
+-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
+@@ -296 +300 @@
+-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
+@@ -314 +318 @@
+-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
