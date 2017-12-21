@@ -259,6 +259,9 @@
     <rename>rabbitmq-c</rename>
     <format>tgz</format>
     <md5>c15dbcd2dbb8e254c1de0494c1bb8c91</md5>
+    <patches>
+      <patch strip="2">rabbit_mq_c_tcp_keepalive_patch.diff</patch>
+    </patches>
   </package>
   <package>
     <name>Bottle Python Web Framework</name>
