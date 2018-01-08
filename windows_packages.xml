@@ -44,12 +44,12 @@
     </package>
 
     <package>
-        <name>rapidjson-0.11</name>
-        <url>https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/rapidjson-0.11.zip</url>
+        <name>rapidjson-1.1.0</name>
+        <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/rapidjson-v1.1.0.zip</url>
         <unpack-directory></unpack-directory>
         <destination>rapidjson</destination>
         <format>zip</format>
-        <md5>96a4b1b57ece8bc6a807ceb14ccaaf94</md5>
+        <md5>4f82cc9f41b7d39afeeec10ff8b581b9</md5>
     </package>
     
     <package>
