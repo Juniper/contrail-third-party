@@ -46,6 +46,10 @@
 	  <name>suse</name>
 	  <version>12+</version>
 	</distribution>
+	<distribution>
+	  <name>redhat</name>
+	  <version>7.0+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -74,6 +78,10 @@
 	<distribution>
 	  <name>suse</name>
 	  <version>12+</version>
+	</distribution>
+	<distribution>
+	  <name>redhat</name>
+	  <version>7.0+</version>
 	</distribution>
       </exclude>
     </platform>
@@ -206,6 +214,10 @@
 	  <name>fedora</name>
 	  <version>20+</version>
 	</distribution>
+	<distribution>
+	  <name>redhat</name>
+	  <version>7.0+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -314,6 +326,10 @@
 	  <name>suse</name>
 	  <version>12+</version>
 	</distribution>
+	<distribution>
+	  <name>redhat</name>
+	  <version>7.0+</version>
+	</distribution>
       </exclude>
     </platform>
   </package>
@@ -355,6 +371,10 @@
 	<distribution>
 	  <name>suse</name>
 	  <version>12+</version>
+	</distribution>
+	<distribution>
+	  <name>redhat</name>
+	  <version>7.0+</version>
 	</distribution>
       </exclude>
     </platform>
