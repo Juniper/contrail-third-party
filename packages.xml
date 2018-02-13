@@ -171,7 +171,7 @@
     <name>Log4Cplus 1.1.1</name>
     <url>http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
     <format>tbz</format>
-    <md5>a6fbba1e4b021f301b98c7bc68a068cb</md5>
+    <md5>cb530d737c8f2d1023797cf0587b4e05</md5>
     <patches>
       <patch strip="2">log4cplus-1.1.1_patch1.diff</patch>
     </patches>
