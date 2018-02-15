@@ -1,0 +1,80 @@
+diff -uNr dpdk-2.2.0/lib/librte_eal/linuxapp/kni/ethtool/igb/igb_main.c dpdk/lib/librte_eal/linuxapp/kni/ethtool/igb/igb_main.c
+--- dpdk-2.2.0/lib/librte_eal/linuxapp/kni/ethtool/igb/igb_main.c	2015-12-15 17:06:58.000000000 +0000
++++ dpdk/lib/librte_eal/linuxapp/kni/ethtool/igb/igb_main.c	2018-02-15 18:14:39.655000000 +0000
+@@ -195,7 +195,11 @@
+ #ifdef IFLA_VF_MAX
+ static int igb_ndo_set_vf_mac( struct net_device *netdev, int vf, u8 *mac);
+ static int igb_ndo_set_vf_vlan(struct net_device *netdev,
++#ifdef HAVE_VF_VLAN_PROTO
++				int vf, u16 vlan, u8 qos, __be16 vlan_proto);
++#else
+ 				int vf, u16 vlan, u8 qos);
++#endif
+ #ifdef HAVE_VF_SPOOFCHK_CONFIGURE
+ static int igb_ndo_set_vf_spoofchk(struct net_device *netdev, int vf,
+ 				bool setting);
+@@ -6411,7 +6415,11 @@
+ }
+ 
+ static int igb_ndo_set_vf_vlan(struct net_device *netdev,
++#ifdef HAVE_VF_VLAN_PROTO
++			       int vf, u16 vlan, u8 qos, __be16 vlan_proto)
++#else
+ 			       int vf, u16 vlan, u8 qos)
++#endif
+ {
+ 	int err = 0;
+ 	struct igb_adapter *adapter = netdev_priv(netdev);
+@@ -6419,6 +6427,12 @@
+ 	/* VLAN IDs accepted range 0-4094 */
+ 	if ((vf >= adapter->vfs_allocated_count) || (vlan > VLAN_VID_MASK-1) || (qos > 7))
+ 		return -EINVAL;
++
++#ifdef HAVE_VF_VLAN_PROTO
++	if (vlan_proto != htons(ETH_P_8021Q))
++		return -EPROTONOSUPPORT;
++#endif
++
+ 	if (vlan || qos) {
+ 		err = igb_vlvf_set(adapter, vlan, !!vlan, vf);
+ 		if (err)
+@@ -6579,7 +6593,12 @@
+ 	if (adapter->vf_data[vf].pf_vlan)
+ 		igb_ndo_set_vf_vlan(adapter->netdev, vf,
+ 				    adapter->vf_data[vf].pf_vlan,
++#ifdef HAVE_VF_VLAN_PROTO
++				    adapter->vf_data[vf].pf_qos,
++				    htons(ETH_P_8021Q));
++#else
+ 				    adapter->vf_data[vf].pf_qos);
++#endif
+ 	else
+ 		igb_clear_vf_vfta(adapter, vf);
+ #endif
+diff -uNr dpdk-2.2.0/lib/librte_eal/linuxapp/kni/ethtool/igb/kcompat.h dpdk/lib/librte_eal/linuxapp/kni/ethtool/igb/kcompat.h
+--- dpdk-2.2.0/lib/librte_eal/linuxapp/kni/ethtool/igb/kcompat.h	2015-12-15 17:06:58.000000000 +0000
++++ dpdk/lib/librte_eal/linuxapp/kni/ethtool/igb/kcompat.h	2018-02-15 18:07:51.157000000 +0000
+@@ -3906,13 +3906,21 @@
+ #endif /* !RHEL 7.2 */
+ #endif /* 4.0.0 */
+ 
+-#if ( LINUX_VERSION_CODE >= KERNEL_VERSION(4,1,0) )
++#if (( LINUX_VERSION_CODE >= KERNEL_VERSION(4,0,0) ) \
++    || ( RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7,4) ))
+ /* ndo_bridge_getlink adds new nlflags parameter */
+ #define HAVE_NDO_BRIDGE_GETLINK_NLFLAGS
+ #endif /* >= 4.1.0 */
+ 
+-#if ( LINUX_VERSION_CODE >= KERNEL_VERSION(4,2,0) )
++#if (( LINUX_VERSION_CODE >= KERNEL_VERSION(4,0,0) ) \
++    || ( RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7,4) ))
+ /* ndo_bridge_getlink adds new filter_mask and vlan_fill parameters */
+ #define HAVE_NDO_BRIDGE_GETLINK_FILTER_MASK_VLAN_FILL
+ #endif /* >= 4.2.0 */
++
++#if (( LINUX_VERSION_CODE >= KERNEL_VERSION(4,9,0) ) \
++    || ( RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(7,2) ))
++#define HAVE_VF_VLAN_PROTO
++#endif /* >= KERNEL_VERSION(4.9.0) || >= RHEL_RELEASE_VERSION(7,2) */
++
+ #endif /* _KCOMPAT_H_ */

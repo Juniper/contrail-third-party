@@ -385,6 +385,17 @@
     <md5>d0f6de92ccef6489a0d9b8efbb8f577f</md5>
   </package>
   <package>
+    <name>DPDK 2.2.0</name>
+    <url>http://fast.dpdk.org/rel/dpdk-2.2.0.tar.gz</url>
+    <local-filename>dpdk-2.2.0.tar.gz</local-filename>
+    <rename>dpdk</rename>
+    <format>tgz</format>
+    <md5>22e2fd68cd5504f43fe9a5a6fd6dd938</md5>
+    <patches>
+      <patch strip="1">dpdk-2.2.0.patch</patch>
+     </patches>
+  </package>
+  <package>
     <name>Cni Go Deps</name>
     <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/cni/cni_go_deps.tar.gz</url>
     <format>tgz</format>
