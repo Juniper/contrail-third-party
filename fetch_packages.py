@@ -105,7 +105,7 @@ def ApplyPatches(pkg):
 #def VarSubst(cmdstr, filename):
 #    return re.sub(r'\${filename}', filename, cmdstr)
 
-def DownloadPackage(url, pkg, md5):
+def DownloadPackage(urls, pkg, md5):
     #Check if the package already exists
     if os.path.isfile(pkg):
         md5sum = FindMd5sum(pkg)
@@ -114,23 +114,32 @@ def DownloadPackage(url, pkg, md5):
         else:
             os.remove(pkg)
 
+    # XXX(kklimonda): remove me!
+    ARGS['site_mirror'] = 'http://mirror.regionone.jnpr-contrail-ci.opencontrail.org'
     retry_count = 0
-    while True:
-	subprocess.call([wgettool, '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
-        md5sum = FindMd5sum(pkg)
-        if ARGS['verbose']:
-            print "Calculated md5sum: %s" % md5sum
-            print "Expected md5sum: %s" % md5
-        if md5sum == md5:
-            return
-        elif retry_count <= _RETRIES:
+    while retry_count <= _RETRIES:
+        for url in urls:
+            # poor man's templating
+            url = url.text
+            if "{{ site_mirror }}" in url:
+                if not ARGS['site_mirror']:
+                    continue
+                url = url.replace("{{ site_mirror }}", ARGS['site_mirror'])
+            subprocess.call([wgettool, '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
+            md5sum = FindMd5sum(pkg)
+            if ARGS['verbose']:
+                print "Calculated md5sum: %s" % md5sum
+                print "Expected md5sum: %s" % md5
+            if md5sum == md5:
+                return
             os.remove(pkg)
-            retry_count += 1
-            sleep(1)
-            continue
-        else:
-            raise RuntimeError("MD5sum %s, expected(%s) dosen't match for the "
-                               "downloaded package %s" % (md5sum, md5, pkg))
+        retry_count += 1
+        # back-off retry timer - worst case scenario we wait for 150 seconds
+        sleep(10 * retry_count)
+
+    # We couldn't download the package, return the last md5sum
+    raise RuntimeError("MD5sum %s, expected(%s) dosen't match for the "
+                       "downloaded package %s" % (md5sum, md5, pkg))
 
 
 def ReconfigurePackageSources(path):
@@ -193,11 +202,13 @@ def ProcessPackage(pkg):
         return
 
     print "Processing %s ..." % (pkg['name'])
-    url = str(pkg['url'])
-    filename = getFilename(pkg, url)
+    urls = list(pkg['urls'].iterchildren())
+    filename = getFilename(pkg, urls[0].text)
     ccfile = ARGS['cache_dir'] + '/' + filename
-    DownloadPackage(url, ccfile, pkg.md5)
+    DownloadPackage(urls, ccfile, pkg.md5)
+
     cmd1=None
+
     #
     # Determine the name of the directory created by the package.
     # unpack-directory means that we 'cd' to the given directory before
@@ -325,7 +336,7 @@ def FindMd5sum(anyfile):
         cmd = ['md5']
         cmd.append('-q')
     else:
-        cmd = ['md5sum']
+        cmd = ['gmd5sum']
     cmd.append(anyfile)
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
     stdout, stderr = proc.communicate()
@@ -343,6 +354,7 @@ def parse_args():
     parser.add_argument("--node-module-tmp-dir", default=ARGS['node_modules_tmp_dir'])
     parser.add_argument("--verbose", default=ARGS['verbose'], action='store_true')
     parser.add_argument("--dry-run", default=ARGS['dry_run'], action='store_true')
+    parser.add_argument("--site-mirror", dest="site_mirror", required=False, default=None)
     ARGS = vars(parser.parse_args())
 
 
