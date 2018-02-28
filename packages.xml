@@ -16,7 +16,10 @@
   -->
   <package>
     <name>Boost C++ libraries version 1.48</name>
-    <url>http://sourceforge.net/projects/boost/files/boost/1.48.0/boost_1_48_0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/b/boost_1_48_0.tar.gz</url>
+      <url canonical="true">http://sourceforge.net/projects/boost/files/boost/1.48.0/boost_1_48_0.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>313a11e97eb56eb7efd18325354631be</md5>
     <patches>
@@ -55,7 +58,10 @@
   </package>
   <package>
     <name>curl 7.24</name>
-    <url>http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/c/curl-7.24.0.tar.gz</url>
+      <url canonical="true">http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>b93420f80a2baaa61a0f45214eddc2ba</md5>
     <patches>
@@ -88,7 +94,10 @@
   </package>
   <package>
     <name>Google C++ Testing Framework 1.6.0</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/googletest-release-1.6.0.zip</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/g/googletest-release-1.6.0.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/googletest-release-1.6.0.zip</url>
+    </urls>
     <rename>gtest-1.6.0</rename>
     <patches>
       <patch strip="2">gtest-1.6.0_patch1.diff</patch>
@@ -114,7 +123,10 @@
   </package>
   <package>
     <name>Google C++ Mocking Framework 1.6.0</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/googlemock-release-1.6.0.zip</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/g/googlemock-release-1.6.0.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/googlemock-release-1.6.0.zip</url>
+    </urls>
     <format>zip</format>
     <rename>gmock-1.6.0</rename>
     <md5>b51cc3e69a8ef16ac54cee9889b79646</md5>
@@ -137,7 +149,10 @@
   </package>
   <package>
     <name>Google perftools</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/gperftools-2.1.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/g/gperftools-2.1.tar.gz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/gperftools-2.1.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
     <platform>
@@ -159,7 +174,10 @@
   </package>
   <package>
     <name>Minimalistic C client for Redis v0.11</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-0.11.0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/h/hiredis-v0.11.0.tar.gz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-0.11.0.tar.gz</url>
+    </urls>
     <local-filename>hiredis-v0.11.0.tar.gz</local-filename>
     <format>tgz</format>
     <md5>e2ac29509823ccc96990b6fe765b5d46</md5>
@@ -169,7 +187,10 @@
   </package>
   <package>
     <name>Log4Cplus 1.1.1</name>
-    <url>http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.tar.bz2</url>
+      <url canonical="true">http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
+    </urls>
     <format>tbz</format>
     <md5>a6fbba1e4b021f301b98c7bc68a068cb</md5>
     <patches>
@@ -194,7 +215,10 @@
   </package>
   <package>
     <name>Thread Building Blocks 4.0 Update 2</name>
-    <url>http://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb40_20111130oss_src.tgz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/t/tbb40_20111130oss_src.tgz</url>
+      <url canonical="true">http://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb40_20111130oss_src.tgz</url>
+    </urls>
     <format>tgz</format>
     <md5>1e6926b21e865e79772119cd44fc3ad8</md5>
     <patches>
@@ -223,14 +247,20 @@
   </package>
   <package>
     <name>Pugi XML 1.2</name>
-    <url>https://github.com/zeux/pugixml/releases/download/v1.2/pugixml-1.2.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/p/pugixml-1.2.tar.gz</url>
+      <url canonical="true">https://github.com/zeux/pugixml/releases/download/v1.2/pugixml-1.2.tar.gz</url>
+    </urls>
     <unpack-directory>pugixml</unpack-directory>
     <format>tgz</format>
     <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
   </package>
   <package>
     <name>Apache Thrift 0.8</name>
-    <url>http://archive.apache.org/dist/thrift/0.8.0/thrift-0.8.0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/t/thrift-0.8.0.tar.gz</url>
+      <url canonical="true">http://archive.apache.org/dist/thrift/0.8.0/thrift-0.8.0.tar.gz</url>
+    </urls>
     <patches>
       <patch strip="2">thrift_patch1.diff</patch>
       <patch strip="2">thrift_autoconf.patch</patch>
@@ -241,7 +271,10 @@
   </package>
   <package>
     <name>hiredis boostasio-adapter</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-boostasio-adapter-master.zip</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/h/hiredis-boostasio-adapter-master.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-boostasio-adapter-master.zip</url>
+    </urls>
     <local-filename>hiredis-master.zip</local-filename>
     <format>zip</format>
     <md5>c3ba292cb8a6d84da3aae774a33d4356</md5>
@@ -252,14 +285,20 @@
   </package>
   <package>
     <name>Joyent HTTP parser</name>
-    <url>https://github.com/joyent/http-parser/archive/v2.1.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/h/http-parser-v2.1.tar.gz</url>
+      <url canonical="true">https://github.com/joyent/http-parser/archive/v2.1.tar.gz</url>
+    </urls>
     <local-filename>http-parser-v2.1.tar.gz</local-filename>
     <format>tgz</format>
     <md5>93d89867996b8077e0140692c55e997c</md5>
   </package>
   <package>
     <name>Simple AMQP Client</name>
-    <url>https://github.com/alanxz/SimpleAmqpClient/archive/v2.4.0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/S/SimpleAmqpClient-2.4.0.tar.gz</url>
+      <url canonical="true">https://github.com/alanxz/SimpleAmqpClient/archive/v2.4.0.tar.gz</url>
+    </urls>
     <local-filename>SimpleAmqpClient-2.4.0.tar.gz</local-filename>
     <format>tgz</format>
     <rename>SimpleAmqpClient</rename>
@@ -267,7 +306,10 @@
   </package>
   <package>
     <name>RabbitMQ C</name>
-    <url>https://github.com/alanxz/rabbitmq-c/releases/download/v0.8.0/rabbitmq-c-0.8.0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/r/rabbitmq-c-0.8.0.tar.gz</url>
+      <url canonical="true">https://github.com/alanxz/rabbitmq-c/releases/download/v0.8.0/rabbitmq-c-0.8.0.tar.gz</url>
+    </urls>
     <local-filename>rabbitmq-c-0.8.0.tar.gz</local-filename>
     <rename>rabbitmq-c</rename>
     <format>tgz</format>
@@ -278,7 +320,10 @@
   </package>
   <package>
     <name>Bottle Python Web Framework</name>
-    <url>https://pypi.python.org/packages/source/b/bottle/bottle-0.11.6.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/b/bottle-0.11.6.tar.gz</url>
+      <url canonical="true">https://pypi.python.org/packages/source/b/bottle/bottle-0.11.6.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>0bafdc4e13ea2b1a3bddf36b5af108c4</md5>
     <patches>
@@ -299,13 +344,19 @@
   </package>
   <package>
     <name>pYthOn Finite State Machine</name>
-    <url>https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/f/fysom-1.0.8.tar.gz</url>
+      <url canonical="true">https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>5c8532ebdbc151eb01531ab2c7404297</md5>
   </package>
   <package>
     <name>Gnome XML C parser and toolkit</name>
-    <url>http://xmlsoft.org/sources/libxml2-2.8.0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.8.0.tar.gz</url>
+      <url canonical="true">http://xmlsoft.org/sources/libxml2-2.8.0.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>c62106f02ee00b6437f0fb9d370c1093</md5>
     <platform>
@@ -335,13 +386,19 @@
   </package>
   <package>
     <name>JSON parser/generator for C++</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/rapidjson-v1.1.0.zip</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/r/rapidjson-v1.1.0.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/rapidjson-v1.1.0.zip</url>
+    </urls>
     <format>zip</format>
     <md5>4f82cc9f41b7d39afeeec10ff8b581b9</md5>
   </package>
   <package>
     <name>ISC Bind</name>
-    <url>http://www.mirrorservice.org/sites/ftp.isc.org/isc/bind9/9.10.4-P2/bind-9.10.4-P2.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/b/bind-9.10.4-P2.tar.gz</url>
+      <url canonical="true">http://www.mirrorservice.org/sites/ftp.isc.org/isc/bind9/9.10.4-P2/bind-9.10.4-P2.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>50163d229020c48929c84bec5b0068d7</md5>
     <patches>
@@ -351,7 +408,10 @@
   </package>
   <package>
     <name>ICU - International Components for Unicode</name>
-    <url>http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/i/icu4c-52_1-src.tgz</url>
+      <url canonical="true">http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
+    </urls>
     <format>tgz</format>
     <md5>9e96ed4c1d99c0d14ac03c140f9f346c</md5>
     <platform>
@@ -381,7 +441,10 @@
   </package>
   <package>
     <name>vijava</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/vmware/vijava55b20130927src.jar</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/v/vijava55b20130927src.jar</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/vmware/vijava55b20130927src.jar</url>
+    </urls>
     <local-filename>vijava55b20130927src.jar</local-filename>
     <format>zip</format>
     <md5>3993c5bf9323e55fe9e6c14c974ea155</md5>
@@ -392,7 +455,10 @@
   </package>
   <package>
     <name>Open vSwitch version 2.3.0</name>
-    <url>http://openvswitch.org/releases/openvswitch-2.3.0.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/o/openvswitch-2.3.0.tar.gz</url>
+      <url canonical="true">http://openvswitch.org/releases/openvswitch-2.3.0.tar.gz</url>
+    </urls>
     <local-filename>openvswitch-2.3.0.tar.gz</local-filename>
     <format>tgz</format>
     <md5>9c4d1471a56718132e0157af1bfc9310</md5>
@@ -402,14 +468,20 @@
   </package>
   <package>
     <name>Go 1.8</name>
-    <url>https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/g/go1.8.linux-amd64.tar.gz</url>
+      <url canonical="true">https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz</url>
+    </urls>
     <local-filename>go1.8.linux-amd64.tar.gz</local-filename>
     <format>tgz</format>
     <md5>d0f6de92ccef6489a0d9b8efbb8f577f</md5>
   </package>
   <package>
     <name>Cni Go Deps</name>
-    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/cni/cni_go_deps.tar.gz</url>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/c/cni_go_deps.tar.gz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/cni/cni_go_deps.tar.gz</url>
+    </urls>
     <format>tgz</format>
     <md5>823fcd824557fa0b6506e29d7591f76d</md5>
   </package>
