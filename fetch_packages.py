@@ -273,9 +273,9 @@ def ProcessPackage(pkg):
             return
     else:
         if pkg.format == 'tgz':
-            cmd = ['tar', 'zxvf', ccfile]
+            cmd = ['tar', 'zxf', ccfile]
         elif pkg.format == 'tbz':
-            cmd = ['tar', 'jxvf', ccfile]
+            cmd = ['tar', 'jxf', ccfile]
         elif pkg.format == 'zip':
             cmd = ['unzip', '-o', ccfile]
         elif pkg.format == 'npm':
