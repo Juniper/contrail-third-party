@@ -17,10 +17,8 @@ import argparse
 ARGS = dict()
 if sys.platform == 'win32':
     ARGS['filename'] = 'windows_packages.xml'
-    wgettool = 'wget64'
 else:
     ARGS['filename'] = 'packages.xml'
-    wgettool = 'wget'
 
 if sys.platform == 'win32':
     ARGS['cache_dir'] = 'windowscache'
@@ -123,7 +121,7 @@ def DownloadPackage(urls, pkg, md5):
                 if not ARGS['site_mirror']:
                     continue
                 url = url.replace("{{ site_mirror }}", ARGS['site_mirror'])
-            subprocess.call([wgettool, '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
+            subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
             md5sum = FindMd5sum(pkg)
             if ARGS['verbose']:
                 print "Calculated md5sum: %s" % md5sum
@@ -367,7 +365,7 @@ def main():
 if __name__ == '__main__':
     parse_args()
     if sys.platform == 'win32':
-        dependencies = ['7z', 'patch', wgettool]
+        dependencies = ['7z', 'patch', 'wget']
     else:
         dependencies = [
             'autoconf',
@@ -376,7 +374,7 @@ if __name__ == '__main__':
             'libtool',
             'patch',
             'unzip',
-            wgettool,
+            'wget',
         ]
  
     for exc in dependencies:
