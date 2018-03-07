@@ -306,7 +306,7 @@ diff -u -r lib\cpp\libthrift.vcxproj lib\cpp\libthrift.vcxproj
        <WarningLevel>Level3</WarningLevel>
        <Optimization>Disabled</Optimization>
 -      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions);HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
        <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
        <ProgramDataBaseFileName>$(IntDir)libthrift.pdb</ProgramDataBaseFileName>
      </ClCompile>
@@ -315,7 +315,7 @@ diff -u -r lib\cpp\libthrift.vcxproj lib\cpp\libthrift.vcxproj
        <WarningLevel>Level3</WarningLevel>
        <Optimization>Disabled</Optimization>
 -      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions);HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
        <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
      </ClCompile>
      <Link>
@@ -324,7 +324,7 @@ diff -u -r lib\cpp\libthrift.vcxproj lib\cpp\libthrift.vcxproj
        <FunctionLevelLinking>true</FunctionLevelLinking>
        <IntrinsicFunctions>true</IntrinsicFunctions>
 -      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
        <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
        <ProgramDataBaseFileName>$(IntDir)libthrift.pdb</ProgramDataBaseFileName>
      </ClCompile>
@@ -333,7 +333,7 @@ diff -u -r lib\cpp\libthrift.vcxproj lib\cpp\libthrift.vcxproj
        <FunctionLevelLinking>true</FunctionLevelLinking>
        <IntrinsicFunctions>true</IntrinsicFunctions>
 -      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions);_WINDOWS;HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);HAVE_STRUCT_TIMESPEC</PreprocessorDefinitions>
        <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
      </ClCompile>
      <Link>
@@ -418,42 +418,6 @@ diff -u -r lib\cpp\libthriftnb.vcxproj lib\cpp\libthriftnb.vcxproj
    </PropertyGroup>
    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
      <ClCompile>
-@@ -117,7 +117,7 @@
-       </PrecompiledHeader>
-       <WarningLevel>Level3</WarningLevel>
-       <Optimization>Disabled</Optimization>
--      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-       <ProgramDataBaseFileName>$(IntDir)libthriftnb.pdb</ProgramDataBaseFileName>
-     </ClCompile>
-@@ -132,7 +132,7 @@
-       </PrecompiledHeader>
-       <WarningLevel>Level3</WarningLevel>
-       <Optimization>Disabled</Optimization>
--      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-     </ClCompile>
-     <Link>
-@@ -148,7 +148,7 @@
-       <Optimization>MaxSpeed</Optimization>
-       <FunctionLevelLinking>true</FunctionLevelLinking>
-       <IntrinsicFunctions>true</IntrinsicFunctions>
--      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-       <ProgramDataBaseFileName>$(IntDir)libthriftnb.pdb</ProgramDataBaseFileName>
-     </ClCompile>
-@@ -167,7 +167,7 @@
-       <Optimization>MaxSpeed</Optimization>
-       <FunctionLevelLinking>true</FunctionLevelLinking>
-       <IntrinsicFunctions>true</IntrinsicFunctions>
--      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-+      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_WINDOWS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-       <ForcedIncludeFiles>force_inc.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-     </ClCompile>
-     <Link>
 diff -u -r lib\cpp\src\concurrency\FunctionRunner.h lib\cpp\src\concurrency\FunctionRunner.h
 --- lib\cpp\src\concurrency\FunctionRunner.h	Sat Nov 26 11:00:42 2011
 +++ lib\cpp\src\concurrency\FunctionRunner.h	Wed Jan 03 18:44:22 2018
@@ -474,13 +438,61 @@ diff -u -r lib\cpp\src\Thrift.h lib\cpp\src\Thrift.h
   * CONTRAIL-CUSTOM
   */
 +
-+#ifndef _WINDOWS
++#ifndef _WIN32
  #include <netinet/in.h>
  #include <sys/socket.h>
 +#endif
  
  #include <string>
  #include <map>
+@@ -136,7 +139,7 @@
+     time_t now;
+     char dbgtime[26];
+     time(&now);
+-    ctime_r(&now, dbgtime);
++    thrift_ctime_r(&now, dbgtime);
+     dbgtime[24] = 0;
+     fprintf(stderr, "Thrift: %s %s\n", dbgtime, msg);
+   }
+diff -u -r lib\cpp\src\TLogging.h lib\cpp\src\TLogging.h
+--- lib\cpp\src\TLogging.h	Sat Nov 26 11:00:42 2011
++++ lib\cpp\src\TLogging.h	Tue Mar 06 14:48:50 2018
+@@ -82,7 +82,7 @@
+         time_t now;                                                       \
+         char dbgtime[26] ;                                                \
+         time(&now);                                                       \
+-        ctime_r(&now, dbgtime);                                           \
++        thrift_ctime_r(&now, dbgtime);                                           \
+         dbgtime[24] = '\0';                                               \
+         fprintf(stderr,"[%s,%d] [%s] " format_string " \n", __FILE__, __LINE__,dbgtime,##__VA_ARGS__); \
+       }                                                                   \
+@@ -115,7 +115,7 @@
+     time_t now;                                                         \
+     char dbgtime[26] ;                                                  \
+     time(&now);                                                         \
+-    ctime_r(&now, dbgtime);                                             \
++    thrift_ctime_r(&now, dbgtime);                                             \
+     dbgtime[24] = '\0';                                                 \
+     fprintf(stderr,"[%s,%d] [%s] ERROR: " format_string " \n", __FILE__, __LINE__,dbgtime,##__VA_ARGS__); \
+   }
+@@ -132,7 +132,7 @@
+     time_t now;                                                         \
+     char dbgtime[26] ;                                                  \
+     time(&now);                                                         \
+-    ctime_r(&now, dbgtime);                                             \
++    thrift_ctime_r(&now, dbgtime);                                             \
+     dbgtime[24] = '\0';                                                 \
+     fprintf(stderr,"[%s,%d] [%s] ERROR: Going to abort " format_string " \n", __FILE__, __LINE__,dbgtime,##__VA_ARGS__); \
+     exit(1);                                                            \
+@@ -151,7 +151,7 @@
+         time_t now;                                                           \
+         char dbgtime[26] ;                                                    \
+         time(&now);                                                           \
+-        ctime_r(&now, dbgtime);                                               \
++        thrift_ctime_r(&now, dbgtime);                                               \
+         dbgtime[24] = '\0';                                                   \
+         fprintf(stderr,"[%s] " format_string " \n", dbgtime,##__VA_ARGS__);  \
+       }                                                                       \
 diff -u -r lib\cpp\src\transport\TFileTransport.cpp lib\cpp\src\transport\TFileTransport.cpp
 --- lib\cpp\src\transport\TFileTransport.cpp	Sat Nov 26 11:00:42 2011
 +++ lib\cpp\src\transport\TFileTransport.cpp	Wed Jan 03 18:44:22 2018
@@ -535,25 +547,31 @@ diff -u -r lib\cpp\src\transport\TSocket.cpp lib\cpp\src\transport\TSocket.cpp
 diff -u -r lib\cpp\src\windows\config.h lib\cpp\src\windows\config.h
 --- lib\cpp\src\windows\config.h	Sat Nov 26 11:47:26 2011
 +++ lib\cpp\src\windows\config.h	Wed Jan 03 18:44:22 2018
-@@ -58,10 +58,12 @@
+@@ -58,20 +58,23 @@
  #if 0
  #	include <pthread.h>
  #else
-+#ifndef _WINDOWS
++#ifndef _WIN32
  struct timespec {
  	int64_t tv_sec;
  	int64_t tv_nsec;
  };
 +#endif
  #	define USE_BOOST_THREAD 1
- #	define ctime_r( _clock, _buf ) \
-         ( strcpy( (_buf), ctime( (_clock) ) ),  \
-@@ -71,7 +73,7 @@
+-#	define ctime_r( _clock, _buf ) \
+-        ( strcpy( (_buf), ctime( (_clock) ) ),  \
+-          (_buf) )
+ #endif
+ 
  typedef ptrdiff_t ssize_t;
  
  // Missing functions.
 -#define usleep(ms) Sleep(ms)
 +#define thrift_usleep(ms) Sleep(ms)
++
++#define thrift_ctime_r( _clock, _buf ) \
++        ( strcpy( (_buf), ctime( (_clock) ) ),  \
++          (_buf) )
  
  #if WINVER <= 0x0502
  #define poll(fds, nfds, timeout) \
@@ -565,7 +583,7 @@ diff -u -r lib\cpp\src\windows\TWinsockSingleton.h lib\cpp\src\windows\TWinsockS
  
  private:
 -
-+#ifndef _WINDOWS
++#ifndef _WIN32
      friend void boost::call_once(void (*func)(void), boost::once_flag& flag);
 -
 +#endif
