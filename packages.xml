@@ -485,4 +485,17 @@
     <format>tgz</format>
     <md5>823fcd824557fa0b6506e29d7591f76d</md5>
   </package>
+    <package>
+    <name>IPFIX library</name>
+    <urls>
+     <url>{{ site_mirror }}/contrail-third-party/l/libipfix_110209.tgz</url>
+     <url canonical="true">https://sourceforge.net/projects/libipfix/files/libipfix/libipfix_110209.tgz/download</url>
+    </urls>
+    <local-filename>libipfix_110209.tgz</local-filename>
+    <format>tgz</format>
+    <md5>35761deb685c7b4e15121454eb51da0c</md5>
+    <patches>
+      <patch strip="1">libipfix_patch1.diff</patch>
+    </patches>
+  </package>
 </packages>

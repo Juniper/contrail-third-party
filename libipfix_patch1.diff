@@ -1,0 +1,61 @@
+diff -ru a/libipfix_110209/collector/Makefile.in b/libipfix_110209/collector/Makefile.in
+--- a/libipfix_110209/collector/Makefile.in	2011-02-09 17:57:38.000000000 +0300
++++ b/libipfix_110209/collector/Makefile.in	2018-02-14 14:34:13.000000000 +0300
+@@ -37,7 +37,7 @@
+ CPPFLAGS = @CPPFLAGS@
+ LDFLAGS = @LDFLAGS@
+ LIBS = @LIBS@ @MYSQLLIBS@ @SCTPLIBS@ @SSLLIBS@ -L../lib -L../libmisc -lipfix -lmisc 
+-CCOPT = -Wall -g
++CCOPT = -Wall -g -fPIC
+ INCLS = -I. -I.. -I../lib -I../libmisc
+ CFLAGS = $(CCOPT) $(INCLS) $(DEFS)
+ 
+diff -ru a/libipfix_110209/lib/Makefile.in b/libipfix_110209/lib/Makefile.in
+--- a/libipfix_110209/lib/Makefile.in	2011-02-09 17:57:38.000000000 +0300
++++ b/libipfix_110209/lib/Makefile.in	2018-02-14 14:33:14.000000000 +0300
+@@ -37,14 +37,14 @@
+ CPPFLAGS = @CPPFLAGS@
+ LDFLAGS = @LDFLAGS@
+ LIBS = @LIBS@
+-CCOPT = -Wall -g
+-#CCOPT = -Wall -g -fPIC
++#CCOPT = -Wall -g
++CCOPT = -Wall -g -fPIC
+ INCLS = -I. -I.. -I../.. -I../libmisc
+ CFLAGS = $(CCOPT) $(INCLS) $(DEFS)
+ LIBMISCDIR = ../libmisc
+ 
+-TARGETS = libipfix.a
+-#TARGETS = libipfix.a libipfix.so
++#TARGETS = libipfix.a
++TARGETS = libipfix.so
+ OBJS = ipfix.o ipfix_col.o ipfix_print.o $(LIBMISCDIR)/libmisc.a \
+        ipfix_col_files.o ipfix_col_db.o @IPFIX_DB_OBJ@ @IPFIX_SSL_OBJ@
+ DEPHDR = ipfix.h ipfix_def.h ipfix_fields.h
+@@ -61,11 +61,11 @@
+ 
+ install:
+ 	@[ -d ${libdir} ] || (mkdir -p ${libdir}; chmod 755 ${libdir})
+-	$(INSTALL_DATA) libipfix.a ${libdir}/
+-#	$(INSTALL_DATA) libipfix.so.$(VERSION) ${libdir}/
++#	$(INSTALL_DATA) libipfix.a ${libdir}/
++	$(INSTALL_DATA) libipfix.so.$(VERSION) ${libdir}/
+ 	$(INSTALL_DATA) $(LIBMISCDIR)/libmisc.a ${libdir}/
+ 	@[ -d ${includedir} ] || (mkdir -p ${includedir}; chmod 755 ${includedir})
+-#	ln -s ${libdir}/libipfix.so.$(VERSION) ${libdir}/libipfix.so
++	ln -s ${libdir}/libipfix.so.$(VERSION) ${libdir}/libipfix.so
+ 	$(INSTALL_HEADER) ipfix*.h ${includedir}/
+ 
+ $(LIBMISCDIR)/libmisc.a:
+diff -ru a/libipfix_110209/libmisc/Makefile.in b/libipfix_110209/libmisc/Makefile.in
+--- a/libipfix_110209/libmisc/Makefile.in	2011-02-09 17:57:38.000000000 +0300
++++ b/libipfix_110209/libmisc/Makefile.in	2018-02-14 14:34:36.000000000 +0300
+@@ -38,7 +38,7 @@
+ CPPFLAGS = @CPPFLAGS@
+ LDFLAGS = @LDFLAGS@
+ LIBS = @LIBS@ -lm @PCAPLIBS@
+-CCOPT = -Wall -g
++CCOPT = -Wall -g -fPIC
+ INCLS = -I. -I.. -I../.. @PCAPINCLS@
+ CFLAGS = $(CCOPT) $(INCLS) $(DEFS)
+ 
