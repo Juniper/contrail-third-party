@@ -1,6 +1,6 @@
 diff -ru a/libipfix_110209/collector/Makefile.in b/libipfix_110209/collector/Makefile.in
 --- a/libipfix_110209/collector/Makefile.in	2011-02-09 17:57:38.000000000 +0300
-+++ b/libipfix_110209/collector/Makefile.in	2018-02-14 14:34:13.000000000 +0300
++++ b/libipfix_110209/collector/Makefile.in	2018-03-22 12:53:54.000000000 +0300
 @@ -37,7 +37,7 @@
  CPPFLAGS = @CPPFLAGS@
  LDFLAGS = @LDFLAGS@
@@ -12,7 +12,7 @@ diff -ru a/libipfix_110209/collector/Makefile.in b/libipfix_110209/collector/Mak
  
 diff -ru a/libipfix_110209/lib/Makefile.in b/libipfix_110209/lib/Makefile.in
 --- a/libipfix_110209/lib/Makefile.in	2011-02-09 17:57:38.000000000 +0300
-+++ b/libipfix_110209/lib/Makefile.in	2018-02-14 14:33:14.000000000 +0300
++++ b/libipfix_110209/lib/Makefile.in	2018-03-22 12:56:31.508716113 +0300
 @@ -37,14 +37,14 @@
  CPPFLAGS = @CPPFLAGS@
  LDFLAGS = @LDFLAGS@
@@ -32,7 +32,7 @@ diff -ru a/libipfix_110209/lib/Makefile.in b/libipfix_110209/lib/Makefile.in
  OBJS = ipfix.o ipfix_col.o ipfix_print.o $(LIBMISCDIR)/libmisc.a \
         ipfix_col_files.o ipfix_col_db.o @IPFIX_DB_OBJ@ @IPFIX_SSL_OBJ@
  DEPHDR = ipfix.h ipfix_def.h ipfix_fields.h
-@@ -61,11 +61,11 @@
+@@ -61,11 +61,12 @@
  
  install:
  	@[ -d ${libdir} ] || (mkdir -p ${libdir}; chmod 755 ${libdir})
@@ -44,12 +44,13 @@ diff -ru a/libipfix_110209/lib/Makefile.in b/libipfix_110209/lib/Makefile.in
  	@[ -d ${includedir} ] || (mkdir -p ${includedir}; chmod 755 ${includedir})
 -#	ln -s ${libdir}/libipfix.so.$(VERSION) ${libdir}/libipfix.so
 +	ln -s ${libdir}/libipfix.so.$(VERSION) ${libdir}/libipfix.so
++	chmod 755 ${libdir}/libipfix.so.$(VERSION)
  	$(INSTALL_HEADER) ipfix*.h ${includedir}/
  
  $(LIBMISCDIR)/libmisc.a:
 diff -ru a/libipfix_110209/libmisc/Makefile.in b/libipfix_110209/libmisc/Makefile.in
 --- a/libipfix_110209/libmisc/Makefile.in	2011-02-09 17:57:38.000000000 +0300
-+++ b/libipfix_110209/libmisc/Makefile.in	2018-02-14 14:34:36.000000000 +0300
++++ b/libipfix_110209/libmisc/Makefile.in	2018-03-22 12:53:54.000000000 +0300
 @@ -38,7 +38,7 @@
  CPPFLAGS = @CPPFLAGS@
  LDFLAGS = @LDFLAGS@
