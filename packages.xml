@@ -272,7 +272,7 @@
   <package>
     <name>hiredis boostasio-adapter</name>
     <urls>
-      <url>{{ site_mirror }}/contrail-third-party/h/hiredis-boostasio-adapter-master.zip</url>
+      <url>{{ site_mirror }}/contrail-third-party/h/hiredis-master.zip</url>
       <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-boostasio-adapter-master.zip</url>
     </urls>
     <local-filename>hiredis-master.zip</local-filename>
