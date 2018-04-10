@@ -12,7 +12,7 @@ diff -ru a/libipfix_110209/collector/Makefile.in b/libipfix_110209/collector/Mak
  
 diff -ru a/libipfix_110209/lib/Makefile.in b/libipfix_110209/lib/Makefile.in
 --- a/libipfix_110209/lib/Makefile.in	2011-02-09 17:57:38.000000000 +0300
-+++ b/libipfix_110209/lib/Makefile.in	2018-03-22 12:56:31.508716113 +0300
++++ b/libipfix_110209/lib/Makefile.in	2018-04-10 13:09:52.427716225 +0300
 @@ -37,14 +37,14 @@
  CPPFLAGS = @CPPFLAGS@
  LDFLAGS = @LDFLAGS@
@@ -43,7 +43,7 @@ diff -ru a/libipfix_110209/lib/Makefile.in b/libipfix_110209/lib/Makefile.in
  	$(INSTALL_DATA) $(LIBMISCDIR)/libmisc.a ${libdir}/
  	@[ -d ${includedir} ] || (mkdir -p ${includedir}; chmod 755 ${includedir})
 -#	ln -s ${libdir}/libipfix.so.$(VERSION) ${libdir}/libipfix.so
-+	ln -s ${libdir}/libipfix.so.$(VERSION) ${libdir}/libipfix.so
++	@[ -f ${libdir}/libipfix.so ] || (ln -s ${libdir}/libipfix.so.$(VERSION) ${libdir}/libipfix.so)
 +	chmod 755 ${libdir}/libipfix.so.$(VERSION)
  	$(INSTALL_HEADER) ipfix*.h ${includedir}/
  
