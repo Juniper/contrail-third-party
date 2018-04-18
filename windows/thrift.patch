@@ -286,19 +286,19 @@ diff -u -r lib\cpp\libthrift.vcxproj lib\cpp\libthrift.vcxproj
    <PropertyGroup Label="UserMacros" />
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(BOOST_ROOT);$(OPENSSL_ROOT)\include;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(BOOST_ROOT);$(OPENSSL_ROOT)\include;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(BOOST_ROOT);$(OPENSSL_ROOT)\include;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\boost_1_62_0\include;$(THIRD_PARTY)\openssl\OpenSSL-Win32\include\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)\src\transport\;$(BOOST_ROOT);$(OPENSSL_ROOT)\include;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
      <ClCompile>
@@ -402,19 +402,19 @@ diff -u -r lib\cpp\libthriftnb.vcxproj lib\cpp\libthriftnb.vcxproj
    <PropertyGroup Label="UserMacros" />
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(BOOST_ROOT);$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(BOOST_ROOT);$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(BOOST_ROOT);$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
 -    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(THIRD_PARTY)\boost\boost_1_47_0\include;$(THIRD_PARTY)\boost\boost_1_47_0\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\WIN32-Code\;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\include;$(THIRD_PARTY)\libevent\libevent-2.0.13-stable\;$(IncludePath)</IncludePath>
-+    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(ProjectDir)..\..\..\boost_1_62_0\include\;$(ProjectDir)..\..\..\boost_1_62_0\;$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
++    <IncludePath>$(ProjectDir)\src\;$(ProjectDir)\src\windows\;$(BOOST_ROOT);$(ProjectDir)..\..\..\libevent-2.0.22\;$(ProjectDir)..\..\..\libevent-2.0.22\include\;$(ProjectDir)..\..\..\libevent-2.0.22\WIN32-Code\;$(IncludePath)</IncludePath>
    </PropertyGroup>
    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
      <ClCompile>
