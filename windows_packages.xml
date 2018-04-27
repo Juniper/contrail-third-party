@@ -20,148 +20,147 @@
       <url>{{ site_mirror }}/contrail-third-party/t/thrift-0.8.0.zip</url>
       <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/thrift-0.8.0.zip</url>
     </urls>
-      <patches>
-          <patch strip="0">windows/thrift.patch</patch>
-      </patches>
-      <destination>thrift-0.8.0</destination>
+    <patches>
+      <patch strip="0">windows/thrift.patch</patch>
+    </patches>
+    <destination>thrift-0.8.0</destination>
     <format>zip</format>
     <md5>1ba7ee3afdf014fbf7ac3f5da9492ff3</md5>
   </package>
   <package>
-        <name>log4cplus-1.1.1</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.zip</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/log4cplus-1.1.1.zip</url>
-        </urls>
-      <destination>log4cplus-1.1.1</destination>
-        <format>zip</format>
-        <md5>1d6aab5aa81bfbe2edaa97995b808279</md5>
-    </package>
-    
-    <package>
-        <name>googletest-release-1.8.0</name>
-	<urls>
-	  <url>{{ site_mirror }}/contrail-third-party/g/googletest-release-1.8.0.zip</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/googletest-release-1.8.0.zip</url>
-        </urls>
-        <destination>googletest-release-1.8.0</destination>
-        <format>zip</format>
-        <md5>adfafc8512ab65fd3cf7955ef0100ff5</md5>
-    </package>
-
-    <package>
-        <name>rapidjson-1.1.0</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/r/rapidjson-v1.1.0.zip</url>
-          <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/rapidjson-v1.1.0.zip</url>
-        </urls>
-        <destination>rapidjson</destination>
-        <format>zip</format>
-        <md5>4f82cc9f41b7d39afeeec10ff8b581b9</md5>
-    </package>
-    
-    <package>
-        <name>boost 1.62.0</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/b/boost_1_62_0.zip</url>
-          <url canonical="true">https://sourceforge.net/projects/boost/files/boost/1.62.0/boost_1_62_0.zip</url>
-        </urls>
-        <destination>boost_1_62_0</destination>
-        <format>zip</format>
-        <md5>9495bfde25f46698edb8b8eb02e55eab</md5>
-    </package>
-    <package>
-        <name>openvswitch-2.6.0</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/o/openvswitch-2.6.0.tar.gz</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/openvswitch-2.6.0.tar.gz</url>
-        </urls>
-        <destination>openvswitch-2.6.0</destination>
-        <format>tgz</format>
-        <md5>7d73a3e48aa60a807663e690c3928d72</md5>
-    </package>
-    <package>
-        <name>http-parser-2.1</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/h/http-parser-2.1.zip</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/http-parser-2.1.zip</url>
-        </urls>
-        <destination>http-parser-2.1</destination>
-        <format>zip</format>
-        <md5>ebed8ebabaaeff86d75bd2a7bc6ee0ba</md5>
-    </package>
-    <package>
-        <name>pugixml-1.2</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/p/pugixml-1.2.tar.gz</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/pugixml-1.2.tar.gz</url>
-        </urls>
-        <unpack-directory>pugixml</unpack-directory>
-        <destination>pugixml</destination>
-        <format>tgz</format>
-        <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
-    </package>
-    <package>
-        <name>curl-7.52.0</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/c/curl-curl-7_52_0.zip</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/curl-curl-7_52_0.zip</url>
-        </urls>
-        <destination>curl-curl-7_52_0</destination>
-        <rename>curl-7.52.0</rename>
-        <format>zip</format>
-        <md5>aeac31c330d7a2e87e6058b125602d2d</md5>
-    </package>
-    <package>
-        <name>dirent-1.21</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/d/dirent-1.21.zip</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/dirent-1.21.zip</url>
-        </urls>
-        <unpack-directory>dirent</unpack-directory>
-        <destination>dirent-1.21</destination>
-        <format>zip</format>
-        <md5>6f64427134567e20bc498f7bae0b570c</md5>
-    </package>
-    <package>
-        <name>openssl-1.0.2k</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/o/openssl-1.0.2k.tar.gz</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/openssl-1.0.2k.tar.gz</url>
-        </urls>
-        <destination>openssl-1.0.2k</destination>
-        <format>tgz</format>
-        <md5>f965fc0bf01bf882b31314b61391ae65</md5>
-    </package>
-    <package>
-        <name>libevent-2.0.22</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/l/libevent-2.0.22.tar.gz</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libevent-2.0.22.tar.gz</url>
-        </urls>
-        <destination>libevent-2.0.22-stable</destination>
-        <rename>libevent-2.0.22</rename>
-        <format>tgz</format>
-        <md5>c4c56f986aa985677ca1db89630a2e11</md5>
-    </package>
-    <package>
-        <name>libxml2-2.9.4</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.9.4.tar.gz</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libxml2-2.9.4.tar.gz</url>
-        </urls>
-        <destination>libxml2</destination>
-        <format>tgz</format>
-        <md5>ae249165c173b1ff386ee8ad676815f5</md5>
-    </package>
-    <package>
-        <name>tbb-2017_U7</name>
-	<urls>
-          <url>{{ site_mirror }}/contrail-third-party/t/tbb-2017_U7.zip</url>
-          <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/tbb-2017_U7.zip</url>
-        </urls>
-        <destination>tbb-2017_U7</destination>
-        <format>zip</format>
-        <md5>885d480693287a093d230460a067afb4</md5>
-    </package>
+    <name>Simple AMQP Client</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/S/SimpleAmqpClient-2.4.0.tar.gz</url>
+      <url canonical="true">https://github.com/alanxz/SimpleAmqpClient/archive/v2.4.0.tar.gz</url>
+    </urls>
+    <destination>SimpleAmqpClient-2.4.0</destination>
+    <rename>SimpleAmqpClient</rename>
+    <format>tgz</format>
+    <md5>fb86236ae98cd6116cbdf94d8d5f20b0</md5>
+  </package>
+  <package>
+    <name>rabbitmq-c-0.8.0</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/r/rabbitmq-c-0.8.0.tar.gz</url>
+      <url canonical="true">https://github.com/alanxz/rabbitmq-c/releases/download/v0.8.0/rabbitmq-c-0.8.0.tar.gz</url>
+    </urls>
+    <destination>rabbitmq-c-0.8.0</destination>
+    <rename>rabbitmq-c</rename>
+    <format>tgz</format>
+    <md5>c15dbcd2dbb8e254c1de0494c1bb8c91</md5>
+  </package>
+  <package>
+    <name>log4cplus-1.1.1</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.zip</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/log4cplus-1.1.1.zip</url>
+    </urls>
+    <destination>log4cplus-1.1.1</destination>
+    <format>zip</format>
+    <md5>1d6aab5aa81bfbe2edaa97995b808279</md5>
+  </package>
+  <package>
+    <name>googletest-release-1.8.0</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/g/googletest-release-1.8.0.zip</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/googletest-release-1.8.0.zip</url>
+    </urls>
+    <destination>googletest-release-1.8.0</destination>
+    <format>zip</format>
+    <md5>adfafc8512ab65fd3cf7955ef0100ff5</md5>
+  </package>
+  <package>
+    <name>rapidjson-1.1.0</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/r/rapidjson-v1.1.0.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/rapidjson-v1.1.0.zip</url>
+    </urls>
+    <destination>rapidjson</destination>
+    <format>zip</format>
+    <md5>4f82cc9f41b7d39afeeec10ff8b581b9</md5>
+  </package>
+  <package>
+    <name>openvswitch-2.6.0</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/o/openvswitch-2.6.0.tar.gz</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/openvswitch-2.6.0.tar.gz</url>
+    </urls>
+    <destination>openvswitch-2.6.0</destination>
+    <format>tgz</format>
+    <md5>7d73a3e48aa60a807663e690c3928d72</md5>
+  </package>
+  <package>
+    <name>http-parser-2.1</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/h/http-parser-2.1.zip</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/http-parser-2.1.zip</url>
+    </urls>
+    <destination>http-parser-2.1</destination>
+    <format>zip</format>
+    <md5>ebed8ebabaaeff86d75bd2a7bc6ee0ba</md5>
+  </package>
+  <package>
+    <name>pugixml-1.2</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/p/pugixml-1.2.tar.gz</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/pugixml-1.2.tar.gz</url>
+    </urls>
+    <unpack-directory>pugixml</unpack-directory>
+    <destination>pugixml</destination>
+    <format>tgz</format>
+    <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
+  </package>
+  <package>
+    <name>curl-7.52.0</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/c/curl-curl-7_52_0.zip</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/curl-curl-7_52_0.zip</url>
+    </urls>
+    <destination>curl-curl-7_52_0</destination>
+    <rename>curl-7.52.0</rename>
+    <format>zip</format>
+    <md5>aeac31c330d7a2e87e6058b125602d2d</md5>
+  </package>
+  <package>
+    <name>dirent-1.21</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/d/dirent-1.21.zip</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/dirent-1.21.zip</url>
+    </urls>
+    <unpack-directory>dirent</unpack-directory>
+    <destination>dirent-1.21</destination>
+    <format>zip</format>
+    <md5>6f64427134567e20bc498f7bae0b570c</md5>
+  </package>
+  <package>
+    <name>libevent-2.0.22</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/l/libevent-2.0.22.tar.gz</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libevent-2.0.22.tar.gz</url>
+    </urls>
+    <destination>libevent-2.0.22-stable</destination>
+    <rename>libevent-2.0.22</rename>
+    <format>tgz</format>
+    <md5>c4c56f986aa985677ca1db89630a2e11</md5>
+  </package>
+  <package>
+    <name>libxml2-2.9.4</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.9.4.tar.gz</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libxml2-2.9.4.tar.gz</url>
+    </urls>
+    <destination>libxml2</destination>
+    <format>tgz</format>
+    <md5>ae249165c173b1ff386ee8ad676815f5</md5>
+  </package>
+  <package>
+    <name>tbb-2017_U7</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/t/tbb-2017_U7.zip</url>
+      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/tbb-2017_U7.zip</url>
+    </urls>
+    <destination>tbb-2017_U7</destination>
+    <format>zip</format>
+    <md5>885d480693287a093d230460a067afb4</md5>
+  </package>
 </packages>
