@@ -498,4 +498,14 @@
       <patch strip="1">libipfix_patch1.diff</patch>
     </patches>
   </package>
+  <package>
+    <name>Mellanox Build deps</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/m/MLNX_OFED_LINUX-4.3-1.0.1.0-rhel7.4-x86_64.tgz</url>
+      <url canonical="true">http://content.mellanox.com/ofed/MLNX_OFED-4.3-1.0.1.0/MLNX_OFED_LINUX-4.3-1.0.1.0-rhel7.4-x86_64.tgz</url>
+    </urls>
+    <format>tgz</format>
+    <rename>mlnx-ofed</rename>
+    <md5>9ae98b165b034d3397fae7e38c5fc664</md5>
+  </package>
 </packages>
