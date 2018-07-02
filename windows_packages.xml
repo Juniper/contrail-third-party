@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="Windows-1252"?>
 <packages>
   <!--
     Tags:
@@ -18,7 +19,7 @@
     <name>Windows Apache Thrift 0.8</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/t/thrift-0.8.0.zip</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/thrift-0.8.0.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/thrift-0.8.0.zip</url>
     </urls>
     <patches>
       <patch strip="0">windows/thrift.patch</patch>
@@ -53,7 +54,7 @@
     <name>log4cplus-1.1.1</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.zip</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/log4cplus-1.1.1.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/log4cplus-1.1.1.zip</url>
     </urls>
     <destination>log4cplus-1.1.1</destination>
     <format>zip</format>
@@ -63,7 +64,7 @@
     <name>googletest-release-1.8.0</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/g/googletest-release-1.8.0.zip</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/googletest-release-1.8.0.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/googletest-release-1.8.0.zip</url>
     </urls>
     <destination>googletest-release-1.8.0</destination>
     <format>zip</format>
@@ -80,20 +81,10 @@
     <md5>4f82cc9f41b7d39afeeec10ff8b581b9</md5>
   </package>
   <package>
-    <name>openvswitch-2.6.0</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/o/openvswitch-2.6.0.tar.gz</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/openvswitch-2.6.0.tar.gz</url>
-    </urls>
-    <destination>openvswitch-2.6.0</destination>
-    <format>tgz</format>
-    <md5>7d73a3e48aa60a807663e690c3928d72</md5>
-  </package>
-  <package>
     <name>http-parser-2.1</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/h/http-parser-2.1.zip</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/http-parser-2.1.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/http-parser-2.1.zip</url>
     </urls>
     <destination>http-parser-2.1</destination>
     <format>zip</format>
@@ -103,7 +94,7 @@
     <name>pugixml-1.2</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/p/pugixml-1.2.tar.gz</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/pugixml-1.2.tar.gz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/pugixml-1.2.tar.gz</url>
     </urls>
     <unpack-directory>pugixml</unpack-directory>
     <destination>pugixml</destination>
@@ -114,7 +105,7 @@
     <name>curl-7.52.0</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/c/curl-curl-7_52_0.zip</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/curl-curl-7_52_0.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/curl-curl-7_52_0.zip</url>
     </urls>
     <destination>curl-curl-7_52_0</destination>
     <rename>curl-7.52.0</rename>
@@ -125,7 +116,7 @@
     <name>dirent-1.21</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/d/dirent-1.21.zip</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/dirent-1.21.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/dirent-1.21.zip</url>
     </urls>
     <unpack-directory>dirent</unpack-directory>
     <destination>dirent-1.21</destination>
@@ -136,7 +127,7 @@
     <name>libevent-2.0.22</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/libevent-2.0.22.tar.gz</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libevent-2.0.22.tar.gz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/libevent-2.0.22.tar.gz</url>
     </urls>
     <destination>libevent-2.0.22-stable</destination>
     <rename>libevent-2.0.22</rename>
@@ -147,7 +138,7 @@
     <name>libxml2-2.9.4</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.9.4.tar.gz</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/libxml2-2.9.4.tar.gz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/libxml2-2.9.4.tar.gz</url>
     </urls>
     <destination>libxml2</destination>
     <format>tgz</format>
@@ -157,7 +148,7 @@
     <name>tbb-2017_U7</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/t/tbb-2017_U7.zip</url>
-      <url canonical="true">https://github.com/sagarkchitnis/windows/raw/master/windows/thirdpartycache/tbb-2017_U7.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-windows/raw/master/third_party_cache/tbb-2017_U7.zip</url>
     </urls>
     <destination>tbb-2017_U7</destination>
     <format>zip</format>
