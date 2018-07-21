@@ -13,6 +13,7 @@ hiredis-boostasio-adapter/
 http-parser-2.1/
 icu/
 ifmap-python-client/
+kazoo-2.5.0/
 libvirt/
 libxml2-2.8.0/
 log4cplus-1.1.1/

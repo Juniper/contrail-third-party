@@ -352,6 +352,15 @@
     <md5>5c8532ebdbc151eb01531ab2c7404297</md5>
   </package>
   <package>
+    <name>Higher Level Zookeeper Client</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/k/kazoo-2.5.0.tar.gz</url>
+      <url canonical="true">https://pypi.python.org/packages/source/k/kazoo/kazoo-2.5.0.tar.gz</url>
+    </urls>
+    <format>tgz</format>
+    <md5>7e0a2e88d175bc31d0f69a21a2e83397</md5>
+  </package>
+  <package>
     <name>Gnome XML C parser and toolkit</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.8.0.tar.gz</url>
