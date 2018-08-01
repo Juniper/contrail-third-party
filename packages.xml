@@ -169,10 +169,6 @@
 	  <name>suse</name>
 	  <version>12+</version>
 	</distribution>
-        <distribution>
-          <name>centos</name>
-          <version>7.0+</version>
-        </distribution>
       </exclude>
     </platform>
   </package>
