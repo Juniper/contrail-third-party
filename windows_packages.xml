@@ -134,6 +134,15 @@
     <md5>c4c56f986aa985677ca1db89630a2e11</md5>
   </package>
   <package>
+    <name>pYthOn Finite State Machine</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/f/fysom-1.0.8.tar.gz</url>
+      <url canonical="true">https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
+    </urls>
+    <format>tgz</format>
+    <md5>5c8532ebdbc151eb01531ab2c7404297</md5>
+  </package>
+  <package>
     <name>libxml2-2.9.4</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.9.4.tar.gz</url>
