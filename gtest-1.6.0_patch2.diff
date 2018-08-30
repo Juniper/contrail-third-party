@@ -1,0 +1,34 @@
+diff --git a/third_party/gtest-1.6.0/include/gtest/internal/gtest-tuple.h b/third_party/gtest-1.6.0/include/gtest/internal/gtest-tuple.h
+index d1af50e..c49c23d 100644
+--- a/third_party/gtest-1.6.0/include/gtest/internal/gtest-tuple.h
++++ b/third_party/gtest-1.6.0/include/gtest/internal/gtest-tuple.h
+@@ -217,14 +217,23 @@ class GTEST_2_TUPLE_(T) {
+   template <int k> friend class gtest_internal::Get;
+
+   tuple() : f0_(), f1_() {}
++
++  explicit tuple(GTEST_BY_REF_(T0) f0, GTEST_BY_REF_(T1) f1) {
++      std::copy(std::begin(f0), std::end(f0), std::begin(f0_));
++      f1_ = f1;
++  }
+
+-  explicit tuple(GTEST_BY_REF_(T0) f0, GTEST_BY_REF_(T1) f1) : f0_(f0),
+-      f1_(f1) {}
+-
+-  tuple(const tuple& t) : f0_(t.f0_), f1_(t.f1_) {}
++  tuple(const tuple& t) {
++      std::copy(std::begin(t.f0_), std::end(t.f0_), std::begin(f0_));
++      f1_ = t.f1_;
++  }
+
+-  template <GTEST_2_TYPENAMES_(U)>
+-  tuple(const GTEST_2_TUPLE_(U)& t) : f0_(t.f0_), f1_(t.f1_) {}
++   template <GTEST_2_TYPENAMES_(U)>
++   tuple(const GTEST_2_TUPLE_(U)& t) {
++      std::copy(std::begin(t.f0_), std::end(t.f0_), std::begin(f0_));
++      f1_ = t.f1_;
++   }
++
+   template <typename U0, typename U1>
+   tuple(const ::std::pair<U0, U1>& p) : f0_(p.first), f1_(p.second) {}
+
