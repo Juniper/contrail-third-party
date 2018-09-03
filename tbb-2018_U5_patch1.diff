@@ -1,0 +1,31 @@
+diff --git a/third_party/tbb-2018_U5/include/tbb/compat/condition_variable b/third_party/tbb-2018_U5/include/tbb/compat/condition_variable
+--- a/third_party/tbb-2018_U5/include/tbb/compat/condition_variable
++++ b/third_party/tbb-2018_U5/include/tbb/compat/condition_variable
+@@ -451,6 +451,8 @@ __TBB_DEFINE_PROFILING_SET_NAME(interface5::condition_variable)
+ 
+ } // namespace tbb 
+ 
++#if defined(TBB_INJECT_INTO_STD_NAMESPACE)
++
+ #if TBB_IMPLEMENT_CPP0X
+ 
+ namespace std {
+@@ -473,4 +475,6 @@ using tbb::interface5::no_timeout;
+ 
+ #endif /* TBB_IMPLEMENT_CPP0X */
+ 
++#endif /* TBB_INJECT_INTO_STD_NAMESPACE */
++
+ #endif /* __TBB_condition_variable_H */
+diff --git a/third_party/tbb-2018_U5/src/tbb/mac64-tbb-export.lst b/third_party/tbb-2018_U5/src/tbb/mac64-tbb-export.lst
+--- a/third_party/tbb-2018_U5/src/tbb/mac64-tbb-export.lst
++++ b/third_party/tbb-2018_U5/src/tbb/mac64-tbb-export.lst
+@@ -122,7 +122,7 @@ __TBB_SYMBOL( _ZTSN3tbb18captured_exceptionE )
+ __TBB_SYMBOL( _ZTVN3tbb18captured_exceptionE )
+ __TBB_SYMBOL( _ZTIN3tbb13tbb_exceptionE )
+ __TBB_SYMBOL( _ZTSN3tbb13tbb_exceptionE )
+-__TBB_SYMBOL( _ZTVN3tbb13tbb_exceptionE )
+++// __TBB_SYMBOL( _ZTVN3tbb13tbb_exceptionE ) macos linker issue
+ #endif /* __TBB_TASK_GROUP_CONTEXT */
+ 
+ // Symbols for exceptions thrown from TBB
