@@ -153,13 +153,14 @@
     <md5>ae249165c173b1ff386ee8ad676815f5</md5>
   </package>
   <package>
-    <name>tbb-2017_U7</name>
+    <name>Thread Building Blocks 4.4 2018 Update 5</name>
     <urls>
-      <url>{{ site_mirror }}/contrail-third-party/t/tbb-2017_U7.zip</url>
-      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/windows_cache/tbb-2017_U7.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/libtbb/2018_U5.tar.gz</url>
     </urls>
-    <destination>tbb-2017_U7</destination>
-    <format>zip</format>
-    <md5>885d480693287a093d230460a067afb4</md5>
+    <format>tgz</format>
+    <md5>ff3ae09f8c23892fbc3008c39f78288f</md5>
+    <patches>
+      <patch strip="2">tbb-2018_U5_patch1.diff</patch>
+    </patches>
   </package>
 </packages>
