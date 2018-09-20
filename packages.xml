@@ -216,34 +216,13 @@
   <package>
     <name>Thread Building Blocks 4.0 Update 2</name>
     <urls>
-      <url>{{ site_mirror }}/contrail-third-party/t/tbb40_20111130oss_src.tgz</url>
-      <url canonical="true">http://www.threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb40_20111130oss_src.tgz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/blob/master/libtbb/2018_U5.tar.gz?raw=true</url>
     </urls>
     <format>tgz</format>
-    <md5>1e6926b21e865e79772119cd44fc3ad8</md5>
+    <md5>ff3ae09f8c23892fbc3008c39f78288f</md5>
     <patches>
-      <patch strip="2">tbb40_20111130oss_patch1.diff</patch>
+      <patch strip="2">tbb-2018_U5_patch1.diff</patch>
     </patches>
-    <platform>
-      <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>centos</name>
-	  <version>7.0+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>redhat</name>
-	  <version>7.0+</version>
-	</distribution>
-      </exclude>
-    </platform>
   </package>
   <package>
     <name>Pugi XML 1.2</name>
