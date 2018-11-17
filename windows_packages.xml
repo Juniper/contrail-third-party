@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="Windows-1252"?>
 <packages>
   <!--
     Tags:
@@ -139,7 +140,8 @@
       <url>{{ site_mirror }}/contrail-third-party/f/fysom-1.0.8.tar.gz</url>
       <url canonical="true">https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
     </urls>
-    <format>tgz</format>
+     <destination>fysom-1.0.8</destination>
+     <format>tgz</format>
     <md5>5c8532ebdbc151eb01531ab2c7404297</md5>
   </package>
   <package>
@@ -159,8 +161,9 @@
     </urls>
     <format>tgz</format>
     <md5>ff3ae09f8c23892fbc3008c39f78288f</md5>
-    <patches>
-      <patch strip="2">tbb-2018_U5_patch1.diff</patch>
+      <destination>tbb-2018_U5</destination>
+      <patches>
+      <patch strip="3">windows/tbb-2018_U5_patch1.diff</patch>
     </patches>
   </package>
 </packages>

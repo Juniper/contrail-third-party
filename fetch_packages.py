@@ -52,6 +52,7 @@ def getFilename(pkg, url):
     return filename
 
 def getTarDestination(tgzfile, compress_flag):
+    print tgzfile
     cmd = subprocess.Popen(['tar', compress_flag + 'tf', tgzfile],
                            stdout=subprocess.PIPE)
     (output, _) = cmd.communicate()
@@ -253,6 +254,7 @@ def ProcessPackage(pkg):
              ccfile1=  os.path.splitext(ccfile)[0]
              cmd = '7z x ' + ccfile + ' -o'+ ARGS['cache_dir'] 
              cmd1 = '7z x ' + ccfile1
+             print cmd1
              if unpackdir:
                  cmd1= cmd1 +' -o'+ str(unpackdir)
         elif pkg.format == 'tbz':
@@ -317,8 +319,15 @@ def ProcessPackage(pkg):
             p = subprocess.Popen(cmd1, cwd = cd)
             p.wait()
     if rename and dest:
-        os.rename(dest, str(rename))
-        dest = str(rename)
+        for retry in range(100):
+            try:
+                print dest
+                print str(rename)
+                os.rename(dest, str(rename))
+                dest = str(rename)
+                break
+            except:
+                print "rename failed, retrying..."
 
     ApplyPatches(pkg)
 
