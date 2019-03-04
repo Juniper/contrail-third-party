@@ -15,19 +15,6 @@
                   download and copy to currect directory is complete.
   -->
   <package>
-    <name>Windows Apache Thrift 0.8</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/t/thrift-0.8.0.zip</url>
-      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/windows_cache/thrift-0.8.0.zip</url>
-    </urls>
-    <patches>
-      <patch strip="0">windows/thrift.patch</patch>
-    </patches>
-    <destination>thrift-0.8.0</destination>
-    <format>zip</format>
-    <md5>1ba7ee3afdf014fbf7ac3f5da9492ff3</md5>
-  </package>
-  <package>
     <name>Simple AMQP Client</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/S/SimpleAmqpClient-2.4.0.tar.gz</url>
