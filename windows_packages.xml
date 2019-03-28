@@ -15,28 +15,6 @@
                   download and copy to currect directory is complete.
   -->
   <package>
-    <name>Simple AMQP Client</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/S/SimpleAmqpClient-2.4.0.tar.gz</url>
-      <url canonical="true">https://github.com/alanxz/SimpleAmqpClient/archive/v2.4.0.tar.gz</url>
-    </urls>
-    <destination>SimpleAmqpClient-2.4.0</destination>
-    <rename>SimpleAmqpClient</rename>
-    <format>tgz</format>
-    <md5>fb86236ae98cd6116cbdf94d8d5f20b0</md5>
-  </package>
-  <package>
-    <name>rabbitmq-c-0.8.0</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/r/rabbitmq-c-0.8.0.tar.gz</url>
-      <url canonical="true">https://github.com/alanxz/rabbitmq-c/releases/download/v0.8.0/rabbitmq-c-0.8.0.tar.gz</url>
-    </urls>
-    <destination>rabbitmq-c-0.8.0</destination>
-    <rename>rabbitmq-c</rename>
-    <format>tgz</format>
-    <md5>c15dbcd2dbb8e254c1de0494c1bb8c91</md5>
-  </package>
-  <package>
     <name>log4cplus-1.1.1</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.zip</url>
@@ -149,5 +127,13 @@
     <patches>
       <patch strip="2">tbb-2018_U5_patch1.diff</patch>
     </patches>
+  </package>
+  <package>
+    <name>cmocka 1.1.2</name>
+    <urls>
+      <url canonical="true">https://git.cryptomilk.org/projects/cmocka.git/snapshot/cmocka-1.1.2.zip</url>
+    </urls>
+    <format>zip</format>
+    <md5>a4c5a7e2c87d523aa442fb3238c5f1b4</md5>
   </package>
 </packages>

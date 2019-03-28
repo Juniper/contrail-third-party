@@ -2,6 +2,7 @@
 #
 # Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
 #
+
 import os
 import errno
 import platform
@@ -12,20 +13,17 @@ import sys
 from time import sleep
 from distutils.spawn import find_executable
 import argparse
+import tempfile
+import hashlib
 
 # arguments (given by command line or defaults)
 ARGS = dict()
-if sys.platform == 'win32':
+if platform.system() == 'Windows':
     ARGS['filename'] = 'windows_packages.xml'
 else:
     ARGS['filename'] = 'packages.xml'
 
-if sys.platform == 'win32':
-    ARGS['cache_dir'] = 'windowscache'
-elif 'USER' in os.environ.keys():
-    ARGS['cache_dir']=  '/tmp/cache/' + os.environ['USER'] + '/third_party'
-else:
-    ARGS['cache_dir'] = '.cache'
+ARGS['cache_dir'] = tempfile.mkdtemp()
 ARGS['node_modules_dir'] = 'node_modules'
 ARGS['node_modules_tmp_dir'] = ARGS['cache_dir'] + '/' + ARGS['node_modules_dir']
 ARGS['verbose'] = False
@@ -59,8 +57,8 @@ def getTarDestination(tgzfile, compress_flag):
     fields = first.split()
     return fields[0]
 
-def getZipDestination(tgzfile):
-    cmd = subprocess.Popen(['unzip', '-t', tgzfile],
+def getZipDestination(zipfile):
+    cmd = subprocess.Popen(['unzip', '-t', zipfile],
                            stdout=subprocess.PIPE)
     (output, _) = cmd.communicate()
     lines = output.split('\n')
@@ -217,7 +215,7 @@ def ProcessPackage(pkg):
         dest = str(unpackdir)
     elif destination:
         dest = str(destination)
-    else:
+    elif platform.system() != 'Windows':
         if pkg.format == 'tgz':
             dest = getTarDestination(ccfile, 'z')
         elif pkg.format == 'tbz':
@@ -248,24 +246,17 @@ def ProcessPackage(pkg):
             os.makedirs(str(unpackdir))
         except OSError as exc:
             pass
-    if sys.platform == 'win32':
+    if platform.system() == 'Windows':
         if pkg.format == 'tgz':
              ccfile1=  os.path.splitext(ccfile)[0]
              cmd = '7z x ' + ccfile + ' -o'+ ARGS['cache_dir'] 
              cmd1 = '7z x ' + ccfile1
              if unpackdir:
                  cmd1= cmd1 +' -o'+ str(unpackdir)
-        elif pkg.format == 'tbz':
-            cmd = ['tar', 'jxvf', ccfile]
         elif pkg.format == 'zip':
             cmd = '7z x ' + ccfile
             if unpackdir:
                  cmd= cmd+' -o'+ str(unpackdir)
-
-        elif pkg.format == 'npm':
-            cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
-        elif pkg.format == 'file':
-            cmd = ['cp', '-af', ccfile, dest]
         else:
             print 'Unexpected format: %s' % (pkg.format)
             return
@@ -285,7 +276,7 @@ def ProcessPackage(pkg):
             return
     if not ARGS['dry_run']:
         cd = None
-        if sys.platform != 'win32':
+        if platform.system() != 'Windows':
             if unpackdir:
                 cd = str(unpackdir)
         if pkg.format == 'npm':
@@ -327,17 +318,11 @@ def ProcessPackage(pkg):
         ReconfigurePackageSources(dest)
 
 def FindMd5sum(anyfile):
-    # MD5 command is different on FreeBSD systems
-    if sys.platform.startswith('freebsd'):
-        cmd = ['md5']
-        cmd.append('-q')
-    else:
-        cmd = ['md5sum']
-    cmd.append(anyfile)
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
-    stdout, stderr = proc.communicate()
-    md5sum = stdout.split()[0]
-    return md5sum
+    hash_md5 = hashlib.md5()
+    with open(anyfile, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
 
 
 def parse_args():
@@ -364,7 +349,7 @@ def main():
 
 if __name__ == '__main__':
     parse_args()
-    if sys.platform == 'win32':
+    if platform.system() == 'Windows':
         dependencies = ['7z', 'patch', 'wget']
     else:
         dependencies = [
