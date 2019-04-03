@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #
 # Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
 #
@@ -15,6 +15,8 @@ from distutils.spawn import find_executable
 import argparse
 import tempfile
 import hashlib
+import urllib.request
+import ssl
 
 # arguments (given by command line or defaults)
 ARGS = dict()
@@ -63,7 +65,7 @@ def getZipDestination(zipfile):
     (output, _) = cmd.communicate()
     lines = output.split('\n')
     for line in lines:
-        print line
+        print(line)
         m = re.search(r'testing:\s+([\w\-\.]+)\/', line)
         if m:
             return m.group(1)
@@ -90,7 +92,7 @@ def ApplyPatches(pkg):
             cmd.append('-p')
             cmd.append(patch.get('strip'))
         if ARGS['verbose']:
-            print "Patching %s <%s..." % (' '.join(cmd), str(patch))
+            print("Patching %s <%s..." % (' '.join(cmd), str(patch)))
         if not ARGS['dry_run']:
             fp = open(str(patch), 'r')
             proc = subprocess.Popen(cmd, stdin = fp)
@@ -119,11 +121,13 @@ def DownloadPackage(urls, pkg, md5):
                 if not ARGS['site_mirror']:
                     continue
                 url = url.replace("{{ site_mirror }}", ARGS['site_mirror'])
-            subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
+
+            urllib.request.urlretrieve(url, pkg)
+
             md5sum = FindMd5sum(pkg)
             if ARGS['verbose']:
-                print "Calculated md5sum: %s" % md5sum
-                print "Expected md5sum: %s" % md5
+                print("Calculated md5sum: %s" % md5sum)
+                print("Expected md5sum: %s" % md5)
             if md5sum == md5:
                 return
             os.remove(pkg)
@@ -195,7 +199,7 @@ def ProcessPackage(pkg):
     if not PlatformRequires(pkg):
         return
 
-    print "Processing %s ..." % (pkg['name'])
+    print("Processing %s ..." % (pkg['name']))
     urls = list(pkg['urls'].iterchildren())
     filename = getFilename(pkg, urls[0].text)
     ccfile = ARGS['cache_dir'] + '/' + filename
@@ -237,7 +241,7 @@ def ProcessPackage(pkg):
 
     elif dest and os.path.isdir(dest):
         if ARGS['verbose']:
-            print "Clean directory %s" % dest
+            print("Clean directory %s" % dest)
         if not ARGS['dry_run']:
             shutil.rmtree(dest)
 
@@ -258,7 +262,7 @@ def ProcessPackage(pkg):
             if unpackdir:
                  cmd= cmd+' -o'+ str(unpackdir)
         else:
-            print 'Unexpected format: %s' % (pkg.format)
+            print('Unexpected format: %s' % (pkg.format))
             return
     else:
         if pkg.format == 'tgz':
@@ -272,7 +276,7 @@ def ProcessPackage(pkg):
         elif pkg.format == 'file':
             cmd = ['cp', '-af', ccfile, dest]
         else:
-            print 'Unexpected format: %s' % (pkg.format)
+            print('Unexpected format: %s' % (pkg.format))
             return
     if not ARGS['dry_run']:
         cd = None
@@ -287,7 +291,7 @@ def ProcessPackage(pkg):
                 if exc.errno == errno.EEXIST:
                     pass
                 else:
-                    print 'mkdirs of ' + ARGS['node_modules_dir'] + ' ' + ARGS['node_modules_tmp_dir'] + ' failed.. Exiting..'
+                    print('mkdirs of ' + ARGS['node_modules_dir'] + ' ' + ARGS['node_modules_tmp_dir'] + ' failed.. Exiting..')
                     return
 
             npmCmd = ['cp', '-af', ARGS['node_modules_tmp_dir'] + '/' + pkg['name'],
@@ -295,13 +299,13 @@ def ProcessPackage(pkg):
             if os.path.exists(ARGS['node_modules_tmp_dir'] + '/' + pkg['name']):
                 cmd = npmCmd
             else:
-		try:
-                   p = subprocess.Popen(cmd, cwd = cd)
-                   p.wait()
-                   cmd = npmCmd
-		except OSError:
-		   print ' '.join(cmd) + ' could not be executed, bailing out!'
-		   return
+                try:
+                    p = subprocess.Popen(cmd, cwd = cd)
+                    p.wait()
+                    cmd = npmCmd
+                except OSError:
+                    print(' '.join(cmd) + ' could not be executed, bailing out!')
+                    return
         p = subprocess.Popen(cmd, cwd = cd)
         p.wait()
         if cmd1: #extra stuff for windows
@@ -350,7 +354,7 @@ def main():
 if __name__ == '__main__':
     parse_args()
     if platform.system() == 'Windows':
-        dependencies = ['7z', 'patch', 'wget']
+        dependencies = ['7z', 'patch']
     else:
         dependencies = [
             'autoconf',
@@ -359,12 +363,11 @@ if __name__ == '__main__':
             'libtool',
             'patch',
             'unzip',
-            'wget',
         ]
- 
+
     for exc in dependencies:
         if not find_executable(exc):
-            print 'Please install %s' % exc
+            print('Please install %s' % exc)
             sys.exit(1)
 
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
