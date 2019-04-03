@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 #
 # Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
 #
@@ -15,6 +15,8 @@ from distutils.spawn import find_executable
 import argparse
 import tempfile
 import hashlib
+import urllib
+import ssl
 
 # arguments (given by command line or defaults)
 ARGS = dict()
@@ -119,7 +121,10 @@ def DownloadPackage(urls, pkg, md5):
                 if not ARGS['site_mirror']:
                     continue
                 url = url.replace("{{ site_mirror }}", ARGS['site_mirror'])
-            subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
+
+            context = ssl._create_unverified_context()
+            urllib.urlretrieve(url, pkg, context=context)
+
             md5sum = FindMd5sum(pkg)
             if ARGS['verbose']:
                 print "Calculated md5sum: %s" % md5sum
@@ -350,7 +355,7 @@ def main():
 if __name__ == '__main__':
     parse_args()
     if platform.system() == 'Windows':
-        dependencies = ['7z', 'patch', 'wget']
+        dependencies = ['7z', 'patch']
     else:
         dependencies = [
             'autoconf',
@@ -359,9 +364,8 @@ if __name__ == '__main__':
             'libtool',
             'patch',
             'unzip',
-            'wget',
         ]
- 
+
     for exc in dependencies:
         if not find_executable(exc):
             print 'Please install %s' % exc
