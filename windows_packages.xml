@@ -99,15 +99,6 @@
     <md5>c4c56f986aa985677ca1db89630a2e11</md5>
   </package>
   <package>
-    <name>pYthOn Finite State Machine</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/f/fysom-1.0.8.tar.gz</url>
-      <url canonical="true">https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
-    </urls>
-    <format>tgz</format>
-    <md5>5c8532ebdbc151eb01531ab2c7404297</md5>
-  </package>
-  <package>
     <name>libxml2-2.9.4</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.9.4.tar.gz</url>
@@ -131,7 +122,7 @@
   <package>
     <name>cmocka 1.1.2</name>
     <urls>
-      <url canonical="true">https://git.cryptomilk.org/projects/cmocka.git/snapshot/cmocka-1.1.2.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/windows_cache/cmocka-1.1.2.zip</url>
     </urls>
     <format>zip</format>
     <md5>a4c5a7e2c87d523aa442fb3238c5f1b4</md5>
