@@ -101,7 +101,6 @@
     <rename>gtest-1.6.0</rename>
     <patches>
       <patch strip="2">gtest-1.6.0_patch1.diff</patch>
-      <patch strip="2">gtest-1.6.0_patch2.diff</patch>
     </patches>
     <format>zip</format>
     <md5>c7fbb1ddde072afd938c25c65e94750e</md5>
