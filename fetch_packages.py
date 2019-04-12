@@ -4,7 +4,6 @@
 #
 
 import os
-import errno
 import platform
 import re
 import shutil
@@ -65,12 +64,6 @@ def getZipDestination(zipfile):
             return m.group(1)
     return None
 
-def getFileDestination(file):
-    start = file.rfind('/')
-    if start < 0:
-        return None
-    return file[start+1:]
-
 def ApplyPatches(pkg):
     stree_node = pkg.find('patches')
     if stree_node is None:
@@ -94,18 +87,7 @@ def ApplyPatches(pkg):
             if not proc.returncode == 0:
                 raise PatchError('Failed to apply patch %s' % patch.text)
 
-#def VarSubst(cmdstr, filename):
-#    return re.sub(r'\${filename}', filename, cmdstr)
-
 def DownloadPackage(urls, pkg, md5):
-    #Check if the package already exists
-    if os.path.isfile(pkg):
-        md5sum = FindMd5sum(pkg)
-        if md5sum == md5:
-            return
-        else:
-            os.remove(pkg)
-
     retry_count = 0
     while retry_count <= _RETRIES:
         for url in urls:
@@ -203,8 +185,6 @@ def ProcessPackage(pkg):
     ccfile = ARGS['cache_dir'] + '/' + filename
     DownloadPackage(urls, ccfile, pkg.find('md5').text)
 
-    cmd1=None
-
     #
     # Determine the name of the directory created by the package.
     # unpack-directory means that we 'cd' to the given directory before
@@ -214,107 +194,36 @@ def ProcessPackage(pkg):
     unpackdir = None
     unpackdir_node = pkg.find('unpack-directory')
     destination_node = pkg.find('destination')
-    pkg_format = pkg.find('format').text
     if unpackdir_node is not None:
         unpackdir = unpackdir_node.text
         dest = unpackdir
     elif destination_node is not None:
         dest = destination_node.text
     elif platform.system() != 'Windows':
+        pkg_format = pkg.find('format').text
         if pkg_format == 'tgz':
             dest = getTarDestination(ccfile, 'z')
         elif pkg_format == 'tbz':
             dest = getTarDestination(ccfile, 'j')
         elif pkg_format == 'zip':
             dest = getZipDestination(ccfile)
-        elif pkg_format == 'npm':
-            dest = getTarDestination(ccfile, 'z')
-        elif pkg_format == 'file':
-            dest = getFileDestination(ccfile)
 
     rename = None
     rename_node = pkg.find('rename')
     if rename_node is not None:
         rename = rename_node.text
 
-    if rename and os.path.isdir(rename):
-        if not ARGS['dry_run']:
+    if not ARGS['dry_run']:
+        if rename and os.path.isdir(rename):
             # clean directory before unpacking and applying patches
             shutil.rmtree(rename)
-
-    elif dest and os.path.isdir(dest):
-        if ARGS['verbose']:
-            print("Clean directory %s" % dest)
-        if not ARGS['dry_run']:
+        elif dest and os.path.isdir(dest):
+            if ARGS['verbose']:
+                print("Clean directory %s" % dest)
             shutil.rmtree(dest)
 
-    if unpackdir:
-        try:
-            os.makedirs(unpackdir)
-        except OSError as exc:
-            pass
+        shutil.unpack_archive(ccfile, unpackdir)
 
-    if platform.system() == 'Windows':
-        if pkg_format == 'tgz':
-             ccfile1=  os.path.splitext(ccfile)[0]
-             cmd = '7z x ' + ccfile + ' -o' + ARGS['cache_dir']
-             cmd1 = '7z x ' + ccfile1
-             if unpackdir:
-                 cmd1 = cmd1 + ' -o' + unpackdir
-        elif pkg_format == 'zip':
-            cmd = '7z x ' + ccfile
-            if unpackdir:
-                 cmd = cmd + ' -o' + unpackdir
-        else:
-            print('Unexpected format: %s' % (pkg_format))
-            return
-    else:
-        if pkg_format == 'tgz':
-            cmd = ['tar', 'zxvf', ccfile]
-        elif pkg_format == 'tbz':
-            cmd = ['tar', 'jxvf', ccfile]
-        elif pkg_format == 'zip':
-            cmd = ['unzip', '-o', ccfile]
-        elif pkg_format == 'npm':
-            cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
-        elif pkg_format == 'file':
-            cmd = ['cp', '-af', ccfile, dest]
-        else:
-            print('Unexpected format: %s' % (pkg_format))
-            return
-    if not ARGS['dry_run']:
-        cd = None
-        if platform.system() != 'Windows':
-            if unpackdir:
-                cd = unpackdir
-        if pkg_format == 'npm':
-            try:
-                os.makedirs(ARGS['node_modules_dir'])
-                os.makedirs(ARGS['node_modules_tmp_dir'])
-            except OSError as exc:
-                if exc.errno == errno.EEXIST:
-                    pass
-                else:
-                    print('mkdirs of ' + ARGS['node_modules_dir'] + ' ' + ARGS['node_modules_tmp_dir'] + ' failed.. Exiting..')
-                    return
-
-            npmCmd = ['cp', '-af', ARGS['node_modules_tmp_dir'] + '/' + pkg['name'],
-                      ARGS['node_modules_dir']]
-            if os.path.exists(ARGS['node_modules_tmp_dir'] + '/' + pkg['name']):
-                cmd = npmCmd
-            else:
-                try:
-                    p = subprocess.Popen(cmd, cwd = cd)
-                    p.wait()
-                    cmd = npmCmd
-                except OSError:
-                    print(' '.join(cmd) + ' could not be executed, bailing out!')
-                    return
-        p = subprocess.Popen(cmd, cwd = cd)
-        p.wait()
-        if cmd1: #extra stuff for windows
-            p = subprocess.Popen(cmd1, cwd = cd)
-            p.wait()
     if rename and dest:
         os.rename(dest, rename)
         dest = rename
@@ -358,7 +267,7 @@ def main():
 if __name__ == '__main__':
     parse_args()
     if platform.system() == 'Windows':
-        dependencies = ['7z', 'patch']
+        dependencies = ['patch']
     else:
         dependencies = [
             'autoconf',
