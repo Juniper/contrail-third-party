@@ -33,26 +33,26 @@
     </patches>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>centos</name>
-	  <version>7.0+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
-	<distribution>
-	  <name>redhat</name>
-	  <version>7.0+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>centos</name>
+          <version>7.0+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
+        <distribution>
+          <name>redhat</name>
+          <version>7.0+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -69,26 +69,26 @@
     </patches>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>centos</name>
-	  <version>7.0+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
-	<distribution>
-	  <name>redhat</name>
-	  <version>7.0+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>centos</name>
+          <version>7.0+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
+        <distribution>
+          <name>redhat</name>
+          <version>7.0+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -106,18 +106,18 @@
     <md5>c7fbb1ddde072afd938c25c65e94750e</md5>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -132,18 +132,18 @@
     <md5>b51cc3e69a8ef16ac54cee9889b79646</md5>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -157,18 +157,18 @@
     <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -198,18 +198,18 @@
     </patches>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -310,14 +310,14 @@
     </patches>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -340,26 +340,26 @@
     <md5>c62106f02ee00b6437f0fb9d370c1093</md5>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>centos</name>
-	  <version>7.0+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
-	<distribution>
-	  <name>redhat</name>
-	  <version>7.0+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>centos</name>
+          <version>7.0+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
+        <distribution>
+          <name>redhat</name>
+          <version>7.0+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
@@ -395,26 +395,26 @@
     <md5>9e96ed4c1d99c0d14ac03c140f9f346c</md5>
     <platform>
       <exclude>
-	<distribution>
-	  <name>ubuntu</name>
-	  <version>14.04+</version>
-	</distribution>
-	<distribution>
-	  <name>centos</name>
-	  <version>7.0+</version>
-	</distribution>
-	<distribution>
-	  <name>fedora</name>
-	  <version>20+</version>
-	</distribution>
-	<distribution>
-	  <name>suse</name>
-	  <version>12+</version>
-	</distribution>
-	<distribution>
-	  <name>redhat</name>
-	  <version>7.0+</version>
-	</distribution>
+        <distribution>
+          <name>ubuntu</name>
+          <version>14.04+</version>
+        </distribution>
+        <distribution>
+          <name>centos</name>
+          <version>7.0+</version>
+        </distribution>
+        <distribution>
+          <name>fedora</name>
+          <version>20+</version>
+        </distribution>
+        <distribution>
+          <name>suse</name>
+          <version>12+</version>
+        </distribution>
+        <distribution>
+          <name>redhat</name>
+          <version>7.0+</version>
+        </distribution>
       </exclude>
     </platform>
   </package>
