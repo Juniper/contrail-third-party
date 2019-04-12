@@ -17,12 +17,11 @@
   <package>
     <name>log4cplus-1.1.1</name>
     <urls>
-      <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.zip</url>
-      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/windows_cache/log4cplus-1.1.1.zip</url>
+      <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.tar.bz2</url>
+      <url canonical="true">http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
     </urls>
     <destination>log4cplus-1.1.1</destination>
-    <format>zip</format>
-    <md5>1d6aab5aa81bfbe2edaa97995b808279</md5>
+    <md5>a6fbba1e4b021f301b98c7bc68a068cb</md5>
   </package>
   <package>
     <name>googletest-release-1.8.0</name>
