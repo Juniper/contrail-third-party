@@ -72,7 +72,12 @@ def ApplyPatches(pkg):
         return
     destination_node = pkg.find('destination')
     for patch in stree_node.getchildren():
-        cmd = ['patch']
+        cmd = ['patch', '-i', patch.text]
+
+        if platform.system() == 'Windows':
+            # ignore different line endings
+            cmd.append('--binary')
+
         if destination_node is not None:
             cmd.append('-d')
             cmd.append(destination_node.text)
@@ -80,13 +85,13 @@ def ApplyPatches(pkg):
         if patch.get('strip'):
             cmd.append('-p')
             cmd.append(patch.get('strip'))
+
         if ARGS['verbose']:
-            print("Patching %s <%s..." % (' '.join(cmd), patch.text))
+            print('Patching ' + ' '.join(cmd))
+
         if not ARGS['dry_run']:
-            fp = open(patch.text, 'r')
-            proc = subprocess.Popen(cmd, stdin = fp)
-            proc.communicate()
-            if not proc.returncode == 0:
+            exit_code = subprocess.call(cmd)
+            if exit_code != 0:
                 raise PatchError('Failed to apply patch %s' % patch.text)
 
 def DownloadPackage(urls, pkg, md5):
