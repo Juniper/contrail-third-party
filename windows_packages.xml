@@ -87,17 +87,6 @@
     <md5>6f64427134567e20bc498f7bae0b570c</md5>
   </package>
   <package>
-    <name>libevent-2.0.22</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/l/libevent-2.0.22.tar.gz</url>
-      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/windows_cache/libevent-2.0.22.tar.gz</url>
-    </urls>
-    <destination>libevent-2.0.22-stable</destination>
-    <rename>libevent-2.0.22</rename>
-    <format>tgz</format>
-    <md5>c4c56f986aa985677ca1db89630a2e11</md5>
-  </package>
-  <package>
     <name>libxml2-2.9.4</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.9.4.tar.gz</url>

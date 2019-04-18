@@ -15,84 +15,6 @@
                   download and copy to currect directory is complete.
   -->
   <package>
-    <name>Boost C++ libraries version 1.48</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/b/boost_1_48_0.tar.gz</url>
-      <url canonical="true">http://sourceforge.net/projects/boost/files/boost/1.48.0/boost_1_48_0.tar.gz</url>
-    </urls>
-    <format>tgz</format>
-    <md5>313a11e97eb56eb7efd18325354631be</md5>
-    <patches>
-      <patch strip="2">boost_1_48_patch1.diff</patch>
-      <patch strip="2">boost_1_48_patch2.diff</patch>
-      <patch strip="2">boost_1_48_patch3.diff</patch>
-      <patch strip="0">boost_time_utc.patch</patch>
-      <patch strip="1">boost_1_48_patch4.diff</patch>
-      <patch strip="1">boost_1_48_patch5.diff</patch>
-      <patch strip="1">boost_1_48_patch6.diff</patch>
-    </patches>
-    <platform>
-      <exclude>
-        <distribution>
-          <name>ubuntu</name>
-          <version>14.04+</version>
-        </distribution>
-        <distribution>
-          <name>centos</name>
-          <version>7.0+</version>
-        </distribution>
-        <distribution>
-          <name>fedora</name>
-          <version>20+</version>
-        </distribution>
-        <distribution>
-          <name>suse</name>
-          <version>12+</version>
-        </distribution>
-        <distribution>
-          <name>redhat</name>
-          <version>7.0+</version>
-        </distribution>
-      </exclude>
-    </platform>
-  </package>
-  <package>
-    <name>curl 7.24</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/c/curl-7.24.0.tar.gz</url>
-      <url canonical="true">http://curl.haxx.se/download/curl-7.24.0.tar.gz</url>
-    </urls>
-    <format>tgz</format>
-    <md5>b93420f80a2baaa61a0f45214eddc2ba</md5>
-    <patches>
-      <patch strip="2">curl-7.24.0_patch1.diff</patch>
-    </patches>
-    <platform>
-      <exclude>
-        <distribution>
-          <name>ubuntu</name>
-          <version>14.04+</version>
-        </distribution>
-        <distribution>
-          <name>centos</name>
-          <version>7.0+</version>
-        </distribution>
-        <distribution>
-          <name>fedora</name>
-          <version>20+</version>
-        </distribution>
-        <distribution>
-          <name>suse</name>
-          <version>12+</version>
-        </distribution>
-        <distribution>
-          <name>redhat</name>
-          <version>7.0+</version>
-        </distribution>
-      </exclude>
-    </platform>
-  </package>
-  <package>
     <name>Google C++ Testing Framework 1.6.0</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/g/googletest-release-1.6.0.zip</url>
@@ -235,20 +157,6 @@
     <md5>477f4a7d75af0383f52ee6622b3f6035</md5>
   </package>
   <package>
-    <name>Apache Thrift 0.8</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/t/thrift-0.8.0.tar.gz</url>
-      <url canonical="true">http://archive.apache.org/dist/thrift/0.8.0/thrift-0.8.0.tar.gz</url>
-    </urls>
-    <patches>
-      <patch strip="2">thrift_patch1.diff</patch>
-      <patch strip="2">thrift_autoconf.patch</patch>
-    </patches>
-    <format>tgz</format>
-    <md5>d29dfcd38d476cbc420b6f4d80ab966c</md5>
-    <autoreconf>true</autoreconf>
-  </package>
-  <package>
     <name>hiredis boostasio-adapter</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/h/hiredis-boostasio-adapter-master.zip</url>
@@ -322,48 +230,6 @@
     </platform>
   </package>
   <package>
-    <name>pYthOn Finite State Machine</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/f/fysom-1.0.8.tar.gz</url>
-      <url canonical="true">https://pypi.python.org/packages/source/f/fysom/fysom-1.0.8.tar.gz</url>
-    </urls>
-    <format>tgz</format>
-    <md5>5c8532ebdbc151eb01531ab2c7404297</md5>
-  </package>
-  <package>
-    <name>Gnome XML C parser and toolkit</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/l/libxml2-2.8.0.tar.gz</url>
-      <url canonical="true">http://xmlsoft.org/sources/libxml2-2.8.0.tar.gz</url>
-    </urls>
-    <format>tgz</format>
-    <md5>c62106f02ee00b6437f0fb9d370c1093</md5>
-    <platform>
-      <exclude>
-        <distribution>
-          <name>ubuntu</name>
-          <version>14.04+</version>
-        </distribution>
-        <distribution>
-          <name>centos</name>
-          <version>7.0+</version>
-        </distribution>
-        <distribution>
-          <name>fedora</name>
-          <version>20+</version>
-        </distribution>
-        <distribution>
-          <name>suse</name>
-          <version>12+</version>
-        </distribution>
-        <distribution>
-          <name>redhat</name>
-          <version>7.0+</version>
-        </distribution>
-      </exclude>
-    </platform>
-  </package>
-  <package>
     <name>JSON parser/generator for C++</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/r/rapidjson-v1.1.0.zip</url>
@@ -384,39 +250,6 @@
       <patch strip="1">bind-9.10.4-P2-patch1.diff</patch>
       <patch strip="1">bind-9.10.4-P2-patch2.diff</patch>
     </patches>
-  </package>
-  <package>
-    <name>ICU - International Components for Unicode</name>
-    <urls>
-      <url>{{ site_mirror }}/contrail-third-party/i/icu4c-52_1-src.tgz</url>
-      <url canonical="true">http://download.icu-project.org/files/icu4c/52.1/icu4c-52_1-src.tgz</url>
-    </urls>
-    <format>tgz</format>
-    <md5>9e96ed4c1d99c0d14ac03c140f9f346c</md5>
-    <platform>
-      <exclude>
-        <distribution>
-          <name>ubuntu</name>
-          <version>14.04+</version>
-        </distribution>
-        <distribution>
-          <name>centos</name>
-          <version>7.0+</version>
-        </distribution>
-        <distribution>
-          <name>fedora</name>
-          <version>20+</version>
-        </distribution>
-        <distribution>
-          <name>suse</name>
-          <version>12+</version>
-        </distribution>
-        <distribution>
-          <name>redhat</name>
-          <version>7.0+</version>
-        </distribution>
-      </exclude>
-    </platform>
   </package>
   <package>
     <name>vijava</name>
