@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #
 # Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
 #
+
 import os
-import errno
 import platform
 import re
 import shutil
@@ -12,20 +12,19 @@ import sys
 from time import sleep
 from distutils.spawn import find_executable
 import argparse
+import tempfile
+import hashlib
+import urllib.request
+import xml.etree.ElementTree
 
 # arguments (given by command line or defaults)
 ARGS = dict()
-if sys.platform == 'win32':
+if platform.system() == 'Windows':
     ARGS['filename'] = 'windows_packages.xml'
 else:
     ARGS['filename'] = 'packages.xml'
 
-if sys.platform == 'win32':
-    ARGS['cache_dir'] = 'windowscache'
-elif 'USER' in os.environ.keys():
-    ARGS['cache_dir']=  '/tmp/cache/' + os.environ['USER'] + '/third_party'
-else:
-    ARGS['cache_dir'] = '.cache'
+ARGS['cache_dir'] = tempfile.mkdtemp()
 ARGS['node_modules_dir'] = 'node_modules'
 ARGS['node_modules_tmp_dir'] = ARGS['cache_dir'] + '/' + ARGS['node_modules_dir']
 ARGS['verbose'] = False
@@ -33,17 +32,15 @@ ARGS['dry_run'] = False
 
 _RETRIES = 5
 
-from lxml import objectify
-
 
 class PatchError(Exception):
     pass
 
 
 def getFilename(pkg, url):
-    element = pkg.find("local-filename")
-    if element:
-        return str(element)
+    element_node = pkg.find("local-filename")
+    if element_node is not None:
+        return element_node.text
 
     (path, filename) = url.rsplit('/', 1)
     m = re.match(r'\w+\?\w+=(.*)', filename)
@@ -52,66 +49,47 @@ def getFilename(pkg, url):
     return filename
 
 def getTarDestination(tgzfile, compress_flag):
-    cmd = subprocess.Popen(['tar', compress_flag + 'tf', tgzfile],
-                           stdout=subprocess.PIPE)
-    (output, _) = cmd.communicate()
-    (first, _) = output.split('\n', 1)
+    output = subprocess.check_output(['tar', compress_flag + 'tf', tgzfile])
+    first = output.splitlines()[0]
     fields = first.split()
     return fields[0]
 
-def getZipDestination(tgzfile):
-    cmd = subprocess.Popen(['unzip', '-t', tgzfile],
-                           stdout=subprocess.PIPE)
-    (output, _) = cmd.communicate()
-    lines = output.split('\n')
+def getZipDestination(zipfile):
+    unzip_cmd = ['unzip', '-t', zipfile]
+    output = subprocess.check_output(unzip_cmd, universal_newlines=True)
+
+    lines = output.splitlines()
     for line in lines:
-        print line
+        print(line)
         m = re.search(r'testing:\s+([\w\-\.]+)\/', line)
         if m:
             return m.group(1)
     return None
 
-def getFileDestination(file):
-    start = file.rfind('/')
-    if start < 0:
-        return None
-    return file[start+1:]
-
 def ApplyPatches(pkg):
-    stree = pkg.find('patches')
-    if stree is None:
+    stree_node = pkg.find('patches')
+    if stree_node is None:
         return
-    destination = pkg.find('destination')
-    for patch in stree.getchildren():
+    destination_node = pkg.find('destination')
+    for patch in stree_node.getchildren():
         cmd = ['patch']
-        if destination:
+        if destination_node is not None:
             cmd.append('-d')
-            cmd.append(str(destination))
+            cmd.append(destination_node.text)
 
         if patch.get('strip'):
             cmd.append('-p')
             cmd.append(patch.get('strip'))
         if ARGS['verbose']:
-            print "Patching %s <%s..." % (' '.join(cmd), str(patch))
+            print("Patching %s <%s..." % (' '.join(cmd), patch.text))
         if not ARGS['dry_run']:
-            fp = open(str(patch), 'r')
+            fp = open(patch.text, 'r')
             proc = subprocess.Popen(cmd, stdin = fp)
             proc.communicate()
             if not proc.returncode == 0:
-                raise PatchError('Failed to apply patch %s' % str(patch))
-
-#def VarSubst(cmdstr, filename):
-#    return re.sub(r'\${filename}', filename, cmdstr)
+                raise PatchError('Failed to apply patch %s' % patch.text)
 
 def DownloadPackage(urls, pkg, md5):
-    #Check if the package already exists
-    if os.path.isfile(pkg):
-        md5sum = FindMd5sum(pkg)
-        if md5sum == md5:
-            return
-        else:
-            os.remove(pkg)
-
     retry_count = 0
     while retry_count <= _RETRIES:
         for url in urls:
@@ -121,11 +99,17 @@ def DownloadPackage(urls, pkg, md5):
                 if not ARGS['site_mirror']:
                     continue
                 url = url.replace("{{ site_mirror }}", ARGS['site_mirror'])
-            subprocess.call(['wget', '--no-check-certificate', '-O', pkg, url, '--timeout=10'])
+
+            try:
+                urllib.request.urlretrieve(url, pkg)
+            except:
+                print("Url did not work: " + url)
+                continue
+
             md5sum = FindMd5sum(pkg)
             if ARGS['verbose']:
-                print "Calculated md5sum: %s" % md5sum
-                print "Expected md5sum: %s" % md5
+                print("Calculated md5sum: %s" % md5sum)
+                print("Expected md5sum: %s" % md5)
             if md5sum == md5:
                 return
             os.remove(pkg)
@@ -175,7 +159,7 @@ def VersionMatch(v_sys, v_spec):
 def PlatformMatch(system, spec):
     if system[0] != spec[0]:
         return False
-    return VersionMatch(str(system[1]), str(spec[1]))
+    return VersionMatch(system[1], spec[1])
     
 def PlatformRequires(pkg):
     platform = pkg.find('platform')
@@ -185,9 +169,9 @@ def PlatformRequires(pkg):
     info = PlatformInfo()
 
     exclude = platform.find('exclude')
-    for distro in exclude.iterchildren('distribution'):
-        name = distro.find('name')
-        version = distro.find('version')
+    for distro in exclude.findall('distribution'):
+        name = distro.find('name').text
+        version = distro.find('version').text
         if PlatformMatch(info, (name, version)):
             return False
 
@@ -197,13 +181,16 @@ def ProcessPackage(pkg):
     if not PlatformRequires(pkg):
         return
 
-    print "Processing %s ..." % (pkg['name'])
-    urls = list(pkg['urls'].iterchildren())
+    print("Processing %s ..." % (pkg.find('name').text))
+    urls = list(pkg.find('urls'))
     filename = getFilename(pkg, urls[0].text)
     ccfile = ARGS['cache_dir'] + '/' + filename
-    DownloadPackage(urls, ccfile, pkg.md5)
+    DownloadPackage(urls, ccfile, pkg.find('md5').text)
 
-    cmd1=None
+    pkg_format = None
+    pkg_format_node = pkg.find('format')
+    if pkg_format_node is not None:
+        pkg_format = pkg_format_node.text
 
     #
     # Determine the name of the directory created by the package.
@@ -211,133 +198,62 @@ def ProcessPackage(pkg):
     # unpacking.
     #
     dest = None
-    unpackdir = pkg.find('unpack-directory')
-    destination = pkg.find('destination')
-    if unpackdir:
-        dest = str(unpackdir)
-    elif destination:
-        dest = str(destination)
-    else:
-        if pkg.format == 'tgz':
+    unpackdir = None
+    unpackdir_node = pkg.find('unpack-directory')
+    destination_node = pkg.find('destination')
+    if unpackdir_node is not None:
+        unpackdir = unpackdir_node.text
+        dest = unpackdir
+    elif destination_node is not None:
+        dest = destination_node.text
+    elif platform.system() != 'Windows':
+        if pkg_format == 'tgz':
             dest = getTarDestination(ccfile, 'z')
-        elif pkg.format == 'tbz':
+        elif pkg_format == 'tbz':
             dest = getTarDestination(ccfile, 'j')
-        elif pkg.format == 'zip':
+        elif pkg_format == 'zip':
             dest = getZipDestination(ccfile)
-        elif pkg.format == 'npm':
-            dest = getTarDestination(ccfile, 'z')
-        elif pkg.format == 'file':
-            dest = getFileDestination(ccfile)
 
-    #
-    # clean directory before unpacking and applying patches
-    #
-    rename = pkg.find('rename')
-    if rename and os.path.isdir(str(rename)):
-        if not ARGS['dry_run']:
-            shutil.rmtree(str(rename))
+    rename = None
+    rename_node = pkg.find('rename')
+    if rename_node is not None:
+        rename = rename_node.text
 
-    elif dest and os.path.isdir(dest):
-        if ARGS['verbose']:
-            print "Clean directory %s" % dest
-        if not ARGS['dry_run']:
+    shutil_format = None
+    if pkg_format == 'tgz':
+        shutil_format = 'gztar'
+    elif pkg_format == 'tbz':
+        shutil_format = 'bztar'
+    elif pkg_format == 'zip':
+        shutil_format = 'zip'
+
+    if not ARGS['dry_run']:
+        if rename and os.path.isdir(rename):
+            # clean directory before unpacking and applying patches
+            shutil.rmtree(rename)
+        elif dest and os.path.isdir(dest):
+            if ARGS['verbose']:
+                print("Clean directory %s" % dest)
             shutil.rmtree(dest)
 
-    if unpackdir:
-        try:
-            os.makedirs(str(unpackdir))
-        except OSError as exc:
-            pass
-    if sys.platform == 'win32':
-        if pkg.format == 'tgz':
-             ccfile1=  os.path.splitext(ccfile)[0]
-             cmd = '7z x ' + ccfile + ' -o'+ ARGS['cache_dir'] 
-             cmd1 = '7z x ' + ccfile1
-             if unpackdir:
-                 cmd1= cmd1 +' -o'+ str(unpackdir)
-        elif pkg.format == 'tbz':
-            cmd = ['tar', 'jxvf', ccfile]
-        elif pkg.format == 'zip':
-            cmd = '7z x ' + ccfile
-            if unpackdir:
-                 cmd= cmd+' -o'+ str(unpackdir)
+        shutil.unpack_archive(ccfile, unpackdir, shutil_format)
 
-        elif pkg.format == 'npm':
-            cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
-        elif pkg.format == 'file':
-            cmd = ['cp', '-af', ccfile, dest]
-        else:
-            print 'Unexpected format: %s' % (pkg.format)
-            return
-    else:
-        if pkg.format == 'tgz':
-            cmd = ['tar', 'zxvf', ccfile]
-        elif pkg.format == 'tbz':
-            cmd = ['tar', 'jxvf', ccfile]
-        elif pkg.format == 'zip':
-            cmd = ['unzip', '-o', ccfile]
-        elif pkg.format == 'npm':
-            cmd = ['npm', 'install', ccfile, '--prefix', ARGS['cache_dir']]
-        elif pkg.format == 'file':
-            cmd = ['cp', '-af', ccfile, dest]
-        else:
-            print 'Unexpected format: %s' % (pkg.format)
-            return
-    if not ARGS['dry_run']:
-        cd = None
-        if sys.platform != 'win32':
-            if unpackdir:
-                cd = str(unpackdir)
-        if pkg.format == 'npm':
-            try:
-                os.makedirs(ARGS['node_modules_dir'])
-                os.makedirs(ARGS['node_modules_tmp_dir'])
-            except OSError as exc:
-                if exc.errno == errno.EEXIST:
-                    pass
-                else:
-                    print 'mkdirs of ' + ARGS['node_modules_dir'] + ' ' + ARGS['node_modules_tmp_dir'] + ' failed.. Exiting..'
-                    return
-
-            npmCmd = ['cp', '-af', ARGS['node_modules_tmp_dir'] + '/' + pkg['name'],
-                      ARGS['node_modules_dir']]
-            if os.path.exists(ARGS['node_modules_tmp_dir'] + '/' + pkg['name']):
-                cmd = npmCmd
-            else:
-		try:
-                   p = subprocess.Popen(cmd, cwd = cd)
-                   p.wait()
-                   cmd = npmCmd
-		except OSError:
-		   print ' '.join(cmd) + ' could not be executed, bailing out!'
-		   return
-        p = subprocess.Popen(cmd, cwd = cd)
-        p.wait()
-        if cmd1: #extra stuff for windows
-            p = subprocess.Popen(cmd1, cwd = cd)
-            p.wait()
     if rename and dest:
-        os.rename(dest, str(rename))
-        dest = str(rename)
+        os.rename(dest, rename)
+        dest = rename
 
     ApplyPatches(pkg)
 
     autoreconf = pkg.find('autoreconf')
-    if autoreconf and str(autoreconf).lower() == 'true':
+    if autoreconf is not None and autoreconf.text.lower() == 'true':
         ReconfigurePackageSources(dest)
 
 def FindMd5sum(anyfile):
-    # MD5 command is different on FreeBSD systems
-    if sys.platform.startswith('freebsd'):
-        cmd = ['md5']
-        cmd.append('-q')
-    else:
-        cmd = ['md5sum']
-    cmd.append(anyfile)
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
-    stdout, stderr = proc.communicate()
-    md5sum = stdout.split()[0]
-    return md5sum
+    hash_md5 = hashlib.md5()
+    with open(anyfile, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
 
 
 def parse_args():
@@ -355,17 +271,17 @@ def parse_args():
 
 
 def main():
-    tree = objectify.parse(ARGS['filename'])
+    tree = xml.etree.ElementTree.parse(ARGS['filename'])
     root = tree.getroot()
 
-    for object in root.iterchildren():
+    for object in root:
         if object.tag == 'package':
             ProcessPackage(object)
 
 if __name__ == '__main__':
     parse_args()
-    if sys.platform == 'win32':
-        dependencies = ['7z', 'patch', 'wget']
+    if platform.system() == 'Windows':
+        dependencies = ['patch']
     else:
         dependencies = [
             'autoconf',
@@ -374,12 +290,11 @@ if __name__ == '__main__':
             'libtool',
             'patch',
             'unzip',
-            'wget',
         ]
- 
+
     for exc in dependencies:
         if not find_executable(exc):
-            print 'Please install %s' % exc
+            print('Please install %s' % exc)
             sys.exit(1)
 
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
