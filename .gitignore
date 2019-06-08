@@ -9,6 +9,7 @@ gmock-1.6.0/
 gperftools-2.1/
 gtest-1.6.0/
 hiredis-0.11.0/
+hiredis-master/
 hiredis-boostasio-adapter/
 http-parser-2.1/
 icu/
