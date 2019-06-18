@@ -108,6 +108,16 @@
     </patches>
   </package>
   <package>
+    <name>Minimalistic C client for Redis</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/h/hiredis-master-20190604.zip</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/hiredis/hiredis-master-20190604.zip</url>
+    </urls>
+    <local-filename>hiredis-master-20190604.zip</local-filename>
+    <format>zip</format>
+    <md5>126704954100c05afd0599c712cd6f47</md5>
+  </package>
+  <package>
     <name>Log4Cplus 1.1.1</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.tar.bz2</url>
