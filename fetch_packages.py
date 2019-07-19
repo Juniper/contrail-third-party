@@ -51,8 +51,8 @@ def getFilename(pkg, url):
 def getTarDestination(tgzfile, compress_flag):
     output = subprocess.check_output(['tar', compress_flag + 'tf', tgzfile])
     first = output.splitlines()[0]
-    fields = first.split()
-    return fields[0]
+    fields = first.decode("utf-8").split('/')
+    return fields[0].encode("utf-8")
 
 def getZipDestination(zipfile):
     unzip_cmd = ['unzip', '-t', zipfile]

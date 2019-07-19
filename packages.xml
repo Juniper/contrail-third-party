@@ -299,6 +299,17 @@
     <md5>3f0ca2acb238bef57c7e2b6e3d8d0730</md5>
   </package>
   <package>
+    <name>Golangci-lint</name>
+    <urls>
+      <url>{{ site_mirror }}/contrail-third-party/g/golangci-lint-1.17.1-linux-amd64.tar.gz</url>
+      <url canonical="true">https://github.com/golangci/golangci-lint/releases/download/v1.17.1/golangci-lint-1.17.1-linux-amd64.tar.gz</url>
+    </urls>
+    <local-filename>golangci-lint-1.17.1-linux-amd64.tar.gz</local-filename>
+    <rename>golangci-lint</rename>
+    <format>tgz</format>
+    <md5>d8c8fbd975b06778ccd8666026ecd09b</md5>
+  </package>
+  <package>
     <name>Cni Go Deps</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/c/cni_go_deps.tar.gz</url>
