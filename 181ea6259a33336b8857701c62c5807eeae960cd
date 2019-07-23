@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1432d4be_ff28b535",
+        "filename": "fetch_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 10
+      },
+      "writtenOn": "2019-07-23T08:55:57Z",
+      "side": 1,
+      "message": "could be interesting to print URLs it tries to fetch the package from for debugging aspect",
+      "revId": "181ea6259a33336b8857701c62c5807eeae960cd",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
+    }
+  ]
+}
