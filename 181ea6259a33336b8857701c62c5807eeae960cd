@@ -16,6 +16,24 @@
       "revId": "181ea6259a33336b8857701c62c5807eeae960cd",
       "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82fee53c_74b784b8",
+        "filename": "fetch_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 382
+      },
+      "writtenOn": "2019-07-23T11:18:19Z",
+      "side": 1,
+      "message": "they are printed 5 times in line 112...",
+      "parentUuid": "1432d4be_ff28b535",
+      "revId": "181ea6259a33336b8857701c62c5807eeae960cd",
+      "serverId": "c72cd27d-1743-4a55-84a4-cd13b8400c52",
+      "unresolved": true
     }
   ]
 }
