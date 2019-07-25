@@ -16,6 +16,7 @@ import tempfile
 import hashlib
 import urllib.request
 import xml.etree.ElementTree
+import ssl
 
 # arguments (given by command line or defaults)
 ARGS = dict()
@@ -276,6 +277,10 @@ def parse_args():
 
 
 def main():
+    # Disable cert check to be able to use this with http://downloads.sourceforge.net/
+    # This urls redirects to https and on corporate laptops cert checks fails.
+    ssl._create_default_https_context = ssl._create_unverified_context
+
     tree = xml.etree.ElementTree.parse(ARGS['filename'])
     root = tree.getroot()
 
