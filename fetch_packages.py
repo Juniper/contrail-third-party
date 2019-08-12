@@ -97,7 +97,8 @@ def ApplyPatches(pkg):
 
 def DownloadPackage(urls, pkg, md5):
     retry_count = 0
-    while retry_count <= _RETRIES:
+    md5sum = None
+    while retry_count < _RETRIES:
         for url in urls:
             # poor man's templating
             url = url.text
@@ -122,6 +123,9 @@ def DownloadPackage(urls, pkg, md5):
         retry_count += 1
         # back-off retry timer - worst case scenario we wait for 150 seconds
         sleep(10 * retry_count)
+
+    if not md5sum:
+        raise RuntimeError("Package %s couldn't be downloaded from all URL-s" % pkg)
 
     # We couldn't download the package, return the last md5sum
     raise RuntimeError("MD5sum %s, expected(%s) dosen't match for the "
