@@ -20,10 +20,7 @@ import ssl
 
 # arguments (given by command line or defaults)
 ARGS = dict()
-if platform.system() == 'Windows':
-    ARGS['filename'] = 'windows_packages.xml'
-else:
-    ARGS['filename'] = 'packages.xml'
+ARGS['filename'] = 'packages.xml'
 
 ARGS['cache_dir'] = tempfile.mkdtemp()
 ARGS['node_modules_dir'] = 'node_modules'
@@ -74,10 +71,6 @@ def ApplyPatches(pkg):
     destination_node = pkg.find('destination')
     for patch in stree_node.getchildren():
         cmd = ['patch', '-i', patch.text]
-
-        if platform.system() == 'Windows':
-            # ignore different line endings
-            cmd.append('--binary')
 
         if destination_node is not None:
             cmd.append('-d')
@@ -216,7 +209,7 @@ def ProcessPackage(pkg):
         dest = unpackdir
     elif destination_node is not None:
         dest = destination_node.text
-    elif platform.system() != 'Windows':
+    else:
         if pkg_format == 'tgz':
             dest = getTarDestination(ccfile, 'z')
         elif pkg_format == 'tbz':
@@ -294,17 +287,14 @@ def main():
 
 if __name__ == '__main__':
     parse_args()
-    if platform.system() == 'Windows':
-        dependencies = ['patch']
-    else:
-        dependencies = [
-            'autoconf',
-            'automake',
-            'bzip2',
-            'libtool',
-            'patch',
-            'unzip',
-        ]
+    dependencies = [
+        'autoconf',
+        'automake',
+        'bzip2',
+        'libtool',
+        'patch',
+        'unzip',
+    ]
 
     for exc in dependencies:
         if not find_executable(exc):
