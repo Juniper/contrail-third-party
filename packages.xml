@@ -121,6 +121,7 @@
     <name>Log4Cplus 1.1.1</name>
     <urls>
       <url>{{ site_mirror }}/contrail-third-party/l/log4cplus-1.1.1.tar.bz2</url>
+      <url canonical="true">https://gigenet.dl.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
       <url canonical="true">http://downloads.sourceforge.net/project/log4cplus/log4cplus-stable/1.1.1/log4cplus-1.1.1.tar.bz2</url>
     </urls>
     <format>tbz</format>
@@ -322,6 +323,7 @@
     <name>IPFIX library</name>
     <urls>
      <url>{{ site_mirror }}/contrail-third-party/l/libipfix_110209.tgz</url>
+     <url canonical="true">https://gigenet.dl.sourceforge.net/project/libipfix/libipfix/libipfix_110209.tgz</url>
      <url canonical="true">https://sourceforge.net/projects/libipfix/files/libipfix/libipfix_110209.tgz/download</url>
     </urls>
     <local-filename>libipfix_110209.tgz</local-filename>
