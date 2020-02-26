@@ -246,7 +246,7 @@
   </package>
   <package>
     <name>IF-MAP Python Client Library</name>
-    <url>https://github.com/ITI/ifmap-python-client/archive/master.zip</url>
+    <url>https://github.com/Juniper/contrail-third-party-cache/raw/master/ifmap-python/ifmap-python-master.zip</url>
     <local-filename>ifmap-python-master.zip</local-filename>
     <rename>ifmap-python-client</rename>
     <format>zip</format>
