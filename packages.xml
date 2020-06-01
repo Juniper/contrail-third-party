@@ -98,11 +98,11 @@
   <package>
     <name>Google perftools</name>
     <urls>
-      <url>{{ site_mirror }}/contrail-third-party/g/gperftools-2.1.tar.gz</url>
-      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/gperftools-2.1.tar.gz</url>
+      <url>{{ site_mirror }}/contrail-third-party/g/gperftools-2.7.tar.gz</url>
+      <url canonical="true">https://github.com/Juniper/contrail-third-party-cache/raw/master/googlecode/gperftools-2.7.tar.gz</url>
     </urls>
     <format>tgz</format>
-    <md5>5e5a981caf9baa9b4afe90a82dcf9882</md5>
+    <md5>c6a852a817e9160c79bdb2d3101b4601</md5>
     <platform>
       <exclude>
         <distribution>
